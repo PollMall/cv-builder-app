@@ -23,7 +23,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'jest'],
   extends: [
     'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-    'prettier',
+    'plugin:prettier/recommended',
   ],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
