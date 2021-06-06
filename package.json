@@ -22,7 +22,8 @@
     "test": "react-scripts test --collectCoverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
@@ -31,15 +32,11 @@
       "public/*"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-      "npm test"
+    "src/**/*.{js,ts,tsx}": [
+      "eslint --fix",
+      "npm test",
+      "prettier --write"
     ]
   },
   "eslintConfig": {
