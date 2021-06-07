@@ -5,8 +5,6 @@ import App from './App';
 describe('App tests', () => {
   test('renders learn react link', () => {
     render(<App />);
-    const linkElement = screen.getByText(/learn react/i);
-    expect(linkElement).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute('alt', 'logo');
+    expect(screen.getByText(/landing page/i)).toBeInTheDocument();
   });
 });
