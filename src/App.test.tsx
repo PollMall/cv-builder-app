@@ -7,5 +7,6 @@ describe('App tests', () => {
     render(<App />);
     const linkElement = screen.getByText(/learn react/i);
     expect(linkElement).toBeInTheDocument();
+    expect(screen.getByRole('img')).toHaveAttribute('alt', 'logo');
   });
 });
