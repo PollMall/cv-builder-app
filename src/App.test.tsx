@@ -6,5 +6,6 @@ describe('App tests', () => {
   test('renders learn react link', () => {
     render(<App />);
     expect(screen.getByText(/landing page/i)).toBeInTheDocument();
+    console.log('hi');
   });
 });

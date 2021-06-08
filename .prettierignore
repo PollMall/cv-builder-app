@@ -1,0 +1,7 @@
+/node_modules
+/coverage
+/build
+/src/setupTests.ts
+/src/index.tsx
+/src/reportWebVitals.ts
+/src/react-app-env.d.ts
