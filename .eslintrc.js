@@ -19,14 +19,22 @@ module.exports = {
     'src/react-app-env.d.ts',
     'build/*',
     'coverage/*',
+    '.*',
   ],
   plugins: ['react', '@typescript-eslint', 'jest'],
   extends: [
     'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
+    'eslint:recommended',
     'prettier',
   ],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+    'jest/no-undef': 'off',
+  },
+  env: {
+    jest: true,
+    browser: true,
+    es2021: true,
   },
 };
