@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
+import LadingPage from './pages/LadingPage/LandingPage';
+import NotFound from './pages/NotFound/NotFound';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -9,7 +11,10 @@ const App = () => (
       <Switch>
         <Redirect from="/" to="/home" exact />
         <Route path="/home">
-          <h2>Landing page</h2>
+          <LadingPage />
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
     </Router>
