@@ -1,11 +1,13 @@
-import React, { createContext, ReactNode } from 'react';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import firebaseApp from '../firebaseConfig';
+import firebase from 'firebase';
 
 interface UserProviderProps {
   children: ReactNode;
   initialValue?: UserContextProps;
 }
 
-type UserContextProps = {
+type UserContextProps = firebase.User & {
   isAuthenticated: boolean;
 };
 
@@ -16,7 +18,16 @@ const defaultValue = {
 } as UserContextProps;
 
 const UserProvider = ({ children, initialValue }: UserProviderProps) => {
-  const value = initialValue || defaultValue;
+  const [value, setValue] = useState<UserContextProps>(initialValue || defaultValue);
+
+  useEffect(() => {
+    const unsubscribe = firebaseApp.auth().onAuthStateChanged((user) => {
+      const isAuthenticated = user ? true : false;
+      setValue((prev) => ({ ...prev, isAuthenticated, ...user }));
+    });
+
+    return unsubscribe;
+  }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
