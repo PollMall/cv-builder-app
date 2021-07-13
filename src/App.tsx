@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
-import LadingPage from './pages/LadingPage/LandingPage';
+import LandingPage from './pages/LandingPage/LandingPage';
 import NotFound from './pages/NotFound/NotFound';
 
 const App = () => (
@@ -11,7 +11,7 @@ const App = () => (
       <Switch>
         <Redirect from="/" to="/home" exact />
         <Route path="/home">
-          <LadingPage />
+          <LandingPage />
         </Route>
         <Route path="*">
           <NotFound />
