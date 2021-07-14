@@ -16,7 +16,7 @@ export const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ['sans-serif', 'Arial'].join(','),
+    fontFamily: ['Sen', 'sans-serif', 'Arial'].join(','),
   },
   palette: {
     background: {
