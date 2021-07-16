@@ -4,12 +4,16 @@ import userEvent from '@testing-library/user-event';
 import LadingPage from './LandingPage';
 import { useHistory } from 'react-router-dom';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({
-    push: jest.fn().mockImplementation(),
-  }),
-}));
+jest.mock('react-router-dom', () => {
+  const push = jest.fn().mockImplementation();
+
+  return {
+    ...jest.requireActual('react-router-dom'),
+    useHistory: () => ({
+      push,
+    }),
+  };
+});
 
 describe('LandingPage tests', () => {
   it('should be rendered', () => {
