@@ -19,12 +19,12 @@ const renderApp = (user: firebase.auth.UserCredential | undefined) =>
 
 describe('AuthRoute tests', () => {
   it('should render component', () => {
-    renderApp({} as firebase.auth.UserCredential);
+    renderApp(undefined);
     expect(screen.getByText(/mock/i)).toBeInTheDocument();
   });
 
   it('should redirect', () => {
-    renderApp(undefined);
+    renderApp({} as firebase.auth.UserCredential);
     expect(screen.queryByText(/mock/i)).not.toBeInTheDocument();
   });
 });
