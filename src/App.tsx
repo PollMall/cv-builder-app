@@ -4,23 +4,24 @@ import { ThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import LandingPage from './pages/LandingPage/LandingPage';
 import NotFound from './pages/NotFound/NotFound';
-import { UserProvider } from './context/UserContext';
+import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/Routes/PrivateRoute';
+import AuthRoute from './components/Routes/AuthRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <UserProvider>
+    <AuthProvider>
       <Router>
         <Switch>
           <Redirect from="/" to="/home" exact />
           <Route path="/home" component={LandingPage} />
-          <Route path="/auth" component={AuthPage} />
-          <PrivateRoute path="/private" component={() => <h2>private</h2>} to="/login" />
+          <AuthRoute path="/auth" component={AuthPage} to="/home" />
+          <PrivateRoute path="/private" component={() => <h2>private</h2>} to="/auth" />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
-    </UserProvider>
+    </AuthProvider>
   </ThemeProvider>
 );
 

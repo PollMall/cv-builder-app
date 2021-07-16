@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import { AuthContext } from '../../context/AuthContext';
 
 interface PrivateRouteProps {
   component: FC;
@@ -9,9 +9,9 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ component: C, path, to }: PrivateRouteProps) => {
-  const { isAuthenticated } = useContext(UserContext);
+  const { state } = useContext(AuthContext);
 
-  return <Route path={path} render={(props) => (isAuthenticated ? <C /> : <Redirect to={to} {...props} />)} />;
+  return <Route path={path} render={(props) => (state.user ? <C /> : <Redirect to={to} {...props} />)} />;
 };
 
 export default PrivateRoute;

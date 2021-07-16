@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import { AuthContext } from '../../context/AuthContext';
 
 interface AuthRouteProps {
   component: FC;
@@ -9,9 +9,9 @@ interface AuthRouteProps {
 }
 
 const AuthRoute = ({ component: C, path, to }: AuthRouteProps) => {
-  const { isAuthenticated } = useContext(UserContext);
+  const { state } = useContext(AuthContext);
 
-  return <Route path={path} render={(props) => (isAuthenticated ? <Redirect to={to} {...props} /> : <C />)} />;
+  return <Route path={path} render={(props) => (state.user ? <Redirect to={to} {...props} /> : <C />)} />;
 };
 
 export default AuthRoute;
