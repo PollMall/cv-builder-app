@@ -5,7 +5,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-type Context = {
+export type Context = {
   state: State;
   dispatch: Dispatch<Action>;
 };
