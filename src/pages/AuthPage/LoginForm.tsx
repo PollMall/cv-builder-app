@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Formik, Form as FormikForm, FormikValues } from 'formik';
-import { Button, Snackbar, CircularProgress } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import * as Yup from 'yup';
 import useStyles from './styles';
-import Input from './Input';
+import Input from '../../components/FormInputs/Input';
 import FormFieldsType from './types';
 import { loginCall } from './api';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
+import SubmitButton from '../../components/FormInputs/SubmitButton';
 
 const initialValues = {
   email: '',
@@ -19,7 +20,7 @@ const validationSchema = Yup.object({
   password: Yup.string().required('Field required'),
 });
 
-const Form = () => {
+const LoginForm = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
 
@@ -40,13 +41,9 @@ const Form = () => {
         <FormikForm className={classes.form}>
           <Input name="email" placeholder="Enter email here" label="Email" type="email" />
           <Input name="password" placeholder="Enter password here" label="Password" type="password" />
-          {state.loading ? (
-            <CircularProgress />
-          ) : (
-            <Button disabled={!!state.user} type="submit">
-              login
-            </Button>
-          )}
+          <SubmitButton loading={state.loading} className={classes.button} disabled={!!state.user} type="submit">
+            login
+          </SubmitButton>
         </FormikForm>
       </Formik>
       <Snackbar
@@ -60,4 +57,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default LoginForm;

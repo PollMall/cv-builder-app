@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Formik, Form as FormikForm, FormikValues } from 'formik';
-import { Button, Snackbar, CircularProgress } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import * as Yup from 'yup';
 import useStyles from './styles';
-import Input from './Input';
+import Input from '../../components/FormInputs/Input';
 import { registerCall } from './api';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
+import SubmitButton from '../../components/FormInputs/SubmitButton';
 
 const initialValues = {
   email: '',
@@ -22,7 +23,7 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
 });
 
-const Form = () => {
+const RegisterForm = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
 
@@ -46,16 +47,12 @@ const Form = () => {
           <Input
             name="passwordConfirmation"
             placeholder="Re-enter password here"
-            label="Password Confirmation"
+            label="Confirm password"
             type="password"
           />
-          {state.loading ? (
-            <CircularProgress />
-          ) : (
-            <Button disabled={!!state.user} type="submit">
-              create account
-            </Button>
-          )}
+          <SubmitButton loading={state.loading} className={classes.button} disabled={!!state.user} type="submit">
+            create account
+          </SubmitButton>
         </FormikForm>
       </Formik>
       <Snackbar
@@ -69,4 +66,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default RegisterForm;

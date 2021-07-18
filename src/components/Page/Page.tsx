@@ -1,16 +1,24 @@
 import React, { ReactNode } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, BoxProps } from '@material-ui/core';
 import useStyles from './styles';
 
-interface PageProps {
+interface PageProps extends BoxProps {
   children: ReactNode;
 }
 
-const Page = ({ children }: PageProps) => {
+const Page = ({ children, ...rest }: PageProps) => {
   const classes = useStyles();
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" className={classes.root}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      className={classes.root}
+      {...rest}
+    >
       {children}
     </Box>
   );

@@ -17,10 +17,25 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: ['Sen', 'sans-serif', 'Arial'].join(','),
+    allVariants: {
+      color: '#fff',
+    },
   },
   palette: {
+    primary: {
+      main: '#fff',
+    },
+
+    error: {
+      main: '#ff8e53',
+    },
+
     background: {
       default: 'linear-gradient(#667eea, #764ba2)',
+    },
+
+    text: {
+      primary: '#fff',
     },
   },
 });

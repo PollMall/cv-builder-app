@@ -2,13 +2,14 @@ import React from 'react';
 import { Box, Button, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router-dom';
+import Page from '../../components/Page/Page';
 
 const LadingPage = () => {
   const classes = useStyles();
   const { push } = useHistory();
 
   return (
-    <Box
+    <Page
       display="flex"
       flexDirection="column"
       justifyContent="space-evenly"
@@ -23,7 +24,7 @@ const LadingPage = () => {
       <Button variant="contained" color="primary" onClick={() => push('/private')}>
         Get Started
       </Button>
-    </Box>
+    </Page>
   );
 };
 
