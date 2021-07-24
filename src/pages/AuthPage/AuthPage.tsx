@@ -5,7 +5,7 @@ import AuthTabs from './AuthTabs';
 
 const AuthPage = () => {
   return (
-    <Page justifyContent="space-evenly">
+    <Page justifyContent="center">
       <Typography variant="h6">But first you have to be logged in</Typography>
       <AuthTabs />
     </Page>

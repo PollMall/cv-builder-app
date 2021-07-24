@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import AuthRoute from './components/Routes/AuthRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
+import Page from './components/Page/Page';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -17,7 +18,7 @@ const App = () => (
           <Redirect from="/" to="/home" exact />
           <Route path="/home" component={LandingPage} />
           <AuthRoute path="/auth" component={AuthPage} to="/home" />
-          <PrivateRoute path="/private" component={() => <h2>private</h2>} to="/auth" />
+          <PrivateRoute path="/private" component={() => <Page>private</Page>} to="/auth" />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

@@ -4,4 +4,9 @@ export default makeStyles((theme) => ({
   root: {
     backgroundImage: theme.palette.background.default,
   },
+
+  logo: {
+    width: 100,
+    height: 100,
+  },
 }));
