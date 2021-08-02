@@ -5,14 +5,16 @@ import { Alert } from '@material-ui/lab';
 import * as Yup from 'yup';
 import useStyles from './styles';
 import Input from '../../components/FormInputs/Input';
-import { registerCall } from './api';
+import { REGISTER_APOLLO } from './api';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
 import SubmitButton from '../../components/FormInputs/SubmitButton';
+import { useMutation } from '@apollo/client';
 
 const initialValues = {
   email: '',
   password: '',
   passwordConfirmation: '',
+  fullName: '',
 };
 
 const validationSchema = Yup.object({
@@ -21,21 +23,18 @@ const validationSchema = Yup.object({
   passwordConfirmation: Yup.string()
     .required('Field required')
     .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
+  fullName: Yup.string().required('Field required'),
 });
 
 const RegisterForm = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
+  const [register, { error, loading }] = useMutation(REGISTER_APOLLO);
 
   const handleRegister = async (values: FormikValues) => {
-    const { email, password } = values;
-    dispatch({ type: AuthActions.AUTH_STARTED });
-    try {
-      const user = await registerCall(email, password);
-      dispatch({ type: AuthActions.UPDATE_USER, payload: user });
-    } catch (err: any) {
-      dispatch({ type: AuthActions.AUTH_FAILED, payload: err });
-    }
+    const { email, password, fullName } = values;
+    const { registerUser } = (await register({ variables: { email, password, fullName } })).data;
+    dispatch({ type: AuthActions.UPDATE_USER, payload: registerUser });
   };
 
   return (
@@ -50,13 +49,19 @@ const RegisterForm = () => {
             label="Confirm password"
             type="password"
           />
-          <SubmitButton loading={state.loading} className={classes.button} disabled={!!state.user} type="submit">
+          <Input name="fullName" placeholder="Enter full name here" label="Full name" type="text" />
+          <SubmitButton
+            loading={state.loading || loading}
+            className={classes.button}
+            disabled={!!state.user}
+            type="submit"
+          >
             create account
           </SubmitButton>
         </FormikForm>
       </Formik>
       <Snackbar
-        open={!!state.error}
+        open={!!state.error || !!error}
         autoHideDuration={5000}
         onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}
       >

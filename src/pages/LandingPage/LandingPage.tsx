@@ -19,7 +19,7 @@ const LadingPage = () => {
       className={classes.root}
     >
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h2">Welcome{state.user && `, Paul`}</Typography>
+        <Typography variant="h2">Welcome{state.user && `, ${state.user?.displayName?.split(' ')[0]}`}</Typography>
         <Typography variant="h6">Are you ready to nail your next job application?</Typography>
       </Box>
       <Button variant="contained" color="primary" onClick={() => push('/private')}>

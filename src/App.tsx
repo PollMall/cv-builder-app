@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apolloConfig';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from './themes/theme';
 import LandingPage from './pages/LandingPage/LandingPage';
@@ -12,17 +14,19 @@ import Page from './components/Page/Page';
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <AuthProvider>
-      <Router>
-        <Switch>
-          <Redirect from="/" to="/home" exact />
-          <Route path="/home" component={LandingPage} />
-          <AuthRoute path="/auth" component={AuthPage} to="/home" />
-          <PrivateRoute path="/private" component={() => <Page>private</Page>} to="/auth" />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </Router>
-    </AuthProvider>
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <Router>
+          <Switch>
+            <Redirect from="/" to="/home" exact />
+            <Route path="/home" component={LandingPage} />
+            <AuthRoute path="/auth" component={AuthPage} to="/home" />
+            <PrivateRoute path="/private" component={() => <Page>private</Page>} to="/auth" />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </Router>
+      </AuthProvider>
+    </ApolloProvider>
   </ThemeProvider>
 );
 

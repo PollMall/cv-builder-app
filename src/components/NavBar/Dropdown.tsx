@@ -1,16 +1,19 @@
 import React, { useState, MouseEvent, useContext } from 'react';
-import { Menu, MenuItem, ListItemIcon, ListItemText, IconButton, CircularProgress } from '@material-ui/core';
+import { Menu, MenuItem, ListItemIcon, ListItemText, IconButton, CircularProgress, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import useStyles from './styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
-import { signOutCall } from './api';
+import { SIGN_OUT } from './api';
+import { useMutation } from '@apollo/client';
 
 const Dropdown = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const { state, dispatch } = useContext(AuthContext);
-  const { loading } = state;
+  const { user } = state as any;
+  const [signOut, { loading, error }] = useMutation(SIGN_OUT);
 
   const handleOpen = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -21,13 +24,11 @@ const Dropdown = () => {
   };
 
   const handleSignOut = async () => {
-    dispatch({ type: AuthActions.AUTH_STARTED });
     try {
-      await signOutCall();
+      await signOut({ variables: { uid: user?.uid } });
       dispatch({ type: AuthActions.UPDATE_USER, payload: undefined });
     } catch (err) {
-      console.log(err);
-      dispatch({ type: AuthActions.AUTH_FAILED });
+      console.error(err);
     }
   };
 
@@ -65,6 +66,9 @@ const Dropdown = () => {
           </div>
         )}
       </Menu>
+      <Snackbar open={!!error} autoHideDuration={5000} onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}>
+        <Alert severity="error">{error?.message}</Alert>
+      </Snackbar>
     </>
   );
 };

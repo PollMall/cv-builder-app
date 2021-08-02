@@ -9,7 +9,7 @@ export enum AuthActions {
 }
 
 export type State = {
-  user?: firebase.auth.UserCredential;
+  user?: firebase.User;
   loading: boolean;
   error?: any;
 };

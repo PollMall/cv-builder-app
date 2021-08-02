@@ -6,9 +6,10 @@ import * as Yup from 'yup';
 import useStyles from './styles';
 import Input from '../../components/FormInputs/Input';
 import FormFieldsType from './types';
-import { loginCall } from './api';
+import { LOGIN_APOLLO } from './api';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
 import SubmitButton from '../../components/FormInputs/SubmitButton';
+import { useMutation } from '@apollo/client';
 
 const initialValues = {
   email: '',
@@ -22,16 +23,16 @@ const validationSchema = Yup.object({
 
 const LoginForm = () => {
   const classes = useStyles();
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
+  const [login, { data, error, loading }] = useMutation(LOGIN_APOLLO);
 
   const handleLogin = async (values: FormikValues) => {
     const { email, password } = values;
-    dispatch({ type: AuthActions.AUTH_STARTED });
     try {
-      const user = await loginCall(email, password);
+      const user = (await login({ variables: { email, password } })).data.loginUser;
       dispatch({ type: AuthActions.UPDATE_USER, payload: user });
-    } catch (err: any) {
-      dispatch({ type: AuthActions.AUTH_FAILED, payload: err });
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -41,17 +42,13 @@ const LoginForm = () => {
         <FormikForm className={classes.form}>
           <Input name="email" placeholder="Enter email here" label="Email" type="email" />
           <Input name="password" placeholder="Enter password here" label="Password" type="password" />
-          <SubmitButton loading={state.loading} className={classes.button} disabled={!!state.user} type="submit">
+          <SubmitButton loading={loading} className={classes.button} disabled={!!data} type="submit">
             login
           </SubmitButton>
         </FormikForm>
       </Formik>
-      <Snackbar
-        open={!!state.error}
-        autoHideDuration={5000}
-        onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}
-      >
-        <Alert severity="error">{state.error?.message}</Alert>
+      <Snackbar open={!!error} autoHideDuration={5000} onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}>
+        <Alert severity="error">{error?.message}</Alert>
       </Snackbar>
     </>
   );
