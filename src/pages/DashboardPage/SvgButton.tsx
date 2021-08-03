@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { FC, SVGProps } from 'react';
 import { Box, Typography, Button } from '@material-ui/core';
-import AddCvSvg from '../../images/AddCvSvg';
 import useStyles from './styles';
 
-const AddCvBtn = () => {
+interface SvgButtonProps {
+  svg: FC<SVGProps<SVGSVGElement>>;
+}
+
+const SvgButton = ({ svg: Svg }: SvgButtonProps) => {
   const classes = useStyles();
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Button>
-        <AddCvSvg className={classes.card} />
+      <Button className={classes.button}>
+        <Svg className={classes.card} />
       </Button>
       <Typography variant="caption">some title</Typography>
     </Box>
   );
 };
 
-export default AddCvBtn;
+export default SvgButton;

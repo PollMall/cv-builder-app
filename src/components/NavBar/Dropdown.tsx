@@ -1,10 +1,11 @@
 import React, { useState, MouseEvent, useContext, useEffect } from 'react';
 import { Menu, MenuItem, ListItemIcon, ListItemText, IconButton, CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import useStyles from './styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
+import { UserSvg } from '../../images';
+
 import { SIGN_OUT } from './api';
 import { useMutation } from '@apollo/client';
 
@@ -41,7 +42,7 @@ const Dropdown = () => {
   return (
     <>
       <IconButton onClick={handleOpen}>
-        <PersonOutlineIcon fontSize="large" color="primary" />
+        <UserSvg fontSize="large" />
       </IconButton>
       <Menu
         getContentAnchorEl={null}

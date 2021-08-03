@@ -4,8 +4,8 @@ import { SvgIcon, SvgIconProps } from '@material-ui/core';
 const Logo = (props: SvgIconProps) => (
   <SvgIcon {...props}>
     <svg
-      width="24"
-      height="24"
+      width="1em"
+      height="1em"
       viewBox="0 0 140 113"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
