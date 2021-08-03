@@ -4,7 +4,7 @@ import { renderWithAuthProvider as render } from '../../setupTests';
 import userEvent from '@testing-library/user-event';
 import LadingPage from './LandingPage';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase/app';
+import { User } from '../../context/AuthContext/types';
 
 jest.mock('react-router-dom', () => {
   const push = jest.fn().mockImplementation();
@@ -19,7 +19,7 @@ jest.mock('react-router-dom', () => {
 
 describe('LandingPage tests', () => {
   const context = {
-    state: { loading: false, user: {} as firebase.auth.UserCredential },
+    state: { loading: false, user: {} as User },
     dispatch: jest.fn(),
   };
 
