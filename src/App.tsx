@@ -11,6 +11,7 @@ import PrivateRoute from './components/Routes/PrivateRoute';
 import AuthRoute from './components/Routes/AuthRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
 import Page from './components/Page/Page';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/home" component={LandingPage} />
             <AuthRoute path="/auth" component={AuthPage} to="/home" />
             <PrivateRoute path="/private" component={() => <Page>private</Page>} to="/auth" />
+            <PrivateRoute path="/dashboard" component={DashboardPage} to="/auth" />
             <Route path="*" component={NotFound} />
           </Switch>
         </Router>
