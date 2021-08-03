@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   overrides: {
     MuiButton: {
       containedPrimary: {
@@ -16,11 +16,26 @@ export const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ['sans-serif', 'Arial'].join(','),
+    fontFamily: ['Sen', 'sans-serif', 'Arial'].join(','),
+    allVariants: {
+      color: '#fff',
+    },
   },
   palette: {
+    primary: {
+      main: '#fff',
+    },
+
+    error: {
+      main: '#ff8e53',
+    },
+
     background: {
       default: 'linear-gradient(#667eea, #764ba2)',
+    },
+
+    text: {
+      primary: '#fff',
     },
   },
 });
