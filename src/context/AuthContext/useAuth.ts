@@ -1,17 +1,14 @@
 import { useReducer } from 'react';
-import firebase from 'firebase/app';
+import { User } from './types';
 
 export enum AuthActions {
-  AUTH_STARTED = 'AUTH_STARTED',
-  AUTH_FAILED = 'AUTH_FAILED',
   UPDATE_USER = 'UPDATE_USER',
-  CLEAR_STATE = 'CLEAR_STATE',
+  GET_SESSION_STARTED = 'GET_SESSION_STARTED',
 }
 
 export type State = {
-  user?: firebase.User;
+  user?: User;
   loading: boolean;
-  error?: any;
 };
 
 export type Action = {
@@ -21,36 +18,23 @@ export type Action = {
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case AuthActions.AUTH_STARTED:
-      return {
-        ...state,
-        loading: true,
-      };
-    case AuthActions.AUTH_FAILED:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
     case AuthActions.UPDATE_USER:
       return {
         ...state,
         loading: false,
         user: action.payload,
       };
-    case AuthActions.CLEAR_STATE:
+    case AuthActions.GET_SESSION_STARTED:
       return {
         ...state,
-        loading: false,
-        error: undefined,
+        loading: true,
       };
   }
 };
 
 const initialState: State = {
   user: undefined,
-  loading: false,
-  error: undefined,
+  loading: true,
 };
 
 const useAuth = () => {

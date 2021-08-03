@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Form as FormikForm, FormikValues } from 'formik';
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -25,11 +25,17 @@ const LoginForm = () => {
   const classes = useStyles();
   const { dispatch } = useContext(AuthContext);
   const [login, { data, error, loading }] = useMutation(LOGIN_APOLLO);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    setShowAlert(!!error);
+  }, [error]);
 
   const handleLogin = async (values: FormikValues) => {
     const { email, password } = values;
     try {
       const user = (await login({ variables: { email, password } })).data.loginUser;
+      sessionStorage.setItem('user', JSON.stringify(user));
       dispatch({ type: AuthActions.UPDATE_USER, payload: user });
     } catch (err) {
       console.error(err);
@@ -47,7 +53,7 @@ const LoginForm = () => {
           </SubmitButton>
         </FormikForm>
       </Formik>
-      <Snackbar open={!!error} autoHideDuration={5000} onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}>
+      <Snackbar open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
         <Alert severity="error">{error?.message}</Alert>
       </Snackbar>
     </>

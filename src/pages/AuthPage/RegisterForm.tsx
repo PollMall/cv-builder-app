@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Formik, Form as FormikForm, FormikValues } from 'formik';
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -30,11 +30,21 @@ const RegisterForm = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
   const [register, { error, loading }] = useMutation(REGISTER_APOLLO);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    setShowAlert(!!error);
+  }, [error]);
 
   const handleRegister = async (values: FormikValues) => {
     const { email, password, fullName } = values;
-    const { registerUser } = (await register({ variables: { email, password, fullName } })).data;
-    dispatch({ type: AuthActions.UPDATE_USER, payload: registerUser });
+    try {
+      const { registerUser } = (await register({ variables: { email, password, fullName } })).data;
+      sessionStorage.setItem('user', JSON.stringify(registerUser));
+      dispatch({ type: AuthActions.UPDATE_USER, payload: registerUser });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -50,22 +60,13 @@ const RegisterForm = () => {
             type="password"
           />
           <Input name="fullName" placeholder="Enter full name here" label="Full name" type="text" />
-          <SubmitButton
-            loading={state.loading || loading}
-            className={classes.button}
-            disabled={!!state.user}
-            type="submit"
-          >
+          <SubmitButton loading={loading} className={classes.button} disabled={!!state.user} type="submit">
             create account
           </SubmitButton>
         </FormikForm>
       </Formik>
-      <Snackbar
-        open={!!state.error || !!error}
-        autoHideDuration={5000}
-        onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}
-      >
-        <Alert severity="error">{state.error?.message}</Alert>
+      <Snackbar open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
+        <Alert severity="error">{error?.message}</Alert>
       </Snackbar>
     </>
   );

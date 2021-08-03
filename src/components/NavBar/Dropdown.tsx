@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useContext } from 'react';
+import React, { useState, MouseEvent, useContext, useEffect } from 'react';
 import { Menu, MenuItem, ListItemIcon, ListItemText, IconButton, CircularProgress, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -14,6 +14,11 @@ const Dropdown = () => {
   const { state, dispatch } = useContext(AuthContext);
   const { user } = state as any;
   const [signOut, { loading, error }] = useMutation(SIGN_OUT);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    setShowAlert(!!error);
+  }, [error]);
 
   const handleOpen = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -26,6 +31,7 @@ const Dropdown = () => {
   const handleSignOut = async () => {
     try {
       await signOut({ variables: { uid: user?.uid } });
+      sessionStorage.removeItem('user');
       dispatch({ type: AuthActions.UPDATE_USER, payload: undefined });
     } catch (err) {
       console.error(err);
@@ -66,7 +72,7 @@ const Dropdown = () => {
           </div>
         )}
       </Menu>
-      <Snackbar open={!!error} autoHideDuration={5000} onClose={() => dispatch({ type: AuthActions.CLEAR_STATE })}>
+      <Snackbar open={showAlert} autoHideDuration={5000} onClose={() => setShowAlert(false)}>
         <Alert severity="error">{error?.message}</Alert>
       </Snackbar>
     </>

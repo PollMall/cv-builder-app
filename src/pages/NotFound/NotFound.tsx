@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Box, Typography, Button } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
+import Page from '../../components/Page/Page';
 import useStyles from './styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -9,7 +10,7 @@ const LadingPage = () => {
   const { push } = useHistory();
 
   return (
-    <Box
+    <Page
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -22,7 +23,7 @@ const LadingPage = () => {
       <Button startIcon={<ArrowBackIcon />} onClick={() => push('/')}>
         Go back
       </Button>
-    </Box>
+    </Page>
   );
 };
 
