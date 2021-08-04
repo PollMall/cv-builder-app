@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, ButtonProps, CircularProgress } from '@material-ui/core';
 import useStyles from './style';
 
-interface SubmitButtonProps extends ButtonProps {
+interface SecondaryButtonProps extends ButtonProps {
   loading?: boolean;
 }
 
-const SubmitButton = ({ loading, children, className, ...rest }: SubmitButtonProps) => {
+const SecondaryButton = ({ loading, children, className, ...rest }: SecondaryButtonProps) => {
   const classes = useStyles();
 
   return (
@@ -14,7 +14,7 @@ const SubmitButton = ({ loading, children, className, ...rest }: SubmitButtonPro
       {loading ? (
         <CircularProgress />
       ) : (
-        <Button color="primary" variant="contained" className={classes.submit} {...rest}>
+        <Button color="secondary" variant="contained" className={classes.secondaryBtn} {...rest}>
           {children}
         </Button>
       )}
@@ -22,8 +22,8 @@ const SubmitButton = ({ loading, children, className, ...rest }: SubmitButtonPro
   );
 };
 
-SubmitButton.defaultProps = {
+SecondaryButton.defaultProps = {
   loading: undefined,
 };
 
-export default SubmitButton;
+export default SecondaryButton;

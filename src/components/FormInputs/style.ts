@@ -14,4 +14,10 @@ export default makeStyles((theme) => ({
     border: '1px solid #fff',
     borderRadius: 10,
   },
+
+  secondaryBtn: {
+    padding: `${theme.spacing(1)}px ${theme.spacing(5)}px`,
+    border: '1px solid #ff8e53',
+    borderRadius: 10,
+  },
 }));

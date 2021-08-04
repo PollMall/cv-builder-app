@@ -1,10 +1,11 @@
 import React from 'react';
 import Page from '../../components/Page/Page';
+import CreateForm from './CreateForm/CreateForm';
 
 const CreateCvPage = () => {
   return (
     <Page>
-      <h2>hi there</h2>
+      <CreateForm />
     </Page>
   );
 };

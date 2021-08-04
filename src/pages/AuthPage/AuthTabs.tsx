@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Box, Tabs, Card } from '@material-ui/core';
+import { Box, Tabs } from '@material-ui/core';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import Tab from './Tab';
 import useStyles from './styles';
+import Card from '../../components/Card/Card';
 
 const AuthTabs = () => {
   const [tab, setTab] = useState(0);
