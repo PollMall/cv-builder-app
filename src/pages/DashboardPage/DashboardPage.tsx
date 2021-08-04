@@ -36,7 +36,7 @@ const DashboardPage = () => {
           </Grid>
           {data.bestCvs.map((cv: Cv) => (
             <Grid key={cv.id} item sm={12} md={6} lg={4}>
-              <SvgButton svg={CvSvg} title={cv.title} onClick={() => push(`/cv?id=${cv.id}`)} />
+              <SvgButton svg={CvSvg} title={cv.title} onClick={() => push(`/cv/${cv.id}`)} />
             </Grid>
           ))}
           <Grid item sm={12} md={6} lg={4} className={classes.gridText}>
