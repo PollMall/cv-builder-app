@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
-interface AuthRouteProps {
+interface AuthRouteProps extends RouteProps {
   component: FC;
   path: string;
   to: string;

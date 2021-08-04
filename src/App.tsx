@@ -12,7 +12,9 @@ import AuthRoute from './components/Routes/AuthRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
 import Page from './components/Page/Page';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
-import CreateCvPage from './pages/CreateCv/CreateCvPage';
+import CreateCvPage from './pages/CreateCvPage/CreateCvPage';
+import AllCvsPage from './pages/AllCvsPage/AllCvsPage';
+import CvPage from './pages/CvPage/CvPage';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -21,11 +23,13 @@ const App = () => (
         <Router>
           <Switch>
             <Redirect from="/" to="/home" exact />
-            <Route path="/home" component={LandingPage} />
-            <AuthRoute path="/auth" component={AuthPage} to="/home" />
-            <PrivateRoute path="/private" component={() => <Page>private</Page>} />
-            <PrivateRoute path="/dashboard" component={DashboardPage} />
-            <PrivateRoute path="/cv/new" component={CreateCvPage} />
+            <Route exact path="/home" component={LandingPage} />
+            <AuthRoute exact path="/auth" component={AuthPage} to="/home" />
+            <PrivateRoute exact path="/private" component={() => <Page>private</Page>} />
+            <PrivateRoute exact path="/dashboard" component={DashboardPage} />
+            <PrivateRoute exact path="/cv/new" component={CreateCvPage} />
+            <PrivateRoute exact path="/cv" component={AllCvsPage} />
+            <PrivateRoute exact path="/cv/:id" component={CvPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Router>
