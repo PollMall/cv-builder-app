@@ -1,20 +1,22 @@
-import React, { FC, SVGProps } from 'react';
+import React, { FC, SVGProps, MouseEventHandler } from 'react';
 import { Box, Typography, Button } from '@material-ui/core';
 import useStyles from './styles';
 
 interface SvgButtonProps {
   svg: FC<SVGProps<SVGSVGElement>>;
+  title: string;
+  onClick: MouseEventHandler;
 }
 
-const SvgButton = ({ svg: Svg }: SvgButtonProps) => {
+const SvgButton = ({ svg: Svg, title, onClick }: SvgButtonProps) => {
   const classes = useStyles();
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Button className={classes.button}>
+      <Button variant="contained" className={classes.cardButton} onClick={onClick}>
         <Svg className={classes.card} />
       </Button>
-      <Typography variant="caption">some title</Typography>
+      <Typography variant="subtitle2">{title}</Typography>
     </Box>
   );
 };

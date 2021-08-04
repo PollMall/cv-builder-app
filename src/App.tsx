@@ -12,6 +12,7 @@ import AuthRoute from './components/Routes/AuthRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
 import Page from './components/Page/Page';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
+import CreateCvPage from './pages/CreateCv/CreateCvPage';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -22,8 +23,9 @@ const App = () => (
             <Redirect from="/" to="/home" exact />
             <Route path="/home" component={LandingPage} />
             <AuthRoute path="/auth" component={AuthPage} to="/home" />
-            <PrivateRoute path="/private" component={() => <Page>private</Page>} to="/auth" />
-            <PrivateRoute path="/dashboard" component={DashboardPage} to="/auth" />
+            <PrivateRoute path="/private" component={() => <Page>private</Page>} />
+            <PrivateRoute path="/dashboard" component={DashboardPage} />
+            <PrivateRoute path="/cv/new" component={CreateCvPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Router>

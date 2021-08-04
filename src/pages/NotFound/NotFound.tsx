@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const LadingPage = () => {
   const classes = useStyles();
-  const { push } = useHistory();
+  const { goBack } = useHistory();
 
   return (
     <Page
@@ -20,7 +20,7 @@ const LadingPage = () => {
     >
       <Typography variant="h2">404</Typography>
       <Typography variant="h6">Oops! It looks like you are lost.</Typography>
-      <Button startIcon={<ArrowBackIcon />} onClick={() => push('/')}>
+      <Button startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
         Go back
       </Button>
     </Page>

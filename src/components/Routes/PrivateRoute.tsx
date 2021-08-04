@@ -6,10 +6,10 @@ import LoadingPage from '../../pages/LoadingPage/LoadingPage';
 interface PrivateRouteProps {
   component: FC;
   path: string;
-  to: string;
+  to?: string;
 }
 
-const PrivateRoute = ({ component: C, path, to }: PrivateRouteProps) => {
+const PrivateRoute = ({ component: C, path, to = '/auth' }: PrivateRouteProps) => {
   const { state } = useContext(AuthContext);
 
   return (
@@ -18,6 +18,10 @@ const PrivateRoute = ({ component: C, path, to }: PrivateRouteProps) => {
       render={(props) => (state.loading ? <LoadingPage /> : state.user ? <C /> : <Redirect to={to} {...props} />)}
     />
   );
+};
+
+PrivateRoute.defaultProps = {
+  to: undefined,
 };
 
 export default PrivateRoute;
