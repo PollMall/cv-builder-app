@@ -22,6 +22,14 @@ export const theme = createTheme({
       },
     },
 
+    MuiCard: {
+      root: {
+        backgroundColor: '#6476c9',
+        height: 'inherit',
+        borderRadius: '0 0 10px 10px',
+      },
+    },
+
     MuiTypography: {
       root: {
         color: 'white',

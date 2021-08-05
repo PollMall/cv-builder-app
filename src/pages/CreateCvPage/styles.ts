@@ -2,16 +2,15 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   form: {
-    width: 500,
-    height: 350,
-    padding: theme.spacing(10),
+    boxSizing: 'border-box',
+    width: 550,
+    height: 380,
+    padding: `${theme.spacing(5)}px ${theme.spacing(8)}px`,
   },
+
+  content: {},
 
   progressBar: {
     height: theme.spacing(1),
   },
-
-  title: {},
-
-  btn: {},
 }));
