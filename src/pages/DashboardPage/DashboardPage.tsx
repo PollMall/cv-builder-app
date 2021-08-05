@@ -47,7 +47,7 @@ const DashboardPage = () => {
         </Grid>
         <Grid container justifyContent="center">
           <Grid item xs={6}>
-            <BestCvPreview cv={data.bestCvs[0]} />
+            {data.bestCvs[0] && <BestCvPreview cv={data.bestCvs[0]} />}
           </Grid>
         </Grid>
       </Box>
