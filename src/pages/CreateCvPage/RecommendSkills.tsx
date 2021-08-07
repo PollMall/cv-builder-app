@@ -59,17 +59,20 @@ const RecommendSkills = ({ fieldOfWork, typeOfSkill }: RecommendSkillsProps) => 
             </ListItemText>
           </ListItem>
           <Box display="flex" flexDirection="column">
-            {loading && <CircularProgress />}
-            {error ||
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              error ||
               (skills.length === 0 && (
                 <ListItem>
                   <ListItemText>
                     <Typography variant="body2">None</Typography>
                   </ListItemText>
                 </ListItem>
-              ))}
+              ))
+            )}
             {skills.length > 0 &&
-              flatArrayOfSkills(data.recommendSkills)?.map((skillName) => (
+              skills.map((skillName) => (
                 <ListItem key={skillName}>
                   <ListItemText>
                     <Typography variant="body2">{skillName}</Typography>

@@ -11,7 +11,6 @@ const BasicStep = ({ title, children, ...rest }: BasicStepProps) => {
     <Box display="flex" flexDirection="column" alignItems="center" height="100%" {...rest}>
       <Typography variant="h5">{title}</Typography>
       <Box display="flex" alignItems="center" width="100%" height="100%">
-        {/* <Input multiline={multiline} rows={rows} name={inputName} /> */}
         {children}
       </Box>
     </Box>

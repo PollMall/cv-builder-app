@@ -14,6 +14,10 @@ const FormikInput = ({ name, endIcon, onClickEndIcon, disabledEndIcon, ...rest }
   const [field, meta] = useField(name);
   const classes = useStyles();
 
+  const { InputProps: restInputProps, ...restProps } = rest;
+
+  // console.log(field.value);
+
   return (
     <TextField
       variant="outlined"
@@ -21,6 +25,7 @@ const FormikInput = ({ name, endIcon, onClickEndIcon, disabledEndIcon, ...rest }
       fullWidth
       className={classes.root}
       InputProps={{
+        ...restInputProps,
         className: classes.input,
         endAdornment: endIcon && (
           <IconButton disabled={disabledEndIcon} size="small" onClick={onClickEndIcon}>
@@ -31,7 +36,7 @@ const FormikInput = ({ name, endIcon, onClickEndIcon, disabledEndIcon, ...rest }
       error={!!(meta.touched && meta.error)}
       helperText={meta.touched && meta.error}
       {...field}
-      {...rest}
+      {...restProps}
     />
   );
 };

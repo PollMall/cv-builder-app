@@ -9,6 +9,7 @@ import BasicStep from './BasicStep';
 import ChipStep from './ChipStep';
 import Input from '../../components/FormInputs/FormikInput';
 import SkillStep from './SkillStep';
+import FieldStep from './FieldStep';
 
 const initialValues = {
   field: '',
@@ -29,11 +30,7 @@ const initialValues = {
 
 const formSteps = [
   {
-    component: (
-      <BasicStep title="Insert the field you want to work in">
-        <Input name="field" />
-      </BasicStep>
-    ),
+    component: <FieldStep inputName="field" title="Insert the field you want to work in" />,
     validationSchema: Yup.object({
       field: Yup.string().required('Field required'),
     }),
