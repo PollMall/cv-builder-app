@@ -8,7 +8,9 @@ export default makeStyles((theme) => ({
     padding: `${theme.spacing(5)}px ${theme.spacing(8)}px`,
   },
 
-  content: {},
+  overflowContent: {
+    overflow: 'auto',
+  },
 
   progressBar: {
     height: theme.spacing(1),

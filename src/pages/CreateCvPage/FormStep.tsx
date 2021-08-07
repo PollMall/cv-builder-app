@@ -20,7 +20,7 @@ const FormStep = ({ step, maxSteps, children, onBack }: FormStepProps) => {
       height="100%"
       width="100%"
     >
-      <Box flex={1} width="100%">
+      <Box height="100%" width="100%">
         {children}
       </Box>
       <Box display="flex" justifyContent="space-evenly" width="80%">

@@ -4,7 +4,7 @@ import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import * as Yup from 'yup';
 import useStyles from './styles';
-import Input from '../../components/FormInputs/Input';
+import Input from '../../components/FormInputs/FormikInput';
 import { REGISTER_APOLLO } from './api';
 import { AuthContext, AuthActions } from '../../context/AuthContext';
 import SubmitButton from '../../components/FormInputs/SubmitButton';

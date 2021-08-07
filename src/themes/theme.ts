@@ -22,6 +22,24 @@ export const theme = createTheme({
       },
     },
 
+    MuiMenu: {
+      paper: {
+        backgroundColor: '#f3c5ac4d',
+      },
+    },
+
+    MuiChip: {
+      root: {
+        color: '#fff',
+      },
+      outlined: {
+        borderColor: '#ff8e53',
+      },
+      deleteIcon: {
+        color: '#ff8e53',
+      },
+    },
+
     MuiCard: {
       root: {
         backgroundColor: '#6476c9',
