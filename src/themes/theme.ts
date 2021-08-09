@@ -75,9 +75,9 @@ export const theme = createTheme({
       main: '#ff8e53',
     },
 
-    background: {
-      default: 'linear-gradient(#667eea, #764ba2)',
-    },
+    // background: {
+    //   default: 'linear-gradient(#667eea, #764ba2)',
+    // },
 
     text: {
       primary: '#fff',

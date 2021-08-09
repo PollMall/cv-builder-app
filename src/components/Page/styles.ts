@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
   root: {
-    background: theme.palette.background.default,
+    background: 'linear-gradient(#667eea, #764ba2)',
   },
 }));

@@ -15,7 +15,10 @@ import BestCvPreview from './BestCvPreview';
 
 const DashboardPage = () => {
   const { state } = useContext(AuthContext);
-  const { data, loading, error } = useQuery(GET_BEST_CVS, { variables: { uid: state.user?.uid, noOfCvs: 4 } });
+  const { data, loading, error } = useQuery(GET_BEST_CVS, {
+    variables: { uid: state.user?.uid, noOfCvs: 4 },
+    fetchPolicy: 'cache-and-network',
+  });
   const { push } = useHistory();
   const classes = useStyles();
 

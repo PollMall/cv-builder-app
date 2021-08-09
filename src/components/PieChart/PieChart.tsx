@@ -9,6 +9,8 @@ interface PieChartProps {
 const PieChart = ({ value, className }: PieChartProps) => {
   return (
     <Chart
+      style={{ color: '#fff' }}
+      segmentsStyle={{ color: '#fff', backgroundColor: 'blue' }}
       data={[{ title: 'score', value, color: '#ff8e53' }]}
       lineWidth={36}
       totalValue={100}
@@ -16,7 +18,7 @@ const PieChart = ({ value, className }: PieChartProps) => {
       className={className}
       label={() => `${value}%`}
       labelPosition={0}
-      labelStyle={{ color: '#fff', backgroundColor: 'red' }}
+      labelStyle={{ color: '#fff', border: '1px solid red', fontSize: 20 }}
       animate
       background="white"
     />
