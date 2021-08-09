@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <AppBar elevation={1} className={classes.root} position="fixed">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <IconButton size="small" onClick={() => push('/')}>
+        <IconButton size="small" onClick={() => push('/dashboard')}>
           <LogoSvg className={classes.logo} />
         </IconButton>
         <Dropdown />

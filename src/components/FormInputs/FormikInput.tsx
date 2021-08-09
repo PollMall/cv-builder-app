@@ -13,10 +13,7 @@ interface FormikInputProps extends StandardTextFieldProps {
 const FormikInput = ({ name, endIcon, onClickEndIcon, disabledEndIcon, ...rest }: FormikInputProps) => {
   const [field, meta] = useField(name);
   const classes = useStyles();
-
   const { InputProps: restInputProps, ...restProps } = rest;
-
-  // console.log(field.value);
 
   return (
     <TextField

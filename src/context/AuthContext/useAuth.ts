@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { User } from './types';
+import { User } from '../../types';
 
 export enum AuthActions {
   UPDATE_USER = 'UPDATE_USER',

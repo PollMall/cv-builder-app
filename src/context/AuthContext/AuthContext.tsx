@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, Dispatch } from 'react';
-import { User } from './types';
+import { User } from '../../types';
 import { useAuth, State, Action, AuthActions } from './useAuth';
 
 interface AuthProviderProps {

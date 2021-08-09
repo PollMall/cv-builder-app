@@ -8,7 +8,7 @@ import SvgButton from './SvgButton';
 import { useQuery } from '@apollo/client';
 import { GET_BEST_CVS } from './api';
 import { AuthContext } from '../../context/AuthContext';
-import { Cv } from '../../context/AuthContext/types';
+import { Cv } from '../../types';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import useStyles from './styles';
 import BestCvPreview from './BestCvPreview';

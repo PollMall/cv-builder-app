@@ -2,8 +2,8 @@ import React, { useState, MouseEvent, useEffect } from 'react';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { Box, IconButton, ListItem, ListItemText, Menu, Typography, CircularProgress } from '@material-ui/core';
 import { useLazyQuery } from '@apollo/client';
-import { RECOMMEND_SKILLS } from './api';
-import { HardSkill, SoftSkill } from '../../types';
+import { RECOMMEND_SKILLS } from '../api';
+import { HardSkill, SoftSkill } from '../../../types';
 
 interface RecommendSkillsProps {
   fieldOfWork: string;
@@ -12,7 +12,9 @@ interface RecommendSkillsProps {
 
 const RecommendSkills = ({ fieldOfWork, typeOfSkill }: RecommendSkillsProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
-  const [recommendSkills, { data, loading, error }] = useLazyQuery(RECOMMEND_SKILLS);
+  const [recommendSkills, { data, loading, error }] = useLazyQuery(RECOMMEND_SKILLS, {
+    fetchPolicy: 'cache-and-network',
+  });
   const [skills, setSkills] = useState<string[]>([]);
 
   const flatArrayOfSkills = (data: HardSkill[] | SoftSkill[]) => data?.map((s) => s.name);

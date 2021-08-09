@@ -23,28 +23,24 @@ const FieldStep = ({ inputName, title, ...rest }: FieldStepProps) => {
   }
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" {...rest}>
-      <Typography gutterBottom variant="h5">
-        {title}
-      </Typography>
-      <Box display="flex" flexDirection="column" alignItems="" width="100%">
-        <Box display="flex" alignItems="flex-start">
-          <Autocomplete
-            id={inputName}
-            size="small"
-            fullWidth
-            noOptionsText="No skills"
-            options={data.fields}
-            value={field.value ? field.value : null}
-            onInputChange={(event, value) => {
-              value === null ? helper.setValue('') : helper.setValue(value);
-            }}
-            filterOptions={(options) => options.filter((o) => o.toLowerCase().includes(field.value.toLowerCase()))}
-            ListboxProps={{ style: { backgroundColor: '#6476c94d' } }}
-            getOptionSelected={() => true}
-            renderInput={(props: AutocompleteRenderInputParams) => <Input {...props} id={inputName} name={inputName} />}
-          />
-        </Box>
+    <Box display="flex" flexDirection="column" alignItems="center" height="100%" {...rest}>
+      <Typography variant="h5">{title}</Typography>
+      <Box display="flex" alignItems="center" width="100%" height="100%">
+        <Autocomplete
+          id={inputName}
+          size="small"
+          fullWidth
+          noOptionsText="No skills"
+          options={data.fields}
+          value={field.value ? field.value : null}
+          onInputChange={(event, value) => {
+            value === null ? helper.setValue('') : helper.setValue(value);
+          }}
+          filterOptions={(options) => options.filter((o) => o.toLowerCase().includes(field.value.toLowerCase()))}
+          ListboxProps={{ style: { backgroundColor: '#596dc9' } }}
+          getOptionSelected={() => true}
+          renderInput={(props: AutocompleteRenderInputParams) => <Input {...props} id={inputName} name={inputName} />}
+        />
       </Box>
     </Box>
   );

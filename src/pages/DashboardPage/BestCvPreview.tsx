@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
-import { Cv } from '../../context/AuthContext/types';
+import { Cv } from '../../types';
 import useStyles from './styles';
 import PieChart from '../../components/PieChart/PieChart';
 

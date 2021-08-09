@@ -12,12 +12,12 @@ export interface Credentials {
 }
 
 export interface Cv {
-  id: string;
+  id?: string;
   title: string;
   field: string;
   educations?: Education[];
   workExperiences?: WorkExperience[];
-  feedback: boolean;
+  feedback?: boolean;
   hardSkills?: HardSkill[];
   softSkills?: SoftSkill[];
   languages?: Language[];
@@ -43,19 +43,19 @@ export interface LocationInfo {
 export interface Education {
   id?: string;
   name: string;
-  description?: string;
-  location?: string;
-  startAt: number;
-  endAt: number;
+  description: string;
+  location: string;
+  startAt: string;
+  endAt: string;
 }
 
 export interface WorkExperience {
   id?: string;
   name: string;
-  description?: string;
-  location?: string;
-  startAt: number;
-  endAt: number;
+  description: string;
+  location: string;
+  startAt: string;
+  endAt: string;
 }
 
 export interface Language {

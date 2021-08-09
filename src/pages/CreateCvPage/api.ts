@@ -24,4 +24,12 @@ const GET_FIELDS = gql`
   }
 `;
 
-export { RECOMMEND_SKILLS, GET_SKILLS, GET_FIELDS };
+const ADD_CV = gql`
+  mutation AddCvMutation($uid: String!, $cv: String!) {
+    addCv(uid: $uid, cv: $cv) {
+      id
+    }
+  }
+`;
+
+export { RECOMMEND_SKILLS, GET_SKILLS, GET_FIELDS, ADD_CV };

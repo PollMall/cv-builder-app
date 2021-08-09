@@ -15,6 +15,7 @@ const CvPage = () => {
   }
 
   if (error) {
+    console.error(error);
     return <h2>Error!</h2>;
   }
 
@@ -22,7 +23,9 @@ const CvPage = () => {
 
   return (
     <Page>
-      <h2>cv page {data.cv.title}</h2>
+      <h2>
+        cv page {data.cv.title} with id: {data.cv.id}
+      </h2>
     </Page>
   );
 };
