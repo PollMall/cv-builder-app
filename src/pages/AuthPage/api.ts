@@ -17,6 +17,11 @@ const REGISTER_APOLLO = gql`
     registerUser(email: $email, password: $password, fullName: $fullName) {
       uid
       displayName
+      credentials {
+        idToken
+        refreshToken
+        expiresIn
+      }
     }
   }
 `;

@@ -62,7 +62,7 @@ const AllCvsPage = () => {
     return <h2>Loading...</h2>;
   }
   if (error) {
-    console.error(error.message);
+    console.error(error);
     return <h2>An error occured while trying to get all your cvs...</h2>;
   }
 

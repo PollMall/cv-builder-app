@@ -48,6 +48,12 @@ const ExperienceStep = ({ title, inputName, arrayInputName }: ExperienceStepProp
     endAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
+  const descSortByEndAt = (a: Experience, b: Experience) => {
+    const aStartAt = a.startAt ? parseInt(a.startAt, 10) : 0;
+    const bStartAt = b.startAt ? parseInt(b.startAt, 10) : 0;
+    return bStartAt - aStartAt;
+  };
+
   return (
     <Box display="flex" justifyContent="space-around">
       <Box display="flex" flexDirection="column">
@@ -86,7 +92,7 @@ const ExperienceStep = ({ title, inputName, arrayInputName }: ExperienceStepProp
         </Button>
       </Box>
       <Box display="flex" flexWrap="wrap" alignItems="flex-start" className={classes.cardsContainer}>
-        {arrayInputField.value?.map((exp: Experience, idx: number) => (
+        {arrayInputField.value?.sort(descSortByEndAt).map((exp: Experience, idx: number) => (
           <ExperienceCard
             key={idx}
             {...exp}

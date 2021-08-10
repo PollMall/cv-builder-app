@@ -27,6 +27,7 @@ const DashboardPage = () => {
   }
 
   if (error) {
+    console.error(error);
     return <h2>Error!</h2>;
   }
 
