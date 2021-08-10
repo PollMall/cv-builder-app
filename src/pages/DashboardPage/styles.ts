@@ -28,9 +28,6 @@ export default makeStyles((theme) => ({
     height: 400,
     backgroundColor: 'white',
     // to be deleted after cv preview implemented
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   stats: {

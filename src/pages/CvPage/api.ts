@@ -31,10 +31,7 @@ const GET_CV = gql`
         name
         rating
       }
-      languages {
-        name
-        rating
-      }
+      languages
       locationInfo {
         address
         websites

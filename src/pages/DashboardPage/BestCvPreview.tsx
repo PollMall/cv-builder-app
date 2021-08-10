@@ -3,6 +3,7 @@ import { Box, Typography } from '@material-ui/core';
 import { Cv } from '../../types';
 import useStyles from './styles';
 import PieChart from '../../components/PieChart/PieChart';
+import PreviewCv from '../../components/PreviewCv/PreviewCv';
 
 interface BestCvPreviewProps {
   cv: Cv;
@@ -19,7 +20,7 @@ const BestCvPreview = ({ cv }: BestCvPreviewProps) => {
         </Typography>
         <PieChart value={cv.score} className={classes.chart} />
       </Box>
-      <div className={classes.cvPreview}>preview</div>
+      <PreviewCv className={classes.cvPreview}>preview</PreviewCv>
       <Typography variant="subtitle1">{cv.title}</Typography>
     </Box>
   );
