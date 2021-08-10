@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { LinearProgress } from '@material-ui/core';
+import { useHistory } from 'react-router';
+import { Box, Button, LinearProgress, Typography } from '@material-ui/core';
 import useStyles from './styles';
 import FormStep from './FormStep';
 import { Formik, Form as FormikForm } from 'formik';
@@ -17,6 +18,7 @@ const CreateForm = () => {
   const classes = useStyles({ bigStep: step > formSteps.length - 2 });
   const [addCv, { data, loading, error }] = useMutation(ADD_CV);
   const { state } = useContext(AuthContext);
+  const { push } = useHistory();
 
   const handleSubmit = async (values: FormikValues) => {
     if (step === formSteps.length) {
@@ -72,7 +74,12 @@ const CreateForm = () => {
   }
 
   if (data) {
-    return <h2>CV added successfully</h2>;
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <Typography variant="h2">CV added successfully</Typography>
+        <Button onClick={() => push('/dashboard')}>Go back to dashboard</Button>
+      </Box>
+    );
   }
 
   return (

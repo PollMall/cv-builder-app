@@ -19,6 +19,7 @@ const Page = ({ children, ...rest }: PageProps) => {
       <Box
         boxSizing="border-box"
         paddingTop={10}
+        paddingBottom={5}
         className={classes.root}
         display="flex"
         flexDirection="column"
