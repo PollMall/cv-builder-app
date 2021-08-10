@@ -67,7 +67,7 @@ const AllCvsPage = () => {
   }
 
   return (
-    <Page boxSizing="border-box" paddingTop={10} justifyContent="flex-start">
+    <Page boxSizing="border-box" paddingTop={10} paddingBottom={10} justifyContent="flex-start">
       <CvHeader
         descDate={descDate}
         descScore={descScore}

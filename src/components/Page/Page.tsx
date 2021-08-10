@@ -17,6 +17,8 @@ const Page = ({ children, ...rest }: PageProps) => {
     <>
       {user && <NavBar />}
       <Box
+        boxSizing="border-box"
+        paddingTop={10}
         className={classes.root}
         display="flex"
         flexDirection="column"
