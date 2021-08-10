@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ALL_CVS } from './api';
 import { AuthContext } from '../../context/AuthContext';
 import { Cv } from '../../types';
+import { Box, Typography } from '@material-ui/core';
 
 enum SortMethod {
   DATE = 'DATE',
@@ -74,15 +75,23 @@ const AllCvsPage = () => {
         onClickDate={handleSortByDate}
         onClickScore={handleSortByScore}
       />
-      {[...data.cvs].sort(sortBy === SortMethod.DATE ? sortCvsByDate : sortCvsByScore).map((data: Cv) => (
-        <CvRow
-          key={data.id}
-          title={data.title}
-          date={data.updatedAt}
-          score={data.score}
-          onClick={() => push(`/cv/${data.id}`)}
-        />
-      ))}
+      {data.cvs.length ? (
+        [...data.cvs]
+          .sort(sortBy === SortMethod.DATE ? sortCvsByDate : sortCvsByScore)
+          .map((data: Cv) => (
+            <CvRow
+              key={data.id}
+              title={data.title}
+              date={data.updatedAt}
+              score={data.score}
+              onClick={() => push(`/cv/${data.id}`)}
+            />
+          ))
+      ) : (
+        <Box display="flex" alignItems="center" height="50vh">
+          <Typography variant="h6">You don&apos;t have any CVs yet</Typography>
+        </Box>
+      )}
     </Page>
   );
 };
