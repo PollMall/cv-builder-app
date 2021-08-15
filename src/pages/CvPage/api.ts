@@ -49,4 +49,10 @@ const GET_CV = gql`
   }
 `;
 
-export { GET_CV };
+const GET_PDF = gql`
+  query Query($cv: String) {
+    getPDF(cv: $cv)
+  }
+`;
+
+export { GET_CV, GET_PDF };
