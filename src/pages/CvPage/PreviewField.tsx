@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, BoxProps, IconButton, Typography } from '@material-ui/core';
+import { Box, BoxProps, IconButton, Button } from '@material-ui/core';
 import PreviewCv from '../../components/PreviewCv/PreviewCv';
 import PieChart from '../../components/PieChart/PieChart';
 import useStyles from './styles';
@@ -7,12 +7,12 @@ import CheckSvg from '../../images/CheckSvg';
 
 interface PreviewFieldProps extends BoxProps {
   score?: number;
-  cvTitle?: string;
   updated?: boolean;
   base64?: string;
+  downloadLink?: string;
 }
 
-const PreviewField = ({ score, cvTitle, updated, base64, ...rest }: PreviewFieldProps) => {
+const PreviewField = ({ score, updated, base64, downloadLink, ...rest }: PreviewFieldProps) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +20,7 @@ const PreviewField = ({ score, cvTitle, updated, base64, ...rest }: PreviewField
       <Box width="100%" display="flex" justifyContent="center" marginBottom={1}>
         <PieChart value={score || 0} className={classes.chart} />
       </Box>
-      <Box position="relative">
+      <Box position="relative" border="1px solid transparent">
         <PreviewCv className={classes.preview} base64={base64} scale={0.51} />
         {updated && (
           <IconButton className={classes.checkBtn}>
@@ -28,9 +28,17 @@ const PreviewField = ({ score, cvTitle, updated, base64, ...rest }: PreviewField
           </IconButton>
         )}
       </Box>
-      <Typography align="center" variant="subtitle1">
-        {cvTitle}
-      </Typography>
+      <Button
+        component="a"
+        target="_blank"
+        href={downloadLink}
+        disabled={!base64 || !downloadLink}
+        variant="contained"
+        color="primary"
+        className={classes.downloadBtn}
+      >
+        open CV
+      </Button>
     </Box>
   );
 };
@@ -40,6 +48,7 @@ PreviewField.defaultProps = {
   cvTitle: undefined,
   updated: undefined,
   base64: undefined,
+  downloadLink: undefined,
 };
 
 export default PreviewField;

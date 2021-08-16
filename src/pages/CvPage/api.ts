@@ -45,6 +45,7 @@ const GET_CV = gql`
       createdAt
       updatedAt
       score
+      downloadLink
     }
   }
 `;

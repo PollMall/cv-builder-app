@@ -26,6 +26,7 @@ export interface Cv {
   createdAt: string;
   updatedAt: string;
   score: number;
+  downloadLink?: string;
 }
 
 export interface PersonalInfo {
