@@ -33,8 +33,8 @@ const PreviewCv = ({ base64, scale, height, ...rest }: PreviewCvProps) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
-      // style={{ backgroundColor: 'transparent', border: '1px solid red' }}
+      justifyContent="space-between"
+      style={{ backgroundColor: 'transparent' }}
       {...rest}
     >
       <Document file={base64} onLoadSuccess={onDocumentLoadSuccess}>
