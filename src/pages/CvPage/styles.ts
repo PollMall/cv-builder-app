@@ -53,6 +53,11 @@ export default makeStyles((theme) => ({
     height: 70,
   },
 
+  template: {
+    textTransform: 'capitalize',
+    padding: theme.spacing(1),
+  },
+
   preview: {
     height: 450,
     backgroundColor: '#fff',

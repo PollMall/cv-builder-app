@@ -14,7 +14,6 @@ interface BestCvPreviewProps {
 const BestCvPreview = ({ cv }: BestCvPreviewProps) => {
   const classes = useStyles();
   const { data: dataPDF } = useQuery(GET_PDF, { variables: { cv: JSON.stringify(cv) } });
-  console.log(cv);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">

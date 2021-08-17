@@ -8,7 +8,7 @@ import SimpleField from './SimpleField';
 import SkillField from './SkillField';
 import { Box } from '@material-ui/core';
 import { useEffect } from 'react';
-import { Cv } from '../../types';
+import { Cv, Templates } from '../../types';
 import ExperienceField from './ExperienceField';
 import PreviewField from './PreviewField';
 
@@ -22,9 +22,14 @@ const CvPage = () => {
   useEffect(() => {
     if (data) {
       setCv(data.cv);
-      getPDF({ variables: { cv: JSON.stringify(data.cv) } });
+      console.log(JSON.stringify(data.cv));
+      getPDF({ variables: { cv: JSON.stringify(data.cv), template: Templates.NORMAL } });
     }
   }, [data]);
+
+  const handleChangeTemplate = (template: Templates) => {
+    getPDF({ variables: { cv: JSON.stringify(data.cv), template } });
+  };
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -60,7 +65,12 @@ const CvPage = () => {
       </Box>
       <Box boxSizing="border-box" width="30%" display="flex" flexDirection="column" paddingLeft={5} paddingRight={5}>
         {/* {cv preview and score} */}
-        <PreviewField score={cv?.score} base64={dataPDF?.getPDF} downloadLink={cv?.downloadLink} />
+        <PreviewField
+          score={cv?.score}
+          base64={dataPDF?.getPDF}
+          downloadLink={cv?.downloadLink}
+          onSelectTemplate={handleChangeTemplate}
+        />
       </Box>
     </Page>
   );

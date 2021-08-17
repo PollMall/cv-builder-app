@@ -27,6 +27,12 @@ export interface Cv {
   updatedAt: string;
   score: number;
   downloadLink?: string;
+  template?: string;
+}
+
+export enum Templates {
+  NORMAL = 'NORMAL',
+  COMPACT = 'COMPACT',
 }
 
 export interface PersonalInfo {
