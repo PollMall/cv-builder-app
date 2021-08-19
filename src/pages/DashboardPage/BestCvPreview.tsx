@@ -4,6 +4,8 @@ import { Cv } from '../../types';
 import useStyles from './styles';
 import PieChart from '../../components/PieChart/PieChart';
 import PreviewCv from '../../components/PreviewCv/PreviewCv';
+import { useQuery } from '@apollo/client';
+import { GET_PDF } from './api';
 
 interface BestCvPreviewProps {
   cv: Cv;
@@ -11,6 +13,7 @@ interface BestCvPreviewProps {
 
 const BestCvPreview = ({ cv }: BestCvPreviewProps) => {
   const classes = useStyles();
+  const { data: dataPDF } = useQuery(GET_PDF, { variables: { cv: JSON.stringify(cv) } });
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%">
@@ -20,7 +23,9 @@ const BestCvPreview = ({ cv }: BestCvPreviewProps) => {
         </Typography>
         <PieChart value={cv.score} className={classes.chart} />
       </Box>
-      <PreviewCv className={classes.cvPreview}>preview</PreviewCv>
+      <PreviewCv className={classes.cvPreview} base64={dataPDF?.getPDF} scale={0.45}>
+        preview
+      </PreviewCv>
       <Typography variant="subtitle1">{cv.title}</Typography>
     </Box>
   );

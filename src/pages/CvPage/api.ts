@@ -45,8 +45,15 @@ const GET_CV = gql`
       createdAt
       updatedAt
       score
+      downloadLink
     }
   }
 `;
 
-export { GET_CV };
+const GET_PDF = gql`
+  query Query($cv: String, $template: String) {
+    getPDF(cv: $cv, template: $template)
+  }
+`;
+
+export { GET_CV, GET_PDF };

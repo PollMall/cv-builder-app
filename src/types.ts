@@ -26,6 +26,14 @@ export interface Cv {
   createdAt: string;
   updatedAt: string;
   score: number;
+  downloadLink?: string;
+  template?: string;
+}
+
+export enum Templates {
+  NORMAL = 'NORMAL',
+  COMPACT = 'COMPACT',
+  FANCY = 'FANCY',
 }
 
 export interface PersonalInfo {

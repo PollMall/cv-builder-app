@@ -53,6 +53,11 @@ export default makeStyles((theme) => ({
     height: 70,
   },
 
+  template: {
+    textTransform: 'capitalize',
+    padding: theme.spacing(1),
+  },
+
   preview: {
     height: 450,
     backgroundColor: '#fff',
@@ -60,8 +65,12 @@ export default makeStyles((theme) => ({
 
   checkBtn: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    bottom: 47,
+    right: 14,
     padding: 0,
+  },
+
+  downloadBtn: {
+    alignSelf: 'center',
   },
 }));
