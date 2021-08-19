@@ -33,6 +33,7 @@ export interface Cv {
 export enum Templates {
   NORMAL = 'NORMAL',
   COMPACT = 'COMPACT',
+  FANCY = 'FANCY',
 }
 
 export interface PersonalInfo {

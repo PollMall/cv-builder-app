@@ -46,9 +46,13 @@ const PreviewField = ({ score, updated, base64, downloadLink, onSelectTemplate, 
             >
               Compact
             </Button>
-            {/* <Button color="primary" className={classes.template} onClick={handleOnClick}>
+            <Button
+              color={template === Templates.FANCY ? 'secondary' : 'primary'}
+              className={classes.template}
+              onClick={() => handleOnClick(Templates.FANCY)}
+            >
               Fancy
-            </Button> */}
+            </Button>
           </ButtonGroup>
         </Box>
       </Box>
