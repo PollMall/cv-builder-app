@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, BoxProps, IconButton, Button, Typography, ButtonGroup } from '@material-ui/core';
+import { useFormikContext, useField } from 'formik';
+import { Box, BoxProps, IconButton, Button, Typography, ButtonGroup, CircularProgress } from '@material-ui/core';
 import PreviewCv from '../../components/PreviewCv/PreviewCv';
 import PieChart from '../../components/PieChart/PieChart';
 import useStyles from './styles';
@@ -8,23 +9,45 @@ import { Templates } from '../../types';
 
 interface PreviewFieldProps extends BoxProps {
   score?: number;
-  updated?: boolean;
   base64?: string;
   downloadLink?: string;
   onSelectTemplate?: (template: Templates) => void;
+  loading?: boolean;
+  fetchingPDF?: boolean;
 }
 
-const PreviewField = ({ score, updated, base64, downloadLink, onSelectTemplate, ...rest }: PreviewFieldProps) => {
+const PreviewField = ({
+  score,
+  base64,
+  downloadLink,
+  onSelectTemplate,
+  loading,
+  fetchingPDF,
+  ...rest
+}: PreviewFieldProps) => {
   const classes = useStyles();
-  const [template, setTemplate] = useState(Templates.NORMAL);
+  const [field, meta, helper] = useField('template');
+  console.log(meta.initialValue);
+  const [updated, setUpdated] = useState(false);
+  const { values, initialValues } = useFormikContext();
 
   const handleOnClick = (template: Templates) => {
     onSelectTemplate && onSelectTemplate(template);
-    setTemplate(template);
+    helper.setValue(template);
   };
 
+  React.useEffect(() => {
+    if (JSON.stringify(values) !== JSON.stringify(initialValues)) {
+      setUpdated(true);
+    } else {
+      setUpdated(false);
+    }
+  }, [values]);
+
+  React.useEffect(() => {}, []);
+
   return (
-    <Box display="flex" flexDirection="column" {...rest} style={{ backgroundColor: 'transparent' }}>
+    <Box display="flex" flexDirection="column" width="100%" {...rest} style={{ backgroundColor: 'transparent' }}>
       <Box width="100%" display="flex" justifyContent="space-evenly" marginBottom={1}>
         <PieChart value={score || 0} className={classes.chart} />
         <Box display="flex" flexDirection="column" alignContent="center">
@@ -33,21 +56,21 @@ const PreviewField = ({ score, updated, base64, downloadLink, onSelectTemplate, 
           </Typography>
           <ButtonGroup>
             <Button
-              color={template === Templates.NORMAL ? 'secondary' : 'primary'}
+              color={field.value === Templates.NORMAL ? 'secondary' : 'primary'}
               className={classes.template}
               onClick={() => handleOnClick(Templates.NORMAL)}
             >
               Normal
             </Button>
             <Button
-              color={template === Templates.COMPACT ? 'secondary' : 'primary'}
+              color={field.value === Templates.COMPACT ? 'secondary' : 'primary'}
               className={classes.template}
               onClick={() => handleOnClick(Templates.COMPACT)}
             >
               Compact
             </Button>
             <Button
-              color={template === Templates.FANCY ? 'secondary' : 'primary'}
+              color={field.value === Templates.FANCY ? 'secondary' : 'primary'}
               className={classes.template}
               onClick={() => handleOnClick(Templates.FANCY)}
             >
@@ -57,11 +80,17 @@ const PreviewField = ({ score, updated, base64, downloadLink, onSelectTemplate, 
         </Box>
       </Box>
       <Box position="relative" border="1px solid transparent">
-        <PreviewCv className={classes.preview} base64={base64} scale={0.51} />
+        <PreviewCv className={classes.preview} base64={base64} scale={0.51} loading={loading || fetchingPDF} />
         {updated && (
-          <IconButton className={classes.checkBtn}>
-            <CheckSvg width={100} />
-          </IconButton>
+          <>
+            {loading ? (
+              <CircularProgress color="secondary" size={100} className={classes.checkBtn} />
+            ) : (
+              <IconButton type="submit" className={classes.checkBtn}>
+                <CheckSvg width={100} />
+              </IconButton>
+            )}
+          </>
         )}
       </Box>
       <Button
@@ -85,6 +114,8 @@ PreviewField.defaultProps = {
   base64: undefined,
   downloadLink: undefined,
   onSelectTemplate: undefined,
+  loading: undefined,
+  fetchingPDF: undefined,
 };
 
 export default PreviewField;

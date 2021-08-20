@@ -20,4 +20,65 @@ export default makeStyles((theme) => ({
     border: '1px solid #ff8e53',
     borderRadius: 10,
   },
+
+  overflowContent: {
+    overflow: 'auto',
+  },
+
+  ratingSection: {
+    marginBottom: theme.spacing(1),
+  },
+
+  ratingText: {
+    marginRight: theme.spacing(2),
+  },
+
+  slider: {
+    flexBasis: '35%',
+  },
+
+  institutionName: {
+    fontWeight: 700,
+  },
+
+  locationName: {
+    fontStyle: 'italic',
+  },
+
+  deleteBtn: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
+
+  presentCheckbox: {
+    alignSelf: 'flex-start',
+    padding: 0,
+    margin: 0,
+  },
+
+  addBtn: {
+    margin: `${theme.spacing(2)}px 0`,
+  },
+
+  cardsContainer: {
+    width: 300,
+    height: 350,
+    overflow: 'auto',
+  },
+
+  roundedCard: {
+    boxSizing: 'border-box',
+    position: 'relative',
+    width: '95%',
+    height: 'fit-content',
+    margin: '0 auto',
+    marginBottom: `${theme.spacing(1)}px`,
+    padding: `${theme.spacing(2)}px`,
+    backgroundColor: '#596dc9',
+    borderRadius: 10,
+    '&:first-child': {
+      marginTop: `${theme.spacing(1)}px`,
+    },
+  },
 }));

@@ -1,11 +1,24 @@
+import React from 'react';
 import * as Yup from 'yup';
-import { Cv, Education, HardSkill, SoftSkill, WorkExperience } from '../../types';
+import { Cv, Education, HardSkill, SoftSkill, Templates, WorkExperience } from '../../types';
+import Input from '../../components/FormInputs/FormikInput';
+import ChipInput from '../../components/FormInputs/FormikChipInput';
+import SkillsInput from '../../components/FormInputs/FormikSkillsInput';
+import ExperienceInput from '../../components/FormInputs/FormikExperienceInput';
 
-// NOTE: make this a function that receives the whole CV and returns the initial values accordingly
-const getFormMetadata = (cv: Cv) => {
-  const { personalInfo, locationInfo, educations, workExperiences, hardSkills, softSkills, languages } = cv;
+export type FormData = {
+  initialValues: any;
+  validationSchema: any;
+  components: any;
+};
+
+const getFormData = (cv: Cv) => {
+  const { field, personalInfo, locationInfo, educations, workExperiences, hardSkills, softSkills, languages } = cv;
   return {
     initialValues: {
+      ...cv,
+      field,
+      template: cv.template || Templates.NORMAL,
       fullName: personalInfo?.fullName,
       email: personalInfo?.email,
       phone: personalInfo?.phone,
@@ -64,22 +77,49 @@ const getFormMetadata = (cv: Cv) => {
           rating: Yup.number(),
         }),
       ),
-    }),
-    softSkill: Yup.object({
-      name: Yup.string(),
-      rating: Yup.number(),
-    }),
-    softSkills: Yup.array().of(
-      Yup.object({
+      softSkill: Yup.object({
         name: Yup.string(),
         rating: Yup.number(),
       }),
-    ),
-    education: Yup.object(),
-    educations: Yup.array().of(Yup.object()),
-    workExperience: Yup.object(),
-    workExperiences: Yup.array().of(Yup.object()),
+      softSkills: Yup.array().of(
+        Yup.object({
+          name: Yup.string(),
+          rating: Yup.number(),
+        }),
+      ),
+      education: Yup.object(),
+      educations: Yup.array().of(Yup.object()),
+      workExperience: Yup.object(),
+      workExperiences: Yup.array().of(Yup.object()),
+    }),
+    components: {
+      fullName: <Input name="fullName" />,
+      email: <Input name="email" />,
+      phone: <Input name="phone" />,
+      address: <Input name="address" />,
+      websites: (
+        <ChipInput
+          inputName="website"
+          arrayInputName="websites"
+          title="Insert your websites"
+          ChipBoxProps={{ display: 'flex', flexDirection: 'column', alignSelf: 'stretch' }}
+        />
+      ),
+      about: <Input multiline rows={5} name="about" />,
+      languages: (
+        <ChipInput
+          inputName="language"
+          arrayInputName="languages"
+          title="Known languages"
+          ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+        />
+      ),
+      hardSkills: <SkillsInput inputName="hardSkill" arrayInputName="hardSkills" />,
+      softSkills: <SkillsInput inputName="softSkill" arrayInputName="softSkills" />,
+      workExperiences: <ExperienceInput inputName="workExperience" arrayInputName="workExperiences" />,
+      educations: <ExperienceInput inputName="education" arrayInputName="educations" />,
+    },
   };
 };
 
-export { getFormMetadata };
+export { getFormData };

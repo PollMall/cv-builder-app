@@ -1,41 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import useStyles from './styles';
-import { Education, WorkExperience } from '../../types';
+import useStyles from '../styles';
+import { Education, WorkExperience } from '../../../types';
 
-interface ExperienceFieldProps extends BoxProps {
-  title: string;
+interface ExperienceFieldViewProps extends BoxProps {
   experiences?: Education[] | WorkExperience[];
 }
 
-const ExperienceField = ({ title, experiences, ...rest }: ExperienceFieldProps) => {
-  const [showEdit, setShowEdit] = useState(false);
+const ExperienceFieldView = ({ experiences, ...rest }: ExperienceFieldViewProps) => {
   const classes = useStyles();
 
-  const handleEnterHover = () => {
-    setShowEdit(true);
-  };
-
-  const handleExitHover = () => {
-    setShowEdit(false);
-  };
-
   return (
-    <Box
-      {...rest}
-      // border="1px solid red"
-      width="75%"
-      onMouseOver={handleEnterHover}
-      onMouseOut={handleExitHover}
-      className={classes.root}
-    >
-      <Box display="flex" alignItems="center" className={classes.fieldNameContainer}>
-        <Typography variant="h5" className={classes.fieldName}>
-          {title}
-        </Typography>
-        {showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
-      </Box>
+    <Box {...rest}>
       {experiences?.map((e) => (
         <Box key={e.id} className={classes.fieldInfo}>
           <Typography component="span" variant="h6" className={classes.institutionName}>
@@ -60,8 +36,8 @@ const ExperienceField = ({ title, experiences, ...rest }: ExperienceFieldProps) 
   );
 };
 
-ExperienceField.defaultProps = {
+ExperienceFieldView.defaultProps = {
   experiences: undefined,
 };
 
-export default ExperienceField;
+export default ExperienceFieldView;

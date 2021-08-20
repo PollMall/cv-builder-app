@@ -64,7 +64,7 @@ export default makeStyles((theme) => ({
   checkBtn: {
     position: 'absolute',
     bottom: 47,
-    right: 14,
+    right: 12,
     padding: 0,
   },
 

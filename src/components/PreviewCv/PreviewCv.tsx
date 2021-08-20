@@ -10,9 +10,10 @@ interface PreviewCvProps extends BoxProps {
   base64?: string;
   scale?: number;
   height?: number;
+  loading?: boolean;
 }
 
-const PreviewCv = ({ base64, scale, height, ...rest }: PreviewCvProps) => {
+const PreviewCv = ({ base64, scale, height, loading, ...rest }: PreviewCvProps) => {
   const [maxPages, setMaxPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,7 +38,12 @@ const PreviewCv = ({ base64, scale, height, ...rest }: PreviewCvProps) => {
       style={{ backgroundColor: 'transparent' }}
       {...rest}
     >
-      <Document file={base64} onLoadSuccess={onDocumentLoadSuccess}>
+      <Document
+        file={base64}
+        onLoadSuccess={onDocumentLoadSuccess}
+        error="Could not generate your CV"
+        noData={loading ? 'Generating your CV...' : 'No template selected.'}
+      >
         <Page scale={scale} height={height} pageNumber={currentPage} />
       </Document>
       <ButtonGroup>
@@ -59,6 +65,7 @@ PreviewCv.defaultProps = {
   base64: undefined,
   scale: undefined,
   height: undefined,
+  loading: undefined,
 };
 
 export default PreviewCv;
