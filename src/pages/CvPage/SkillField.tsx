@@ -11,7 +11,7 @@ interface SkillFieldProps extends BoxProps {
 
 const SkillField = ({ title, skills, ...rest }: SkillFieldProps) => {
   const [showEdit, setShowEdit] = useState(false);
-  const classes = useStyles({ icon: showEdit });
+  const classes = useStyles();
 
   const handleEnterHover = () => {
     setShowEdit(true);
@@ -33,7 +33,7 @@ const SkillField = ({ title, skills, ...rest }: SkillFieldProps) => {
         <Typography variant="h5" className={classes.fieldName}>
           {title}
         </Typography>
-        <EditIcon color="secondary" fontSize="small" className={classes.icon} />
+        {showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
       </Box>
       {skills?.map((s) => (
         <div key={s.name} className={classes.fieldInfo}>

@@ -1,9 +1,5 @@
 import { makeStyles } from '@material-ui/core';
 
-interface StyleProps {
-  icon?: boolean;
-}
-
 export default makeStyles((theme) => ({
   root: {
     boxSizing: 'border-box',
@@ -16,12 +12,14 @@ export default makeStyles((theme) => ({
   },
 
   fieldNameContainer: {
-    display: 'relative',
+    position: 'relative',
+    width: 'fit-content',
   },
 
-  icon: (props: StyleProps | undefined) => ({
-    visibility: props?.icon ? 'visible' : 'hidden',
-  }),
+  icon: {
+    position: 'absolute',
+    right: -theme.spacing(2),
+  },
 
   fieldName: {
     marginRight: theme.spacing(1),

@@ -11,7 +11,7 @@ interface ExperienceFieldProps extends BoxProps {
 
 const ExperienceField = ({ title, experiences, ...rest }: ExperienceFieldProps) => {
   const [showEdit, setShowEdit] = useState(false);
-  const classes = useStyles({ icon: showEdit });
+  const classes = useStyles();
 
   const handleEnterHover = () => {
     setShowEdit(true);
@@ -34,7 +34,7 @@ const ExperienceField = ({ title, experiences, ...rest }: ExperienceFieldProps) 
         <Typography variant="h5" className={classes.fieldName}>
           {title}
         </Typography>
-        <EditIcon color="secondary" fontSize="small" className={classes.icon} />
+        {showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
       </Box>
       {experiences?.map((e) => (
         <Box key={e.id} className={classes.fieldInfo}>
