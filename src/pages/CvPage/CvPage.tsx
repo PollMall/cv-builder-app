@@ -10,7 +10,7 @@ import SkillField from './SkillField/SkillField';
 import { Box, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useEffect } from 'react';
-import { Cv, Templates } from '../../types';
+import { Cv, LocationInfo, PersonalInfo, Templates } from '../../types';
 import ExperienceField from './ExperienceField/ExperienceField';
 import PreviewField from './PreviewField';
 import { FormData, getFormData } from './utils';
@@ -38,7 +38,34 @@ const CvPage = () => {
   };
 
   const handleSaveChanges = async (values: any) => {
-    const newCv = JSON.stringify(values as Cv);
+    const {
+      title,
+      field,
+      educations,
+      workExperiences,
+      hardSkills,
+      softSkills,
+      languages,
+      address,
+      websites,
+      fullName,
+      email,
+      phone,
+      about,
+    } = values;
+    const cv = {
+      ...values,
+      title,
+      field,
+      educations,
+      workExperiences,
+      hardSkills,
+      softSkills,
+      languages,
+      locationInfo: { address, websites } as LocationInfo,
+      personalInfo: { fullName, email, phone, about } as PersonalInfo,
+    } as Cv;
+    const newCv = JSON.stringify(cv);
     try {
       const savedCv = await (await updateCv({ variables: { uid: state.user?.uid, newCv } })).data.updateCv;
       console.log(savedCv);
