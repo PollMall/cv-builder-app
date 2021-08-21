@@ -5,10 +5,6 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     marginBottom: theme.spacing(1),
     marginRight: theme.spacing(10),
-
-    '&:hover': {
-      cursor: 'pointer',
-    },
   },
 
   fieldNameContainer: {
@@ -19,11 +15,19 @@ export default makeStyles((theme) => ({
   icon: {
     position: 'absolute',
     right: -theme.spacing(2),
+
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 
   fieldName: {
     marginRight: theme.spacing(1),
     fontWeight: 700,
+
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 
   fieldInfo: {

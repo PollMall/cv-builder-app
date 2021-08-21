@@ -78,27 +78,46 @@ const CvPage = () => {
                 {/* {basic info} */}
                 <SimpleField
                   title="Name"
+                  fieldName="fullName"
                   info={cv?.personalInfo?.fullName}
                   editComponent={formData.components.fullName}
                 />
-                <SimpleField title="Email" info={cv?.personalInfo?.email} editComponent={formData.components.email} />
-                <SimpleField title="Phone" info={cv?.personalInfo?.phone} editComponent={formData.components.phone} />
+                <SimpleField
+                  title="Email"
+                  fieldName="email"
+                  info={cv?.personalInfo?.email}
+                  editComponent={formData.components.email}
+                />
+                <SimpleField
+                  title="Phone"
+                  fieldName="phone"
+                  info={cv?.personalInfo?.phone}
+                  editComponent={formData.components.phone}
+                />
                 <SimpleField
                   title="Address"
+                  fieldName="address"
                   info={cv?.locationInfo?.address}
                   editComponent={formData.components.address}
                 />
                 <SimpleField
                   title="Websites"
+                  fieldName="websites"
                   info={cv?.locationInfo?.websites}
                   editComponent={formData.components.websites}
                 />
                 <SimpleField
                   title="About me"
+                  fieldName="about"
                   info={cv?.personalInfo?.about}
                   editComponent={formData.components.about}
                 />
-                <SimpleField title="Languages" info={cv?.languages} editComponent={formData.components.languages} />
+                <SimpleField
+                  title="Languages"
+                  fieldName="languages"
+                  info={cv?.languages}
+                  editComponent={formData.components.languages}
+                />
               </Box>
               <Box
                 boxSizing="border-box"
@@ -112,6 +131,7 @@ const CvPage = () => {
                 <Box width="100%" display="flex" justifyContent="space-between">
                   <SkillField
                     title="Hard skills"
+                    fieldName="hardSkills"
                     skills={cv?.hardSkills}
                     editComponent={formData.components.hardSkills}
                     boxSizing="border-box"
@@ -119,6 +139,7 @@ const CvPage = () => {
                   />
                   <SkillField
                     title="Soft skills"
+                    fieldName="softSkills"
                     skills={cv?.softSkills}
                     editComponent={formData.components.softSkills}
                     boxSizing="border-box"
@@ -127,12 +148,14 @@ const CvPage = () => {
                 </Box>
                 <Box width="100%" display="flex" flexDirection="column">
                   <ExperienceField
+                    fieldName="educations"
                     title="Education"
                     experiences={cv?.educations}
                     editComponent={formData.components.educations}
                   />
                   <ExperienceField
                     title="Work experience"
+                    fieldName="workExperiences"
                     experiences={cv?.workExperiences}
                     editComponent={formData.components.workExperiences}
                   />

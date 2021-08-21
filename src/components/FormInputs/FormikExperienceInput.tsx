@@ -7,14 +7,14 @@ import useStyles from './style';
 import ExperienceCard from './ExperienceCard';
 import { Education, WorkExperience } from '../../types';
 
-interface ExperienceStepProps {
+interface FormikExperienceInputProps {
   inputName: string;
   arrayInputName: string;
 }
 
 type Experience = Education | WorkExperience;
 
-const ExperienceStep = ({ inputName, arrayInputName }: ExperienceStepProps) => {
+const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceInputProps) => {
   const classes = useStyles();
   const [inputField, inputMeta, inputHelper] = useField(inputName);
   const [arrayInputField, , arrayInputHelper] = useField(arrayInputName);
@@ -47,10 +47,10 @@ const ExperienceStep = ({ inputName, arrayInputName }: ExperienceStepProps) => {
     endAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
-  const descSortByEndAt = (a: Experience, b: Experience) => {
+  const descSortByStartAt = (a: Experience, b: Experience) => {
     const aStartAt = a.startAt ? parseInt(a.startAt, 10) : 0;
     const bStartAt = b.startAt ? parseInt(b.startAt, 10) : 0;
-    return bStartAt - aStartAt;
+    return bStartAt === 0 ? 1 : aStartAt === 0 ? -1 : bStartAt - aStartAt;
   };
 
   return (
@@ -88,18 +88,21 @@ const ExperienceStep = ({ inputName, arrayInputName }: ExperienceStepProps) => {
         </Button>
       </Box>
       <Box display="flex" flexWrap="wrap" alignItems="flex-start" className={classes.cardsContainer}>
-        {arrayInputField.value?.sort(descSortByEndAt).map((exp: Experience, idx: number) => (
-          <ExperienceCard
-            key={idx}
-            {...exp}
-            raised={false}
-            className={classes.roundedCard}
-            onDelete={() => handleDelete(exp)}
-          />
-        ))}
+        {arrayInputField.value
+          ?.slice()
+          .sort(descSortByStartAt)
+          .map((exp: Experience, idx: number) => (
+            <ExperienceCard
+              key={idx}
+              {...exp}
+              raised={false}
+              className={classes.roundedCard}
+              onDelete={() => handleDelete(exp)}
+            />
+          ))}
       </Box>
     </Box>
   );
 };
 
-export default ExperienceStep;
+export default FormikExperienceInput;

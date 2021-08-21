@@ -26,8 +26,7 @@ const PreviewField = ({
   ...rest
 }: PreviewFieldProps) => {
   const classes = useStyles();
-  const [field, meta, helper] = useField('template');
-  console.log(meta.initialValue);
+  const [field, , helper] = useField('template');
   const [updated, setUpdated] = useState(false);
   const { values, initialValues } = useFormikContext();
 
