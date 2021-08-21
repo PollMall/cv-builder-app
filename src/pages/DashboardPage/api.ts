@@ -45,13 +45,14 @@ const GET_BEST_CVS = gql`
       createdAt
       updatedAt
       score
+      template
     }
   }
 `;
 
 const GET_PDF = gql`
-  query Query($cv: String) {
-    getPDF(cv: $cv)
+  query Query($cv: String, $template: String) {
+    getPDF(cv: $cv, template: $template)
   }
 `;
 
