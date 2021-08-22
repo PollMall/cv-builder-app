@@ -21,20 +21,51 @@ const Page = ({ children, loading, error, ...rest }: PageProps) => {
   return (
     <>
       {user && <NavBar />}
-      <Box
-        boxSizing="border-box"
-        paddingTop={10}
-        paddingBottom={5}
-        className={classes.root}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-        {...rest}
-      >
-        {loading ? <Loading /> : error ? <Error error={error} /> : children}
-      </Box>
+
+      {loading ? (
+        <Box
+          boxSizing="border-box"
+          paddingTop={10}
+          paddingBottom={5}
+          className={classes.root}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
+          <Loading />
+        </Box>
+      ) : error ? (
+        <Box
+          boxSizing="border-box"
+          paddingTop={10}
+          paddingBottom={5}
+          className={classes.root}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
+          <Error error={error} />
+        </Box>
+      ) : (
+        <Box
+          boxSizing="border-box"
+          paddingTop={10}
+          paddingBottom={5}
+          className={classes.root}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+          {...rest}
+        >
+          {children}
+        </Box>
+      )}
     </>
   );
 };

@@ -74,8 +74,8 @@ const AllCvsPage = () => {
         onClickDate={handleSortByDate}
         onClickScore={handleSortByScore}
       />
-      {data.cvs.length ? (
-        [...data.cvs]
+      {data?.cvs.length ? (
+        [...data?.cvs]
           .sort(sortBy === SortMethod.DATE ? sortCvsByDate : sortCvsByScore)
           .map((data: Cv) => (
             <CvRow
@@ -83,7 +83,7 @@ const AllCvsPage = () => {
               title={data.title}
               date={data.updatedAt}
               score={data.score}
-              onClick={() => push(`/cv/${data.id}`)}
+              onClick={() => push(`/cv/${data?.id}`)}
             />
           ))
       ) : (
