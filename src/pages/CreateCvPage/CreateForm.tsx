@@ -11,6 +11,7 @@ import { CvRequest, LocationInfo, PersonalInfo } from '../../types';
 import { AuthContext } from '../../context/AuthContext';
 import { formSteps, initialValues } from './utils';
 import { FormikValues } from './types';
+import Loading from '../../components/Page/Loading';
 
 const CreateForm = () => {
   const [step, setStep] = useState(1);
@@ -50,7 +51,6 @@ const CreateForm = () => {
         locationInfo: { address, websites } as LocationInfo,
         personalInfo: { fullName, email, phone, about } as PersonalInfo,
       } as CvRequest;
-      console.log(cv);
       try {
         await addCv({ variables: { uid: state.user?.uid, cv: JSON.stringify(cv) } });
       } catch (err) {
@@ -65,19 +65,20 @@ const CreateForm = () => {
     setStep((prev) => prev - 1);
   };
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    return <h2>Something went wrong adding your CV...</h2>;
-  }
-
-  if (data) {
+  if (loading || error || data) {
     return (
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Typography variant="h2">CV added successfully</Typography>
-        <Button onClick={() => push('/dashboard')}>Go back to dashboard</Button>
+        {loading ? (
+          // <Typography variant="h3">Loading...</Typography>
+          <Loading message="Loading..." />
+        ) : error ? (
+          <Typography variant="h3">Something went wrong adding your CV...</Typography>
+        ) : (
+          <>
+            <Typography variant="h2">CV added successfully</Typography>
+            <Button onClick={() => push('/dashboard')}>Go back to dashboard</Button>
+          </>
+        )}
       </Box>
     );
   }

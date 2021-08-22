@@ -59,16 +59,15 @@ const AllCvsPage = () => {
       : dateA - dateB;
   };
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-  if (error) {
-    console.error(error);
-    return <h2>An error occured while trying to get all your cvs...</h2>;
-  }
-
   return (
-    <Page boxSizing="border-box" paddingTop={10} paddingBottom={10} justifyContent="flex-start">
+    <Page
+      boxSizing="border-box"
+      paddingTop={10}
+      paddingBottom={10}
+      justifyContent="flex-start"
+      loading={loading}
+      error={error}
+    >
       <CvHeader
         descDate={descDate}
         descScore={descScore}

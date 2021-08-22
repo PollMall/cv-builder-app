@@ -3,12 +3,17 @@ import { Box, BoxProps } from '@material-ui/core';
 import useStyles from './styles';
 import NavBar from '../NavBar/NavBar';
 import { AuthContext } from '../../context/AuthContext';
+import Error from './Error';
+import Loading from './Loading';
+import { ApolloError } from '@apollo/client';
 
 interface PageProps extends BoxProps {
   children: ReactNode;
+  loading?: boolean;
+  error?: Error | ApolloError;
 }
 
-const Page = ({ children, ...rest }: PageProps) => {
+const Page = ({ children, loading, error, ...rest }: PageProps) => {
   const classes = useStyles();
   const { state } = useContext(AuthContext);
   const { user } = state;
@@ -28,10 +33,15 @@ const Page = ({ children, ...rest }: PageProps) => {
         minHeight="100vh"
         {...rest}
       >
-        {children}
+        {loading ? <Loading /> : error ? <Error error={error} /> : children}
       </Box>
     </>
   );
+};
+
+Page.defaultProps = {
+  loading: undefined,
+  error: undefined,
 };
 
 export default Page;

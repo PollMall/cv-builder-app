@@ -22,23 +22,14 @@ const DashboardPage = () => {
   const { push } = useHistory();
   const classes = useStyles();
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <h2>Error!</h2>;
-  }
-
   return (
-    <Page display="flex" justifyContent="center" alignItems="center">
+    <Page display="flex" justifyContent="center" alignItems="center" loading={loading} error={error}>
       <Box display="flex" justifyContent="space-around" width="90vw">
         <Grid container spacing={4} alignItems="center">
           <Grid item sm={12} md={6} lg={4}>
             <SvgButton svg={AddCvSvg} title="Create new" onClick={() => push('/cv/new')} />
           </Grid>
-          {data.bestCvs.map((cv: Cv) => (
+          {data?.bestCvs.map((cv: Cv) => (
             <Grid key={cv.id} item sm={12} md={6} lg={4}>
               <SvgButton svg={CvSvg} title={cv.title} onClick={() => push(`/cv/${cv.id}`)} />
             </Grid>
@@ -51,7 +42,7 @@ const DashboardPage = () => {
         </Grid>
         <Grid container justifyContent="center">
           <Grid item xs={6}>
-            {data.bestCvs[0] && <BestCvPreview cv={data.bestCvs[0]} />}
+            {data?.bestCvs[0] && <BestCvPreview cv={data?.bestCvs[0]} />}
           </Grid>
         </Grid>
       </Box>

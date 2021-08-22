@@ -81,17 +81,8 @@ const CvPage = () => {
     setErrorSaveChanges(false);
   };
 
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <h2>Error!</h2>;
-  }
-
   return (
-    <Page boxSizing="border-box">
+    <Page boxSizing="border-box" loading={loading} error={error}>
       {formData && (
         <Formik
           validationSchema={formData.validationSchema}
