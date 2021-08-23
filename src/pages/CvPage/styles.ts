@@ -1,78 +1,81 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles((theme) => ({
-  root: {
-    boxSizing: 'border-box',
-    marginBottom: theme.spacing(1),
-    marginRight: theme.spacing(10),
-  },
-
-  fieldNameContainer: {
-    position: 'relative',
-    width: 'fit-content',
-  },
-
-  icon: {
-    position: 'absolute',
-    right: -theme.spacing(2),
-
-    '&:hover': {
-      cursor: 'pointer',
+export default makeStyles(
+  (theme) => ({
+    root: {
+      boxSizing: 'border-box',
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(10),
     },
-  },
 
-  fieldName: {
-    marginRight: theme.spacing(1),
-    fontWeight: 700,
-
-    '&:hover': {
-      cursor: 'pointer',
+    fieldNameContainer: {
+      position: 'relative',
+      width: 'fit-content',
     },
-  },
 
-  fieldInfo: {
-    marginLeft: theme.spacing(3),
-  },
+    icon: {
+      position: 'absolute',
+      right: -theme.spacing(2),
 
-  rating: {
-    width: theme.spacing(16),
-  },
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
 
-  institutionName: {
-    fontWeight: 700,
-  },
+    fieldName: {
+      marginRight: theme.spacing(1),
+      fontWeight: 700,
 
-  locationName: {
-    fontStyle: 'italic',
-  },
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
 
-  description: {
-    marginLeft: theme.spacing(1),
-  },
+    fieldInfo: {
+      marginLeft: theme.spacing(3),
+    },
 
-  chart: {
-    width: 70,
-    height: 70,
-  },
+    rating: {
+      width: theme.spacing(16),
+    },
 
-  template: {
-    textTransform: 'capitalize',
-    padding: theme.spacing(1),
-  },
+    institutionName: {
+      fontWeight: 700,
+    },
 
-  preview: {
-    height: 450,
-    backgroundColor: '#fff',
-  },
+    locationName: {
+      fontStyle: 'italic',
+    },
 
-  checkBtn: {
-    position: 'absolute',
-    bottom: 47,
-    right: 12,
-    padding: 0,
-  },
+    description: {
+      marginLeft: theme.spacing(1),
+    },
 
-  downloadBtn: {
-    alignSelf: 'center',
-  },
-}));
+    chart: {
+      width: 70,
+      height: 70,
+    },
+
+    template: {
+      textTransform: 'capitalize',
+      padding: theme.spacing(1),
+    },
+
+    preview: {
+      height: 450,
+      backgroundColor: '#fff',
+    },
+
+    checkBtn: {
+      position: 'absolute',
+      bottom: 47,
+      right: 12,
+      padding: 0,
+    },
+
+    downloadBtn: {
+      alignSelf: 'center',
+    },
+  }),
+  { index: 1 },
+);
