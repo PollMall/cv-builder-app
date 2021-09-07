@@ -18,7 +18,7 @@ const PieChart = ({ value, className }: PieChartProps) => {
       className={className}
       label={() => `${value}%`}
       labelPosition={0}
-      labelStyle={{ color: '#fff', border: '1px solid red', fontSize: 20 }}
+      labelStyle={{ border: '1px solid red', fontSize: 20, fill: '#fff' }}
       animate
       background="white"
     />
