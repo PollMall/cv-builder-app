@@ -59,16 +59,10 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
           options={data.skills}
           value={field.value ? field.value : null}
           onInputChange={(event, value) => {
-            console.log(value);
-            console.log(meta.initialValue);
             !value ? helper.setValue(meta.initialValue) : helper.setValue({ ...field.value, name: value });
           }}
           getOptionLabel={(option) => option.name}
           filterOptions={(options) => {
-            console.log(options);
-            console.log(arrayField.value);
-            console.log(field.value);
-
             return options.filter(
               (o) =>
                 !arrayField.value.find((el: Skill) => el.name.toLowerCase() === o.name.toLowerCase()) &&

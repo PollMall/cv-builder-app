@@ -53,6 +53,7 @@ export default makeStyles((theme) => ({
   chart: {
     width: 70,
     height: 70,
+    fill: '#fff',
   },
 
   template: {

@@ -43,8 +43,6 @@ const PreviewField = ({
     }
   }, [values]);
 
-  React.useEffect(() => {}, []);
-
   return (
     <Box display="flex" flexDirection="column" width="100%" {...rest} style={{ backgroundColor: 'transparent' }}>
       <Box width="100%" display="flex" justifyContent="space-evenly" marginBottom={1}>

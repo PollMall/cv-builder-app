@@ -39,12 +39,10 @@ const ExperienceStep = ({ title, inputName, arrayInputName }: ExperienceStepProp
   };
 
   const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     startAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
   const handleChangeEndDate = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     endAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 

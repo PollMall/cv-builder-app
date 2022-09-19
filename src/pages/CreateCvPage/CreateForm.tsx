@@ -23,8 +23,6 @@ const CreateForm = () => {
 
   const handleSubmit = async (values: FormikValues) => {
     if (step === formSteps.length) {
-      console.log('submit');
-      console.log(values);
       const {
         title,
         field,
