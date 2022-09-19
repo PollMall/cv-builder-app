@@ -33,9 +33,8 @@ const CvPage = () => {
     }
   }, [data]);
 
-  const handleChangeTemplate = (template: Templates) => {
+  const handleChangeTemplate = (template: Templates) =>
     getPDF({ variables: { cv: JSON.stringify(data.cv), template } });
-  };
 
   const handleSaveChanges = async (values: any) => {
     const {
@@ -68,7 +67,6 @@ const CvPage = () => {
     const newCv = JSON.stringify(cv);
     try {
       const savedCv = await (await updateCv({ variables: { uid: state.user?.uid, newCv } })).data.updateCv;
-      console.log(savedCv);
       setCv(savedCv);
       setFormData(getFormData(savedCv));
     } catch (err) {

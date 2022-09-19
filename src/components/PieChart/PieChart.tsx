@@ -9,7 +9,7 @@ interface PieChartProps {
 const PieChart = ({ value, className }: PieChartProps) => {
   return (
     <Chart
-      style={{ color: '#fff' }}
+      style={{ fill: '#fff' }}
       segmentsStyle={{ color: '#fff', backgroundColor: 'blue' }}
       data={[{ title: 'score', value, color: '#ff8e53' }]}
       lineWidth={36}
