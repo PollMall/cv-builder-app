@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+console.log(process.env.REACT_APP_API_URL);
 
 const client = new ApolloClient({
-  uri: 'https://cv-builder-server-1.herokuapp.com/',
+  uri: process.env.REACT_APP_API_URL,
   cache: new InMemoryCache(),
 });
 
