@@ -3,6 +3,13 @@ import { Box, Typography, BoxProps } from '@material-ui/core';
 import useStyles from '../styles';
 import { Education, WorkExperience } from '../../../types';
 
+const renderMultilineFromText = (text: string) =>
+  text.split('\n').map((line, idx) => (
+    <Typography key={idx} component="p" variant="body1">
+      {line}
+    </Typography>
+  ));
+
 interface ExperienceFieldViewProps extends BoxProps {
   experiences?: Education[] | WorkExperience[];
 }
@@ -25,11 +32,7 @@ const ExperienceFieldView = ({ experiences, ...rest }: ExperienceFieldViewProps)
             {e.startAt ? new Date(parseInt(e.startAt, 10)).toLocaleDateString('en-US') : 'PRESENT'} -{' '}
             {e.endAt ? new Date(parseInt(e.endAt, 10)).toLocaleDateString('en-US') : 'PRESENT'}
           </Typography>
-          {e.description && (
-            <Typography component="p" variant="body1" className={classes.description}>
-              • {e.description}
-            </Typography>
-          )}
+          {e.description && <div className={classes.description}>{renderMultilineFromText(e.description)}</div>}
         </Box>
       ))}
     </Box>
