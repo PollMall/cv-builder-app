@@ -2,15 +2,15 @@ import React, { useState, FC, useEffect } from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
-import useStyles from '../styles';
-import { HardSkill, SoftSkill } from '../../../types';
-import SkillFieldView from './SkillFieldView';
 import { useField } from 'formik';
+import useStyles from '../styles';
+import type { Skill } from '../../../types';
+import SkillFieldView from './SkillFieldView';
 
 interface SkillFieldProps extends BoxProps {
   title: string;
   fieldName: string;
-  skills?: HardSkill[] | SoftSkill[];
+  skills?: Skill[];
   editComponent: FC;
 }
 

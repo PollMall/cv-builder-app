@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { Formik, Form } from 'formik';
 import { useParams } from 'react-router-dom';
 import Page from '../../components/Page/Page';
@@ -10,7 +10,7 @@ import SkillField from './SkillField/SkillField';
 import { Box, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useEffect } from 'react';
-import { Cv, LocationInfo, PersonalInfo, Templates } from '../../types';
+import type { Cv, LocationInfo, PersonalInfo, Templates, Skill } from '../../types';
 import ExperienceField from './ExperienceField/ExperienceField';
 import PreviewField from './PreviewField';
 import { FormData, getFormData } from './utils';
@@ -74,6 +74,21 @@ const CvPage = () => {
       console.error(err);
     }
   };
+
+  const mappedHardSkills = useMemo(
+    () => cv?.hardSkills?.map((hs) => ({ ...hs, kind: 'hardSkill' } as Skill)),
+    [cv?.hardSkills],
+  );
+
+  const mappedSoftSkills = useMemo(
+    () => cv?.softSkills?.map((ss) => ({ ...ss, kind: 'softSkill' } as Skill)),
+    [cv?.softSkills],
+  );
+
+  // const mappedOtherTools = useMemo(
+  //   () => cv?.otherTools?.map((ot) => ({ ...ot, kind: 'otherTools' } as Skill)),
+  //   [cv?.otherTools],
+  // );
 
   const handleHideError = () => {
     setErrorSaveChanges(false);
@@ -148,7 +163,7 @@ const CvPage = () => {
                   <SkillField
                     title="Hard skills"
                     fieldName="hardSkills"
-                    skills={cv?.hardSkills}
+                    skills={mappedHardSkills}
                     editComponent={formData.components.hardSkills}
                     boxSizing="border-box"
                     width="50%"
@@ -156,7 +171,7 @@ const CvPage = () => {
                   <SkillField
                     title="Soft skills"
                     fieldName="softSkills"
-                    skills={cv?.softSkills}
+                    skills={mappedSoftSkills}
                     editComponent={formData.components.softSkills}
                     boxSizing="border-box"
                     width="50%"

@@ -30,6 +30,7 @@ const PreviewField = ({
   const [updated, setUpdated] = useState(false);
   const { values, initialValues } = useFormikContext();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleOnClick = (template: Templates) => {
     onSelectTemplate && onSelectTemplate(template);
     helper.setValue(template);
@@ -52,27 +53,16 @@ const PreviewField = ({
             Templates
           </Typography>
           <ButtonGroup>
-            <Button
-              color={field.value === Templates.NORMAL ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.NORMAL)}
-            >
-              Normal
-            </Button>
-            <Button
-              color={field.value === Templates.COMPACT ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.COMPACT)}
-            >
-              Compact
-            </Button>
-            <Button
-              color={field.value === Templates.FANCY ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.FANCY)}
-            >
-              Fancy
-            </Button>
+            {Object.keys(Templates).map((template) => (
+              <Button
+                key={template}
+                color={field.value === template ? 'secondary' : 'primary'}
+                className={classes.template}
+                onClick={() => handleOnClick(template as Templates)}
+              >
+                {template}
+              </Button>
+            ))}
           </ButtonGroup>
         </Box>
       </Box>
