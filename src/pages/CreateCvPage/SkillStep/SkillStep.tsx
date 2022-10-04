@@ -8,7 +8,7 @@ import RecommendSkills from './RecommendSkills';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import { useQuery } from '@apollo/client';
 import { GET_SKILLS } from '../api';
-import { HardSkill, SoftSkill } from '../../../types';
+import type { Skill } from '../../../types';
 
 interface SkillStepProps extends BoxProps {
   inputName: string;
@@ -16,8 +16,6 @@ interface SkillStepProps extends BoxProps {
   title: string;
   ChipBoxProps?: BoxProps;
 }
-
-type Skill = HardSkill | SoftSkill;
 
 const SkillStep = ({ inputName, arrayInputName, title, ChipBoxProps, ...rest }: SkillStepProps) => {
   const [arrayField, , arrayHelpers] = useField(arrayInputName);
@@ -86,24 +84,26 @@ const SkillStep = ({ inputName, arrayInputName, title, ChipBoxProps, ...rest }: 
           />
           <RecommendSkills fieldOfWork={fieldOfWorkField.value} typeOfSkill={arrayInputName} />
         </Box>
-        <Box display="flex" alignItems="center" className={classes.ratingSection}>
-          <Typography className={classes.ratingText}>Points</Typography>
-          <Slider
-            id={`${inputName}.rating`}
-            onChange={handleChangeRating}
-            value={field.value.rating}
-            defaultValue={1}
-            valueLabelDisplay="auto"
-            min={1}
-            max={5}
-            className={classes.slider}
-          />
-        </Box>
+        {arrayField.value[0].kind === 'hardSkill' && (
+          <Box display="flex" alignItems="center" className={classes.ratingSection}>
+            <Typography className={classes.ratingText}>Points</Typography>
+            <Slider
+              id={`${inputName}.rating`}
+              onChange={handleChangeRating}
+              value={field.value.rating}
+              defaultValue={1}
+              valueLabelDisplay="auto"
+              min={1}
+              max={5}
+              className={classes.slider}
+            />
+          </Box>
+        )}
         <Box className={classes.overflowContent} maxHeight={150} {...ChipBoxProps}>
           {arrayField.value?.map((val: Skill) => (
             <Chip
               key={val.name}
-              label={`${val.name} - ${val.rating}/5`}
+              label={val.kind === 'hardSkill' ? `${val.name} - ${val.rating}/5` : val.name}
               variant="outlined"
               onDelete={() => arrayHelpers.setValue(arrayField.value.filter((el: Skill) => el.name !== val.name))}
             />

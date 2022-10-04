@@ -29,7 +29,9 @@ const GET_BEST_CVS = gql`
       }
       softSkills {
         name
-        rating
+      }
+      otherTools {
+        name
       }
       locationInfo {
         address

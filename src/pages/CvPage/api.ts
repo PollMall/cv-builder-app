@@ -29,7 +29,9 @@ const GET_CV = gql`
       }
       softSkills {
         name
-        rating
+      }
+      otherTools {
+        name
       }
       languages
       locationInfo {
@@ -86,7 +88,9 @@ const UPDATE_CV = gql`
       }
       softSkills {
         name
-        rating
+      }
+      otherTools {
+        name
       }
       languages
       locationInfo {

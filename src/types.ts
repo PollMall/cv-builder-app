@@ -20,6 +20,7 @@ export interface Cv {
   feedback?: boolean;
   hardSkills?: HardSkill[];
   softSkills?: SoftSkill[];
+  otherTools?: OtherTools[];
   languages?: string[];
   locationInfo?: LocationInfo;
   personalInfo?: PersonalInfo;
@@ -34,6 +35,7 @@ export enum Templates {
   NORMAL = 'NORMAL',
   COMPACT = 'COMPACT',
   FANCY = 'FANCY',
+  CLASSY = 'CLASSY',
 }
 
 export interface PersonalInfo {
@@ -71,10 +73,18 @@ export interface HardSkill {
   rating: number;
 }
 
-export interface SoftSkill {
+export type SoftSkill = {
   name: string;
-  rating: number;
-}
+};
+
+export type OtherTools = {
+  name: string;
+};
+
+export type Skill =
+  | ({ kind: 'hardSkill' } & HardSkill)
+  | ({ kind: 'softSkill' } & SoftSkill)
+  | ({ kind: 'otherTools' } & OtherTools);
 
 export interface FieldSkill {
   popularity: number;
