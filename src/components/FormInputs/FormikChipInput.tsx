@@ -30,9 +30,9 @@ const FormikChipInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: F
         disabledEndIcon={!field.value}
       />
       <Box className={classes.overflowContent} maxHeight={150} {...ChipBoxProps}>
-        {arrayField.value?.map((val: string) => (
+        {arrayField.value?.map((val: string, idx: number) => (
           <Chip
-            key={val}
+            key={idx}
             style={{ alignSelf: 'flex-start', marginBottom: 8 }}
             label={val}
             variant="outlined"

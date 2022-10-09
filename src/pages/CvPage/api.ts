@@ -9,6 +9,7 @@ const CV_ALL_DETAILS = `
     name
     description
     location
+    title
     startAt
     endAt
   }
@@ -17,8 +18,15 @@ const CV_ALL_DETAILS = `
     name
     description
     location
+    title
     startAt
     endAt
+  }
+  projects {
+    id
+    name
+    description
+    title
   }
   feedback
   hardSkills {

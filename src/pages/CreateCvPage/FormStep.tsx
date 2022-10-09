@@ -16,9 +16,9 @@ const FormStep = ({ title, step, maxSteps, children, onBack }: FormStepProps) =>
     <Box
       display="flex"
       flexDirection="column"
-      justifyContent="space-evenly"
+      justifyContent="space-between"
       alignItems="center"
-      height="100%"
+      minHeight={380}
       width="100%"
     >
       <Typography gutterBottom variant="h5">

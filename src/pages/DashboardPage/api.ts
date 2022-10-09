@@ -11,6 +11,7 @@ const GET_BEST_CVS = gql`
         name
         description
         location
+        title
         startAt
         endAt
       }
@@ -19,8 +20,15 @@ const GET_BEST_CVS = gql`
         name
         description
         location
+        title
         startAt
         endAt
+      }
+      projects {
+        id
+        name
+        description
+        title
       }
       feedback
       hardSkills {

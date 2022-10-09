@@ -42,7 +42,9 @@ export default makeStyles((theme) => ({
     fontWeight: 700,
   },
 
-  locationName: {
+  locationName: {},
+
+  title: {
     fontStyle: 'italic',
   },
 

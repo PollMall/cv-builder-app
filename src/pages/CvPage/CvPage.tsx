@@ -11,6 +11,7 @@ import { Alert } from '@material-ui/lab';
 import { useEffect } from 'react';
 import type { Cv, PersonalInfo, Templates, UnratableSkill, RatableSkill } from '../../types';
 import ExperienceField from './ExperienceField/ExperienceField';
+import ProjectField from './ProjectField/ProjectField';
 import PreviewField from './PreviewField';
 import { FormData, getFormData } from './utils';
 import { CvPageBasicInfoSection } from './CvPageBasicInfoSection';
@@ -164,6 +165,12 @@ const CvPage = () => {
                     fieldName="workExperiences"
                     experiences={cv?.workExperiences}
                     editComponent={formData.components.workExperiences}
+                  />
+                  <ProjectField
+                    title="Projects"
+                    fieldName="projects"
+                    projects={cv?.projects}
+                    editComponent={formData.components.projects}
                   />
                 </Box>
               </Box>

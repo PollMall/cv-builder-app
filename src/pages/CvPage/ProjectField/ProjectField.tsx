@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { useField } from 'formik';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import useStyles from '../styles';
-import type { Education, WorkExperience } from '../../../types';
-import ExperienceFieldView from './ExperienceFieldView';
-import { useField } from 'formik';
+import type { Project } from '../../../types';
+import ProjectFieldView from './ProjectFieldView';
 
 interface ExperienceFieldProps extends BoxProps {
   title: string;
   fieldName: string;
-  experiences?: Education[] | WorkExperience[];
+  projects?: Project[];
   editComponent: ReactNode;
 }
 
-const ExperienceField = ({ title, fieldName, experiences, editComponent, ...rest }: ExperienceFieldProps) => {
+const ExperienceField = ({ title, fieldName, projects, editComponent, ...rest }: ExperienceFieldProps) => {
   const [showEdit, setShowEdit] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
@@ -55,13 +55,13 @@ const ExperienceField = ({ title, fieldName, experiences, editComponent, ...rest
         {!edit && showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
         {edit && <CancelIcon color="secondary" fontSize="small" className={classes.icon} />}
       </Box>
-      {edit ? editComponent : <ExperienceFieldView experiences={experiences} />}
+      {edit ? editComponent : <ProjectFieldView projects={projects} />}
     </Box>
   );
 };
 
 ExperienceField.defaultProps = {
-  experiences: undefined,
+  projects: undefined,
 };
 
 export default ExperienceField;

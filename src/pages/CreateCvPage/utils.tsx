@@ -5,6 +5,7 @@ import ChipStep from './ChipStep';
 import SkillStep from './SkillStep';
 import FieldStep from './FieldStep';
 import ExperienceStep from './ExperienceStep';
+import ProjectStep from './ProjectStep';
 import {
   cvSchema,
   titleSchema,
@@ -27,6 +28,8 @@ import {
   experienceSchema,
   educationsSchema,
   workExperiencesSchema,
+  projectSchema,
+  projectsSchema,
 } from '../utils';
 
 const initialValues = cvSchema.getDefault();
@@ -162,6 +165,14 @@ const formSteps = [
     validationSchema: Yup.object({
       workExperience: experienceSchema,
       workExperiences: workExperiencesSchema,
+    }),
+  },
+  {
+    title: 'Projects',
+    component: <ProjectStep inputName="project" arrayInputName="projects" />,
+    validationSchema: Yup.object({
+      project: projectSchema,
+      projects: projectsSchema,
     }),
   },
 ];

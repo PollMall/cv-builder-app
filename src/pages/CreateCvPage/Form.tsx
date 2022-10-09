@@ -51,7 +51,6 @@ const Form = () => {
         personalInfo: { fullName, email, phone, about, address, websites } as PersonalInfo,
       } as CvRequest;
       try {
-        console.log(cv);
         await addCv({ variables: { uid: state.user?.uid, cv: JSON.stringify(cv) } });
       } catch (err) {
         console.error(err);
@@ -69,7 +68,6 @@ const Form = () => {
     return (
       <Box display="flex" flexDirection="column" alignItems="center">
         {loading ? (
-          // <Typography variant="h3">Loading...</Typography>
           <Loading message="Loading..." />
         ) : error ? (
           <Typography variant="h3">Something went wrong adding your CV...</Typography>

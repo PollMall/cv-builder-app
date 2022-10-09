@@ -48,6 +48,16 @@ export const experienceSchema = Yup.object({
 });
 export const educationsSchema = Yup.array().of(experienceSchema).default([]);
 export const workExperiencesSchema = Yup.array().of(experienceSchema).default([]);
+export const projectSchema = Yup.object({
+  name: Yup.string() as Yup.StringSchema<string>,
+  description: Yup.string().notRequired() as Yup.StringSchema<string>,
+  title: Yup.string().notRequired() as Yup.StringSchema<string>,
+}).default({
+  name: '',
+  description: '',
+  title: '',
+});
+export const projectsSchema = Yup.array().of(projectSchema).default([]);
 
 export const cvSchema = Yup.object({
   title: titleSchema,
@@ -71,4 +81,5 @@ export const cvSchema = Yup.object({
   educations: educationsSchema,
   workExperience: experienceSchema,
   workExperiences: workExperiencesSchema,
+  projects: projectsSchema,
 });

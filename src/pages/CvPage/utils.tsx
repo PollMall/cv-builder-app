@@ -1,11 +1,12 @@
 import React from 'react';
 import type { ReactNode } from 'react';
-import type { Cv, Education, HardSkill, OtherTool, SoftSkill, WorkExperience } from '../../types';
+import type { Cv, Education, HardSkill, OtherTool, SoftSkill, WorkExperience, Project } from '../../types';
 import { Templates } from '../../types';
 import Input from '../../components/FormInputs/FormikInput';
 import ChipInput from '../../components/FormInputs/FormikChipInput';
 import SkillsInput from '../../components/FormInputs/FormikSkillsInput';
 import ExperienceInput from '../../components/FormInputs/FormikExperienceInput';
+import ProjectInput from '../../components/FormInputs/FormikProjectInput';
 import { cvSchema } from '../utils';
 
 export type FormData = {
@@ -17,8 +18,18 @@ export type FormData = {
 type GetFormDataFunction = (cv: Cv) => FormData;
 
 export const getFormData: GetFormDataFunction = (cv) => {
-  const { field, template, personalInfo, educations, workExperiences, hardSkills, softSkills, otherTools, languages } =
-    cv;
+  const {
+    field,
+    template,
+    personalInfo,
+    educations,
+    workExperiences,
+    projects,
+    hardSkills,
+    softSkills,
+    otherTools,
+    languages,
+  } = cv;
 
   return {
     initialValues: {
@@ -51,6 +62,7 @@ export const getFormData: GetFormDataFunction = (cv) => {
         name: '',
         description: '',
         location: '',
+        title: '',
         startAt: '',
         endAt: '',
         present: false,
@@ -60,11 +72,18 @@ export const getFormData: GetFormDataFunction = (cv) => {
         name: '',
         description: '',
         location: '',
+        title: '',
         startAt: '',
         endAt: '',
         present: false,
       },
       workExperiences: workExperiences || ([] as WorkExperience[]),
+      project: {
+        name: '',
+        description: '',
+        title: '',
+      },
+      projects: projects || ([] as Project[]),
     },
     validationSchema: cvSchema,
     components: {
@@ -94,6 +113,7 @@ export const getFormData: GetFormDataFunction = (cv) => {
       otherTools: <SkillsInput inputName="otherTool" arrayInputName="otherTools" />,
       workExperiences: <ExperienceInput inputName="workExperience" arrayInputName="workExperiences" />,
       educations: <ExperienceInput inputName="education" arrayInputName="educations" />,
+      projects: <ProjectInput inputName="project" arrayInputName="projects" />,
     },
   } as FormData;
 };

@@ -5,7 +5,7 @@ import Input from './FormikInput';
 import AddIcon from '@material-ui/icons/Add';
 import useStyles from './style';
 import ExperienceCard from './ExperienceCard';
-import { Education, WorkExperience } from '../../types';
+import type { Education, WorkExperience } from '../../types';
 
 interface FormikExperienceInputProps {
   inputName: string;
@@ -55,6 +55,7 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
     <Box display="flex" justifyContent="space-around">
       <Box display="flex" flexDirection="column">
         <Input name={`${inputName}.name`} placeholder="Name" />
+        <Input name={`${inputName}.title`} placeholder="Title" />
         <Input name={`${inputName}.description`} multiline rows={2} placeholder="Description" />
         <Input name={`${inputName}.location`} placeholder="Location" />
         <Input
