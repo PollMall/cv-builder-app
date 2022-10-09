@@ -8,15 +8,18 @@ import RecommendSkills from './RecommendSkills';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import { useQuery } from '@apollo/client';
 import { GET_SKILLS } from './api';
-import type { Skill } from '../../types';
+import type { RatableSkill, UnratableSkill } from '../../types';
+
+type Skill = RatableSkill & UnratableSkill;
 
 interface FormikSkillsInputProps extends BoxProps {
+  isRatable?: boolean;
   inputName: string;
   arrayInputName: string;
   ChipBoxProps?: BoxProps;
 }
 
-const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: FormikSkillsInputProps) => {
+const FormikSkillsInput = ({ isRatable, inputName, arrayInputName, ChipBoxProps, ...rest }: FormikSkillsInputProps) => {
   const [arrayField, , arrayHelpers] = useField(arrayInputName);
   const [field, meta, helper] = useField(inputName);
   const [fieldOfWorkField] = useField('field');
@@ -56,7 +59,7 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
           noOptionsText="No skills"
           options={data.skills}
           value={field.value ? field.value : null}
-          onInputChange={(event, value) => {
+          onInputChange={(_, value) => {
             !value ? helper.setValue(meta.initialValue) : helper.setValue({ ...field.value, name: value });
           }}
           getOptionLabel={(option) => option.name}
@@ -82,12 +85,8 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
         />
         <RecommendSkills fieldOfWork={fieldOfWorkField.value} typeOfSkill={arrayInputName} />
       </Box>
-
-      {console.log(arrayField.value[0].kind)}
-
-      {arrayField.value[0].kind === 'hardSkill' && (
+      {isRatable && (
         <Box display="flex" alignItems="center" className={classes.ratingSection}>
-          {console.log('should be true')}
           <Typography className={classes.ratingText}>Points</Typography>
           <Slider
             id={`${inputName}.rating`}
@@ -105,7 +104,7 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
         {arrayField.value?.map((val: Skill) => (
           <Chip
             key={val.name}
-            label={val?.kind === 'hardSkill' ? `${val.name} - ${val!.rating}/5` : val.name}
+            label={isRatable ? `${val.name} - ${val!.rating}/5` : val.name}
             variant="outlined"
             onDelete={() => arrayHelpers.setValue(arrayField.value.filter((el: Skill) => el.name !== val.name))}
           />

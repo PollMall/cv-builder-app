@@ -3,12 +3,12 @@ import { useField } from 'formik';
 import { TextField, StandardTextFieldProps, IconButton } from '@material-ui/core';
 import useStyles from './style';
 
-interface FormikInputProps extends StandardTextFieldProps {
+export type FormikInputProps = StandardTextFieldProps & {
   name: string;
   endIcon?: ReactNode;
   onClickEndIcon?: MouseEventHandler;
   disabledEndIcon?: boolean;
-}
+};
 
 const FormikInput = ({ name, endIcon, onClickEndIcon, disabledEndIcon, ...rest }: FormikInputProps) => {
   const [field, meta] = useField(name);

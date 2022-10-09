@@ -5,15 +5,17 @@ import Page from '../../components/Page/Page';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
 import { GET_CV, GET_PDF, UPDATE_CV } from './api';
 import { AuthContext } from '../../context/AuthContext';
-import SimpleField from './SimpleField/SimpleField';
 import SkillField from './SkillField/SkillField';
 import { Box, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useEffect } from 'react';
-import type { Cv, LocationInfo, PersonalInfo, Templates, Skill } from '../../types';
+import type { Cv, PersonalInfo, Templates, UnratableSkill, RatableSkill } from '../../types';
 import ExperienceField from './ExperienceField/ExperienceField';
 import PreviewField from './PreviewField';
 import { FormData, getFormData } from './utils';
+import { CvPageBasicInfoSection } from './CvPageBasicInfoSection';
+
+type Skill = UnratableSkill & RatableSkill;
 
 const CvPage = () => {
   const { state } = useContext(AuthContext);
@@ -61,8 +63,7 @@ const CvPage = () => {
       hardSkills,
       softSkills,
       languages,
-      locationInfo: { address, websites } as LocationInfo,
-      personalInfo: { fullName, email, phone, about } as PersonalInfo,
+      personalInfo: { fullName, email, phone, about, address, websites } as PersonalInfo,
     } as Cv;
     const newCv = JSON.stringify(cv);
     try {
@@ -76,19 +77,19 @@ const CvPage = () => {
   };
 
   const mappedHardSkills = useMemo(
-    () => cv?.hardSkills?.map((hs) => ({ ...hs, kind: 'hardSkill' } as Skill)),
+    () => cv?.hardSkills?.map((hs) => ({ ...hs, kind: 'hardSkill' } as RatableSkill)),
     [cv?.hardSkills],
   );
 
   const mappedSoftSkills = useMemo(
-    () => cv?.softSkills?.map((ss) => ({ ...ss, kind: 'softSkill' } as Skill)),
+    () => cv?.softSkills?.map((ss) => ({ ...ss, kind: 'softSkill' } as UnratableSkill)),
     [cv?.softSkills],
   );
 
-  // const mappedOtherTools = useMemo(
-  //   () => cv?.otherTools?.map((ot) => ({ ...ot, kind: 'otherTools' } as Skill)),
-  //   [cv?.otherTools],
-  // );
+  const mappedOtherTools = useMemo(
+    () => cv?.otherTools?.map((ot) => ({ ...ot, kind: 'otherTools' } as UnratableSkill)),
+    [cv?.otherTools],
+  );
 
   const handleHideError = () => {
     setErrorSaveChanges(false);
@@ -105,51 +106,16 @@ const CvPage = () => {
         >
           <Form>
             <Box display="flex" flexDirection="row" alignItems="flex-start">
-              <Box boxSizing="border-box" width="27vw" paddingLeft={5}>
-                {/* {basic info} */}
-                <SimpleField
-                  title="Name"
-                  fieldName="fullName"
-                  info={cv?.personalInfo?.fullName}
-                  editComponent={formData.components.fullName}
-                />
-                <SimpleField
-                  title="Email"
-                  fieldName="email"
-                  info={cv?.personalInfo?.email}
-                  editComponent={formData.components.email}
-                />
-                <SimpleField
-                  title="Phone"
-                  fieldName="phone"
-                  info={cv?.personalInfo?.phone}
-                  editComponent={formData.components.phone}
-                />
-                <SimpleField
-                  title="Address"
-                  fieldName="address"
-                  info={cv?.locationInfo?.address}
-                  editComponent={formData.components.address}
-                />
-                <SimpleField
-                  title="Websites"
-                  fieldName="websites"
-                  info={cv?.locationInfo?.websites}
-                  editComponent={formData.components.websites}
-                />
-                <SimpleField
-                  title="About me"
-                  fieldName="about"
-                  info={cv?.personalInfo?.about}
-                  editComponent={formData.components.about}
-                />
-                <SimpleField
-                  title="Languages"
-                  fieldName="languages"
-                  info={cv?.languages}
-                  editComponent={formData.components.languages}
-                />
-              </Box>
+              <CvPageBasicInfoSection
+                fullName={cv!.personalInfo!.fullName}
+                email={cv!.personalInfo!.email}
+                phone={cv?.personalInfo?.phone}
+                address={cv?.personalInfo?.address}
+                websites={cv?.personalInfo?.websites}
+                about={cv?.personalInfo?.about}
+                languages={cv?.languages}
+                editComponents={formData.components}
+              />
               <Box
                 boxSizing="border-box"
                 width="43vw"
@@ -161,6 +127,7 @@ const CvPage = () => {
                 {/* {skills and experience} */}
                 <Box width="100%" display="flex" justifyContent="space-between">
                   <SkillField
+                    isRatable
                     title="Hard skills"
                     fieldName="hardSkills"
                     skills={mappedHardSkills}
@@ -171,13 +138,21 @@ const CvPage = () => {
                   <SkillField
                     title="Soft skills"
                     fieldName="softSkills"
-                    skills={mappedSoftSkills}
+                    skills={mappedSoftSkills as Skill[]}
                     editComponent={formData.components.softSkills}
                     boxSizing="border-box"
                     width="50%"
                   />
                 </Box>
                 <Box width="100%" display="flex" flexDirection="column">
+                  <SkillField
+                    title="Other tools"
+                    fieldName="otherTools"
+                    skills={mappedOtherTools as Skill[]}
+                    editComponent={formData.components.otherTools}
+                    boxSizing="border-box"
+                    width="50%"
+                  />
                   <ExperienceField
                     fieldName="educations"
                     title="Education"

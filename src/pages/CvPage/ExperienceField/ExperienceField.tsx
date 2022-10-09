@@ -1,4 +1,5 @@
-import React, { useState, FC, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -11,7 +12,7 @@ interface ExperienceFieldProps extends BoxProps {
   title: string;
   fieldName: string;
   experiences?: Education[] | WorkExperience[];
-  editComponent: FC;
+  editComponent: ReactNode;
 }
 
 const ExperienceField = ({ title, fieldName, experiences, editComponent, ...rest }: ExperienceFieldProps) => {

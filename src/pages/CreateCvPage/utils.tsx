@@ -2,205 +2,166 @@ import React from 'react';
 import * as Yup from 'yup';
 import BasicStep from './BasicStep';
 import ChipStep from './ChipStep';
-import Input from '../../components/FormInputs/FormikInput';
-import SkillStep from './SkillStep/SkillStep';
+import SkillStep from './SkillStep';
 import FieldStep from './FieldStep';
-import ExperienceStep from './ExperienceStep/ExperienceStep';
-import { Education, HardSkill, SoftSkill, WorkExperience } from '../../types';
+import ExperienceStep from './ExperienceStep';
+import {
+  cvSchema,
+  titleSchema,
+  fieldSchema,
+  fullNameSchema,
+  emailSchema,
+  phoneSchema,
+  addressSchema,
+  websiteSchema,
+  websitesSchema,
+  aboutSchema,
+  languageSchema,
+  languagesSchema,
+  hardSkillSchema,
+  hardSkillsSchema,
+  softSkillSchema,
+  softSkillsSchema,
+  otherToolSchema,
+  otherToolsSchema,
+  experienceSchema,
+  educationsSchema,
+  workExperiencesSchema,
+} from '../utils';
 
-const initialValues = {
-  title: '',
-  field: '',
-  fullName: '',
-  email: '',
-  phone: '',
-  address: '',
-  website: '',
-  websites: [],
-  about: '',
-  language: '',
-  languages: [],
-  hardSkill: {
-    name: '',
-    rating: 1,
-  },
-  hardSkills: [] as HardSkill[],
-  softSkill: {
-    name: '',
-    rating: 1,
-  },
-  softSkills: [] as SoftSkill[],
-  education: {
-    name: '',
-    description: '',
-    location: '',
-    startAt: '',
-    endAt: '',
-    present: false,
-  },
-  educations: [] as Education[],
-  workExperience: {
-    name: '',
-    description: '',
-    location: '',
-    startAt: '',
-    endAt: '',
-    present: false,
-  },
-  workExperiences: [] as WorkExperience[],
-};
+const initialValues = cvSchema.getDefault();
 
 const formSteps = [
   {
-    component: (
-      <BasicStep title="Give this CV a title">
-        <Input name="title" />
-      </BasicStep>
-    ),
+    title: 'Give This CV a title',
+    component: <BasicStep inputProps={{ name: 'title' }} />,
     validationSchema: Yup.object({
-      title: Yup.string().required('Field required'),
+      title: titleSchema,
     }),
   },
   {
-    component: <FieldStep inputName="field" title="Insert the field you want to work in" />,
+    title: 'Select the field you want to work in',
+    component: <FieldStep inputName="field" />,
     validationSchema: Yup.object({
-      field: Yup.string().required('Field required'),
+      field: fieldSchema,
     }),
   },
   {
-    component: (
-      <BasicStep title="Insert your full name">
-        <Input name="fullName" />
-      </BasicStep>
-    ),
+    title: 'Fill in your full name',
+    component: <BasicStep inputProps={{ name: 'fullName' }} />,
     validationSchema: Yup.object({
-      fullName: Yup.string().required('Field required'),
+      fullName: fullNameSchema,
     }),
   },
   {
-    component: (
-      <BasicStep title="Insert your email address">
-        <Input name="email" />
-      </BasicStep>
-    ),
+    title: 'Fill in your email address',
+    component: <BasicStep inputProps={{ name: 'email' }} />,
     validationSchema: Yup.object({
-      email: Yup.string().required('Field required').email('Field not valid'),
+      email: emailSchema,
     }),
   },
   {
-    component: (
-      <BasicStep title="Insert your phone number">
-        <Input name="phone" />
-      </BasicStep>
-    ),
+    title: 'Fill in your phone number',
+    component: <BasicStep inputProps={{ name: 'phone' }} />,
     validationSchema: Yup.object({
-      phone: Yup.string().required('Field required'),
+      phone: phoneSchema,
     }),
   },
   {
-    component: (
-      <BasicStep title="Insert your address">
-        <Input name="address" />
-      </BasicStep>
-    ),
+    title: 'Fill in your address',
+    component: <BasicStep inputProps={{ name: 'address' }} />,
     validationSchema: Yup.object({
-      address: Yup.string().required('Field required'),
+      address: addressSchema,
     }),
   },
   {
+    title: 'Add your websites',
     component: (
       <ChipStep
         inputName="website"
         arrayInputName="websites"
-        title="Insert your websites"
         ChipBoxProps={{ display: 'flex', flexDirection: 'column', alignSelf: 'stretch' }}
       />
     ),
     validationSchema: Yup.object({
-      website: Yup.string(),
-      websites: Yup.array().of(Yup.string()),
+      website: websiteSchema,
+      websites: websitesSchema,
     }),
   },
   {
+    title: 'A few things about you',
+    component: <BasicStep inputProps={{ name: 'about', multiline: true, maxRows: 5 }} />,
+    validationSchema: Yup.object({
+      about: aboutSchema,
+    }),
+  },
+  {
+    title: 'Known languages',
     component: (
-      <BasicStep title="A few things about you">
-        <Input multiline rows={5} name="about" />
-      </BasicStep>
+      <ChipStep inputName="language" arrayInputName="languages" ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }} />
     ),
     validationSchema: Yup.object({
-      about: Yup.string(),
+      language: languageSchema,
+      languages: languagesSchema,
     }),
   },
   {
-    component: (
-      <ChipStep
-        inputName="language"
-        arrayInputName="languages"
-        title="Known languages"
-        ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
-      />
-    ),
-    validationSchema: Yup.object({
-      language: Yup.string(),
-      languages: Yup.array().of(Yup.string()),
-    }),
-  },
-  {
+    title: 'Hard skills',
     component: (
       <SkillStep
+        isRatable
         inputName="hardSkill"
         arrayInputName="hardSkills"
-        title="Hard skills"
         ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
       />
     ),
     validationSchema: Yup.object({
-      hardSkill: Yup.object({
-        name: Yup.string(),
-        rating: Yup.number(),
-      }),
-      hardSkills: Yup.array().of(
-        Yup.object({
-          name: Yup.string(),
-          rating: Yup.number(),
-        }),
-      ),
+      hardSkill: hardSkillSchema,
+      hardSkills: hardSkillsSchema,
     }),
   },
   {
+    title: 'Other tools',
+    component: (
+      <SkillStep
+        inputName="otherTool"
+        arrayInputName="otherTools"
+        ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+      />
+    ),
+    validationSchema: Yup.object({
+      otherTool: otherToolSchema,
+      otherTools: otherToolsSchema,
+    }),
+  },
+  {
+    title: 'Soft skills',
     component: (
       <SkillStep
         inputName="softSkill"
         arrayInputName="softSkills"
-        title="Soft skills"
         ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
       />
     ),
     validationSchema: Yup.object({
-      softSkill: Yup.object({
-        name: Yup.string(),
-        rating: Yup.number(),
-      }),
-      softSkills: Yup.array().of(
-        Yup.object({
-          name: Yup.string(),
-          rating: Yup.number(),
-        }),
-      ),
+      softSkill: softSkillSchema,
+      softSkills: softSkillsSchema,
     }),
   },
   {
-    component: <ExperienceStep inputName="education" arrayInputName="educations" title="Education" />,
+    title: 'Education',
+    component: <ExperienceStep inputName="education" arrayInputName="educations" />,
     validationSchema: Yup.object({
-      education: Yup.object(),
-      educations: Yup.array().of(Yup.object()),
+      education: experienceSchema,
+      educations: educationsSchema,
     }),
   },
   {
-    component: <ExperienceStep inputName="workExperience" arrayInputName="workExperiences" title="Work experience" />,
+    title: 'Work experience',
+    component: <ExperienceStep inputName="workExperience" arrayInputName="workExperiences" />,
     validationSchema: Yup.object({
-      workExperience: Yup.object(),
-      workExperiences: Yup.array().of(Yup.object()),
+      workExperience: experienceSchema,
+      workExperiences: workExperiencesSchema,
     }),
   },
 ];

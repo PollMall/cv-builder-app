@@ -1,30 +1,36 @@
 import React from 'react';
-import * as Yup from 'yup';
-import { Cv, Education, HardSkill, SoftSkill, Templates, WorkExperience } from '../../types';
+import type { ReactNode } from 'react';
+import type { Cv, Education, HardSkill, OtherTool, SoftSkill, WorkExperience } from '../../types';
+import { Templates } from '../../types';
 import Input from '../../components/FormInputs/FormikInput';
 import ChipInput from '../../components/FormInputs/FormikChipInput';
 import SkillsInput from '../../components/FormInputs/FormikSkillsInput';
 import ExperienceInput from '../../components/FormInputs/FormikExperienceInput';
+import { cvSchema } from '../utils';
 
 export type FormData = {
-  initialValues: any;
+  initialValues: Cv;
   validationSchema: any;
-  components: any;
+  components: Record<string, ReactNode>;
 };
 
-const getFormData = (cv: Cv) => {
-  const { field, personalInfo, locationInfo, educations, workExperiences, hardSkills, softSkills, languages } = cv;
+type GetFormDataFunction = (cv: Cv) => FormData;
+
+export const getFormData: GetFormDataFunction = (cv) => {
+  const { field, template, personalInfo, educations, workExperiences, hardSkills, softSkills, otherTools, languages } =
+    cv;
+
   return {
     initialValues: {
       ...cv,
       field,
-      template: cv.template || Templates.NORMAL,
+      template: template || Templates.NORMAL,
       fullName: personalInfo?.fullName,
       email: personalInfo?.email,
       phone: personalInfo?.phone,
-      address: locationInfo?.address,
+      address: personalInfo?.address,
       website: '',
-      websites: locationInfo?.websites || [],
+      websites: personalInfo?.websites || [],
       about: personalInfo?.about,
       language: '',
       languages: languages || [],
@@ -35,9 +41,12 @@ const getFormData = (cv: Cv) => {
       hardSkills: hardSkills || ([] as HardSkill[]),
       softSkill: {
         name: '',
-        rating: 1,
       },
       softSkills: softSkills || ([] as SoftSkill[]),
+      otherTool: {
+        name: '',
+      },
+      otherTools: otherTools || ([] as OtherTool[]),
       education: {
         name: '',
         description: '',
@@ -57,41 +66,7 @@ const getFormData = (cv: Cv) => {
       },
       workExperiences: workExperiences || ([] as WorkExperience[]),
     },
-    validationSchema: Yup.object({
-      fullName: Yup.string().required('Field required'),
-      email: Yup.string().required('Field required').email('Field not valid'),
-      phone: Yup.string().required('Field required'),
-      address: Yup.string().required('Field required'),
-      website: Yup.string(),
-      websites: Yup.array().of(Yup.string()),
-      about: Yup.string(),
-      language: Yup.string(),
-      languages: Yup.array().of(Yup.string()),
-      hardSkill: Yup.object({
-        name: Yup.string(),
-        rating: Yup.number(),
-      }),
-      hardSkills: Yup.array().of(
-        Yup.object({
-          name: Yup.string(),
-          rating: Yup.number(),
-        }),
-      ),
-      softSkill: Yup.object({
-        name: Yup.string(),
-        rating: Yup.number(),
-      }),
-      softSkills: Yup.array().of(
-        Yup.object({
-          name: Yup.string(),
-          rating: Yup.number(),
-        }),
-      ),
-      education: Yup.object(),
-      educations: Yup.array().of(Yup.object()),
-      workExperience: Yup.object(),
-      workExperiences: Yup.array().of(Yup.object()),
-    }),
+    validationSchema: cvSchema,
     components: {
       fullName: <Input name="fullName" />,
       email: <Input name="email" />,
@@ -114,12 +89,11 @@ const getFormData = (cv: Cv) => {
           ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
         />
       ),
-      hardSkills: <SkillsInput inputName="hardSkill" arrayInputName="hardSkills" />,
+      hardSkills: <SkillsInput isRatable inputName="hardSkill" arrayInputName="hardSkills" />,
       softSkills: <SkillsInput inputName="softSkill" arrayInputName="softSkills" />,
+      otherTools: <SkillsInput inputName="otherTool" arrayInputName="otherTools" />,
       workExperiences: <ExperienceInput inputName="workExperience" arrayInputName="workExperiences" />,
       educations: <ExperienceInput inputName="education" arrayInputName="educations" />,
     },
-  };
+  } as FormData;
 };
-
-export { getFormData };

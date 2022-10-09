@@ -1,4 +1,5 @@
-import React, { useState, FC, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import useStyles from '../styles';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,7 +11,7 @@ interface SimpleFieldProps extends BoxProps {
   title: string;
   fieldName: string;
   info?: string | string[];
-  editComponent: FC;
+  editComponent: ReactNode;
 }
 
 const SimpleField = ({ title, fieldName, info, editComponent, ...rest }: SimpleFieldProps) => {

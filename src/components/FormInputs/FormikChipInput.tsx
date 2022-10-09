@@ -8,7 +8,6 @@ import useStyles from './style';
 interface FormikChipInputProps extends BoxProps {
   inputName: string;
   arrayInputName: string;
-  title: string;
   ChipBoxProps?: BoxProps;
 }
 
@@ -23,7 +22,7 @@ const FormikChipInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: F
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="" width="100%" {...rest}>
+    <Box display="flex" flexDirection="column" width="100%" {...rest}>
       <Input
         name={inputName}
         endIcon={<AddIcon color="primary" />}

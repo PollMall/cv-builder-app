@@ -1,54 +1,55 @@
 import { gql } from '@apollo/client';
 
+const CV_ALL_DETAILS = `
+  id
+  title
+  field
+  educations {
+    id
+    name
+    description
+    location
+    startAt
+    endAt
+  }
+  workExperiences {
+    id
+    name
+    description
+    location
+    startAt
+    endAt
+  }
+  feedback
+  hardSkills {
+    name
+    rating
+  }
+  softSkills {
+    name
+  }
+  otherTools {
+    name
+  }
+  personalInfo {
+    fullName
+    email
+    phone
+    about
+    address
+    websites
+  }
+  createdAt
+  updatedAt
+  score
+  downloadLink
+  template
+`;
+
 const GET_CV = gql`
   query Query($uid: String!, $cvId: String!) {
     cv(uid: $uid, cvId: $cvId) {
-      id
-      title
-      field
-      educations {
-        id
-        name
-        description
-        location
-        startAt
-        endAt
-      }
-      workExperiences {
-        id
-        name
-        description
-        location
-        startAt
-        endAt
-      }
-      feedback
-      hardSkills {
-        name
-        rating
-      }
-      softSkills {
-        name
-      }
-      otherTools {
-        name
-      }
-      languages
-      locationInfo {
-        address
-        websites
-      }
-      personalInfo {
-        fullName
-        email
-        phone
-        about
-      }
-      createdAt
-      updatedAt
-      score
-      downloadLink
-      template
+      ${CV_ALL_DETAILS}
     }
   }
 `;
@@ -62,52 +63,7 @@ const GET_PDF = gql`
 const UPDATE_CV = gql`
   mutation UpdateCvMutation($uid: String!, $newCv: String!) {
     updateCv(uid: $uid, newCv: $newCv) {
-      id
-      title
-      field
-      educations {
-        id
-        name
-        location
-        description
-        startAt
-        endAt
-      }
-      workExperiences {
-        id
-        name
-        description
-        location
-        startAt
-        endAt
-      }
-      feedback
-      hardSkills {
-        name
-        rating
-      }
-      softSkills {
-        name
-      }
-      otherTools {
-        name
-      }
-      languages
-      locationInfo {
-        address
-        websites
-      }
-      personalInfo {
-        fullName
-        email
-        phone
-        about
-      }
-      createdAt
-      updatedAt
-      score
-      downloadLink
-      template
+      ${CV_ALL_DETAILS}
     }
   }
 `;

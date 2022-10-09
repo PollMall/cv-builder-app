@@ -15,8 +15,8 @@ const GET_BEST_CVS = gql`
         endAt
       }
       workExperiences {
-        name
         id
+        name
         description
         location
         startAt
@@ -33,20 +33,18 @@ const GET_BEST_CVS = gql`
       otherTools {
         name
       }
-      locationInfo {
-        address
-        websites
-      }
-      languages
       personalInfo {
         fullName
         email
         phone
         about
+        address
+        websites
       }
       createdAt
       updatedAt
       score
+      downloadLink
       template
     }
   }
