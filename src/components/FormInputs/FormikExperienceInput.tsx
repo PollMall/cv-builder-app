@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import useStyles from './style';
 import ExperienceCard from './ExperienceCard';
 import type { Education, WorkExperience } from '../../types';
+import { descSortExperienceByStartAt } from '../../utils';
 
 const fromTimestampToMonthYearFormat = (date: string) => {
   const dateISOStringElements = new Date(parseInt(date, 10)).toISOString().split('-');
@@ -50,12 +51,6 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
     endAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
-  const descSortByStartAt = (a: Experience, b: Experience) => {
-    const aStartAt = a.startAt ? parseInt(a.startAt, 10) : 0;
-    const bStartAt = b.startAt ? parseInt(b.startAt, 10) : 0;
-    return bStartAt === 0 ? 1 : aStartAt === 0 ? -1 : bStartAt - aStartAt;
-  };
-
   return (
     <Box display="flex" justifyContent="space-between">
       <Box display="flex" flexDirection="column" width="45%">
@@ -94,7 +89,7 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
       <Box display="flex" flexWrap="wrap" alignItems="flex-start" className={classes.cardsContainer}>
         {arrayInputField.value
           ?.slice()
-          .sort(descSortByStartAt)
+          .sort(descSortExperienceByStartAt)
           .map((exp: Experience, idx: number) => (
             <ExperienceCard
               key={idx}
