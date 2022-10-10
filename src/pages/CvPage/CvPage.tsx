@@ -15,6 +15,7 @@ import ProjectField from './ProjectField/ProjectField';
 import PreviewField from './PreviewField';
 import { FormData, getFormData } from './utils';
 import { CvPageBasicInfoSection } from './CvPageBasicInfoSection';
+import useStyles from './styles';
 
 type Skill = UnratableSkill & RatableSkill;
 
@@ -29,6 +30,7 @@ const CvPage = () => {
   const [getPDF, { data: dataPDF, loading: loadingPDF }] = useLazyQuery(GET_PDF);
   const [formData, setFormData] = useState<FormData | null>(null);
   const [errorChanges, setErrorChanges] = useState('');
+  const classes = useStyles();
 
   const loadingPreview = updateCvLoading || deleteCvLoading;
 
@@ -110,7 +112,15 @@ const CvPage = () => {
   };
 
   return (
-    <Page boxSizing="border-box" loading={getCvLoading} error={error}>
+    <Page
+      boxSizing="border-box"
+      loading={getCvLoading}
+      error={error}
+      alignItems="flex-start"
+      justifyContent="flex-start"
+      paddingLeft={10}
+      paddingTop={16}
+    >
       {formData && (
         <Formik
           validationSchema={formData.validationSchema}
@@ -119,76 +129,76 @@ const CvPage = () => {
           onSubmit={handleSaveChanges}
         >
           <Form>
-            <Box display="flex" flexDirection="row" alignItems="flex-start">
-              <CvPageBasicInfoSection
-                fullName={cv!.personalInfo!.fullName}
-                email={cv!.personalInfo!.email}
-                phone={cv?.personalInfo?.phone}
-                address={cv?.personalInfo?.address}
-                websites={cv?.personalInfo?.websites}
-                about={cv?.personalInfo?.about}
-                languages={cv?.languages}
-                editComponents={formData.components}
-              />
+            <Box display="flex" flexDirection="row" flexWrap="wrap" alignItems="flex-start" gridGap={16}>
+              <div className={classes.basicInfoContainer}>
+                <CvPageBasicInfoSection
+                  fullName={cv!.personalInfo!.fullName}
+                  email={cv!.personalInfo!.email}
+                  phone={cv?.personalInfo?.phone}
+                  address={cv?.personalInfo?.address}
+                  websites={cv?.personalInfo?.websites}
+                  about={cv?.personalInfo?.about}
+                  languages={cv?.languages}
+                  editComponents={formData.components}
+                />
+              </div>
+
+              {/* {skills and experience} */}
               <Box
+                width={700}
+                marginRight={400 / 8}
                 boxSizing="border-box"
-                width="43vw"
-                paddingLeft={5}
                 display="flex"
+                flexGrow={1}
                 flexDirection="column"
-                alignItems="center"
               >
-                {/* {skills and experience} */}
-                <Box width="100%" display="flex" justifyContent="space-between">
-                  <SkillField
-                    isRatable
-                    title="Hard skills"
-                    fieldName="hardSkills"
-                    skills={mappedHardSkills}
-                    editComponent={formData.components.hardSkills}
-                    boxSizing="border-box"
-                    width="50%"
-                  />
-                  <SkillField
-                    title="Soft skills"
-                    fieldName="softSkills"
-                    skills={mappedSoftSkills as Skill[]}
-                    editComponent={formData.components.softSkills}
-                    boxSizing="border-box"
-                    width="50%"
-                  />
-                </Box>
-                <Box width="100%" display="flex" flexDirection="column">
-                  <SkillField
-                    title="Other tools"
-                    fieldName="otherTools"
-                    skills={mappedOtherTools as Skill[]}
-                    editComponent={formData.components.otherTools}
-                    boxSizing="border-box"
-                    width="50%"
-                  />
-                  <ExperienceField
-                    fieldName="educations"
-                    title="Education"
-                    experiences={cv?.educations}
-                    editComponent={formData.components.educations}
-                  />
-                  <ExperienceField
-                    title="Work experience"
-                    fieldName="workExperiences"
-                    experiences={cv?.workExperiences}
-                    editComponent={formData.components.workExperiences}
-                  />
-                  <ProjectField
-                    title="Projects"
-                    fieldName="projects"
-                    projects={cv?.projects}
-                    editComponent={formData.components.projects}
-                  />
-                </Box>
+                <SkillField
+                  isRatable
+                  title="Hard skills"
+                  fieldName="hardSkills"
+                  skills={mappedHardSkills}
+                  editComponent={formData.components.hardSkills}
+                  boxSizing="border-box"
+                  width="50%"
+                />
+                <SkillField
+                  title="Soft skills"
+                  fieldName="softSkills"
+                  skills={mappedSoftSkills as Skill[]}
+                  editComponent={formData.components.softSkills}
+                  boxSizing="border-box"
+                  width="50%"
+                />
+                <SkillField
+                  title="Other tools"
+                  fieldName="otherTools"
+                  skills={mappedOtherTools as Skill[]}
+                  editComponent={formData.components.otherTools}
+                  boxSizing="border-box"
+                  width="50%"
+                />
+                <ExperienceField
+                  fieldName="educations"
+                  title="Education"
+                  experiences={cv?.educations}
+                  editComponent={formData.components.educations}
+                />
+                <ExperienceField
+                  title="Work experience"
+                  fieldName="workExperiences"
+                  experiences={cv?.workExperiences}
+                  editComponent={formData.components.workExperiences}
+                />
+                <ProjectField
+                  title="Projects"
+                  fieldName="projects"
+                  projects={cv?.projects}
+                  editComponent={formData.components.projects}
+                />
               </Box>
-              <Box boxSizing="border-box" paddingLeft={5} paddingRight={5}>
-                {/* {cv preview and score} */}
+
+              {/* {cv preview and score} */}
+              <div className={classes.cvPreviewContainer}>
                 <PreviewField
                   score={cv?.score}
                   base64={dataPDF?.getPDF}
@@ -198,7 +208,7 @@ const CvPage = () => {
                   loading={loadingPreview}
                   fetchingPDF={loadingPDF}
                 />
-              </Box>
+              </div>
             </Box>
           </Form>
         </Formik>

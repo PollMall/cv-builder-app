@@ -32,47 +32,50 @@ import {
   projectsSchema,
 } from '../utils';
 
+const SMALL_STEP_WIDTH = 500;
+const LARGE_STEP_WIDTH = 700;
+
 const initialValues = cvSchema.getDefault();
 
 const formSteps = [
   {
     title: 'Give This CV a title',
-    component: <BasicStep inputProps={{ name: 'title' }} />,
+    component: <BasicStep inputProps={{ name: 'title' }} width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       title: titleSchema,
     }),
   },
   {
     title: 'Select the field you want to work in',
-    component: <FieldStep inputName="field" />,
+    component: <FieldStep inputName="field" width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       field: fieldSchema,
     }),
   },
   {
     title: 'Fill in your full name',
-    component: <BasicStep inputProps={{ name: 'fullName' }} />,
+    component: <BasicStep inputProps={{ name: 'fullName' }} width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       fullName: fullNameSchema,
     }),
   },
   {
     title: 'Fill in your email address',
-    component: <BasicStep inputProps={{ name: 'email' }} />,
+    component: <BasicStep inputProps={{ name: 'email' }} width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       email: emailSchema,
     }),
   },
   {
     title: 'Fill in your phone number',
-    component: <BasicStep inputProps={{ name: 'phone' }} />,
+    component: <BasicStep inputProps={{ name: 'phone' }} width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       phone: phoneSchema,
     }),
   },
   {
     title: 'Fill in your address',
-    component: <BasicStep inputProps={{ name: 'address' }} />,
+    component: <BasicStep inputProps={{ name: 'address' }} width={SMALL_STEP_WIDTH} />,
     validationSchema: Yup.object({
       address: addressSchema,
     }),
@@ -84,6 +87,7 @@ const formSteps = [
         inputName="website"
         arrayInputName="websites"
         ChipBoxProps={{ display: 'flex', flexDirection: 'column', alignSelf: 'stretch' }}
+        width={SMALL_STEP_WIDTH}
       />
     ),
     validationSchema: Yup.object({
@@ -93,7 +97,9 @@ const formSteps = [
   },
   {
     title: 'A few things about you',
-    component: <BasicStep inputProps={{ name: 'about', multiline: true, maxRows: 5 }} />,
+    component: (
+      <BasicStep inputProps={{ name: 'about', multiline: true, minRows: 8, maxRows: 8 }} width={SMALL_STEP_WIDTH} />
+    ),
     validationSchema: Yup.object({
       about: aboutSchema,
     }),
@@ -101,7 +107,12 @@ const formSteps = [
   {
     title: 'Known languages',
     component: (
-      <ChipStep inputName="language" arrayInputName="languages" ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }} />
+      <ChipStep
+        inputName="language"
+        arrayInputName="languages"
+        ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+        width={SMALL_STEP_WIDTH}
+      />
     ),
     validationSchema: Yup.object({
       language: languageSchema,
@@ -116,6 +127,7 @@ const formSteps = [
         inputName="hardSkill"
         arrayInputName="hardSkills"
         ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+        width={SMALL_STEP_WIDTH}
       />
     ),
     validationSchema: Yup.object({
@@ -130,6 +142,7 @@ const formSteps = [
         inputName="otherTool"
         arrayInputName="otherTools"
         ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+        width={SMALL_STEP_WIDTH}
       />
     ),
     validationSchema: Yup.object({
@@ -144,6 +157,7 @@ const formSteps = [
         inputName="softSkill"
         arrayInputName="softSkills"
         ChipBoxProps={{ display: 'flex', flexWrap: 'wrap' }}
+        width={SMALL_STEP_WIDTH}
       />
     ),
     validationSchema: Yup.object({
@@ -153,7 +167,7 @@ const formSteps = [
   },
   {
     title: 'Education',
-    component: <ExperienceStep inputName="education" arrayInputName="educations" />,
+    component: <ExperienceStep inputName="education" arrayInputName="educations" width={LARGE_STEP_WIDTH} />,
     validationSchema: Yup.object({
       education: experienceSchema,
       educations: educationsSchema,
@@ -161,7 +175,7 @@ const formSteps = [
   },
   {
     title: 'Work experience',
-    component: <ExperienceStep inputName="workExperience" arrayInputName="workExperiences" />,
+    component: <ExperienceStep inputName="workExperience" arrayInputName="workExperiences" width={LARGE_STEP_WIDTH} />,
     validationSchema: Yup.object({
       workExperience: experienceSchema,
       workExperiences: workExperiencesSchema,
@@ -169,7 +183,7 @@ const formSteps = [
   },
   {
     title: 'Projects',
-    component: <ProjectStep inputName="project" arrayInputName="projects" />,
+    component: <ProjectStep inputName="project" arrayInputName="projects" width={LARGE_STEP_WIDTH} />,
     validationSchema: Yup.object({
       project: projectSchema,
       projects: projectsSchema,

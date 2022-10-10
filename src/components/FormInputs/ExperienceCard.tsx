@@ -4,6 +4,13 @@ import { Typography, CardProps, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './style';
 
+const fromTimestampToMonthYearFormat = (stringDate: string) => {
+  const date = new Date(parseInt(stringDate, 10));
+  const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+};
+
 interface ExperienceCardProps extends CardProps {
   name: string;
   description?: string;
@@ -63,8 +70,8 @@ const ExperienceCard = ({
         ''
       )}
       <Typography gutterBottom component="p" variant="caption">
-        {startAt ? new Date(parseInt(startAt, 10)).toLocaleDateString('en-US') : 'PRESENT'} -{' '}
-        {endAt ? new Date(parseInt(endAt, 10)).toLocaleDateString('en-US') : 'PRESENT'}
+        {startAt ? fromTimestampToMonthYearFormat(startAt) : 'PRESENT'} -{' '}
+        {endAt ? fromTimestampToMonthYearFormat(endAt) : 'PRESENT'}
       </Typography>
       {description && showMultilineText(description)}
       <div hidden={!showDelete} className={classes.deleteBtn}>

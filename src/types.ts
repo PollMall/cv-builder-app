@@ -12,10 +12,9 @@ export type Credentials = {
 };
 
 export enum Templates {
-  NORMAL = 'NORMAL',
+  CLASSY = 'CLASSY',
   COMPACT = 'COMPACT',
   FANCY = 'FANCY',
-  CLASSY = 'CLASSY',
 }
 
 export type PersonalInfo = {

@@ -71,7 +71,7 @@ const PreviewField = ({
         </Box>
       </Box>
       <Box position="relative" justifyContent="center" alignItems="center">
-        <PreviewCv base64={base64} height={500} loading={loading || fetchingPDF} />
+        <PreviewCv base64={base64} height={500} minWidth={386} loading={loading || fetchingPDF} />
         {updated && (
           <>
             {loading ? (

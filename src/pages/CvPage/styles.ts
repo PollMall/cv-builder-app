@@ -76,4 +76,33 @@ export default makeStyles((theme) => ({
     color: theme.palette.error.light,
     borderColor: theme.palette.error.light,
   },
+
+  basicInfoContainer: {
+    width: 500,
+    position: 'sticky',
+    top: 128,
+  },
+
+  cvPreviewContainer: {
+    position: 'fixed',
+    right: 10,
+    top: '50%',
+    translate: 'yes',
+    transform: 'translateY(-50%)',
+    boxSizing: 'border-box',
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
+  '@media (max-width: 1700px)': {
+    basicInfoContainer: {
+      position: 'static',
+    },
+  },
+
+  '@media (max-width: 1000px)': {
+    cvPreviewContainer: {
+      position: 'static',
+    },
+  },
 }));

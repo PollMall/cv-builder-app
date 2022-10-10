@@ -40,7 +40,7 @@ const ExperienceField = ({ title, fieldName, experiences, editComponent, ...rest
   }, [edit]);
 
   return (
-    <Box {...rest} width="75%" className={classes.root}>
+    <Box {...rest} width="100%" className={classes.root}>
       <Box
         display="flex"
         alignItems="center"

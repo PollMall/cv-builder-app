@@ -35,7 +35,7 @@ export const getFormData: GetFormDataFunction = (cv) => {
     initialValues: {
       ...cv,
       field,
-      template: template || Templates.NORMAL,
+      template: template || Templates.CLASSY,
       fullName: personalInfo?.fullName,
       email: personalInfo?.email,
       phone: personalInfo?.phone,
@@ -99,7 +99,7 @@ export const getFormData: GetFormDataFunction = (cv) => {
           ChipBoxProps={{ display: 'flex', flexDirection: 'column', alignSelf: 'stretch' }}
         />
       ),
-      about: <Input multiline rows={5} name="about" />,
+      about: <Input multiline minRows={8} maxRows={8} name="about" />,
       languages: (
         <ChipInput
           inputName="language"

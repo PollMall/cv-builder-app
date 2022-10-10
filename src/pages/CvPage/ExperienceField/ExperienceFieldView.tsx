@@ -3,6 +3,13 @@ import { Box, Typography, BoxProps } from '@material-ui/core';
 import useStyles from '../styles';
 import type { Education, WorkExperience } from '../../../types';
 
+const fromTimestampToMonthYearFormat = (stringDate: string) => {
+  const date = new Date(parseInt(stringDate, 10));
+  const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+};
+
 const renderMultilineFromText = (text: string) =>
   text.split('\n').map((line, idx) => (
     <Typography key={idx} component="p" variant="body1">
@@ -40,8 +47,8 @@ const ExperienceFieldView = ({ experiences, ...rest }: ExperienceFieldViewProps)
             ''
           )}
           <Typography gutterBottom component="p" variant="caption">
-            {e.startAt ? new Date(parseInt(e.startAt, 10)).toLocaleDateString('en-US') : 'PRESENT'} -{' '}
-            {e.endAt ? new Date(parseInt(e.endAt, 10)).toLocaleDateString('en-US') : 'PRESENT'}
+            {e.startAt ? fromTimestampToMonthYearFormat(e.startAt) : 'PRESENT'} -{' '}
+            {e.endAt ? fromTimestampToMonthYearFormat(e.endAt) : 'PRESENT'}
           </Typography>
           {e?.description && <div className={classes.description}>{renderMultilineFromText(e.description)}</div>}
         </Box>

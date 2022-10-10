@@ -29,11 +29,11 @@ const FormikProjectInput = ({ inputName, arrayInputName }: FormikProjectInputPro
   };
 
   return (
-    <Box display="flex" justifyContent="space-around">
-      <Box display="flex" flexDirection="column">
+    <Box display="flex" justifyContent="space-between">
+      <Box display="flex" flexDirection="column" width="45%">
         <Input name={`${inputName}.name`} placeholder="Name" />
         <Input name={`${inputName}.title`} placeholder="Title" />
-        <Input name={`${inputName}.description`} multiline rows={2} placeholder="Description" />
+        <Input name={`${inputName}.description`} multiline minRows={8} maxRows={8} placeholder="Description" />
         <Button className={classes.addBtn} startIcon={<AddIcon />} onClick={handleAdd}>
           add
         </Button>
