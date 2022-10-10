@@ -39,6 +39,7 @@ const CV_ALL_DETAILS = `
   otherTools {
     name
   }
+  languages
   personalInfo {
     fullName
     email

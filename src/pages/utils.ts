@@ -7,10 +7,10 @@ export const emailSchema = Yup.string().required('Field required').email('Field 
 export const phoneSchema = Yup.string().required('Field required').default('');
 export const addressSchema = Yup.string().required('Field required').default('');
 export const websiteSchema = Yup.string().default('');
-export const websitesSchema = Yup.array().of(Yup.string()).default([]);
+export const websitesSchema = Yup.array().of(websiteSchema).default([]);
 export const aboutSchema = Yup.string().default('');
 export const languageSchema = Yup.string().default('');
-export const languagesSchema = Yup.array().of(Yup.string()).default([]);
+export const languagesSchema = Yup.array().of(languageSchema).default([]);
 export const hardSkillSchema = Yup.object({
   name: Yup.string() as Yup.StringSchema<string>,
   rating: Yup.number() as Yup.NumberSchema<number>,
@@ -81,5 +81,6 @@ export const cvSchema = Yup.object({
   educations: educationsSchema,
   workExperience: experienceSchema,
   workExperiences: workExperiencesSchema,
+  project: projectSchema,
   projects: projectsSchema,
 });

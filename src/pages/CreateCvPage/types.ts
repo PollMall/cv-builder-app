@@ -1,4 +1,13 @@
-import { CvRequest, Education, WorkExperience, HardSkill, SoftSkill, OtherTool, PersonalInfo } from '../../types';
+import {
+  CvRequest,
+  Education,
+  WorkExperience,
+  HardSkill,
+  SoftSkill,
+  OtherTool,
+  PersonalInfo,
+  Project,
+} from '../../types';
 
 export type FormikValues = {
   title: CvRequest['title'];
@@ -22,4 +31,6 @@ export type FormikValues = {
   educations: Education[];
   workExperience: WorkExperience & { present: boolean };
   workExperiences: WorkExperience[];
+  project: Project;
+  projects: Project[];
 };
