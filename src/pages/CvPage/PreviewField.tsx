@@ -44,9 +44,11 @@ const PreviewField = ({
     }
   }, [values]);
 
+  const disabledBtn = !base64 || !downloadLink || loading;
+
   return (
-    <Box display="flex" flexDirection="column" width="100%" {...rest} style={{ backgroundColor: 'transparent' }}>
-      <Box width="100%" display="flex" justifyContent="space-evenly" marginBottom={1}>
+    <Box display="flex" flexDirection="column" {...rest} style={{ backgroundColor: 'transparent' }} gridGap={10}>
+      <Box width="100%" display="flex" justifyContent="center" gridGap={10}>
         <PieChart value={score || 0} className={classes.chart} />
         <Box display="flex" flexDirection="column" alignContent="center">
           <Typography gutterBottom align="center" variant="caption">
@@ -66,8 +68,8 @@ const PreviewField = ({
           </ButtonGroup>
         </Box>
       </Box>
-      <Box position="relative" border="1px solid transparent">
-        <PreviewCv className={classes.preview} base64={base64} scale={0.51} loading={loading || fetchingPDF} />
+      <Box position="relative" justifyContent="center" alignItems="center">
+        <PreviewCv base64={base64} height={500} loading={loading || fetchingPDF} />
         {updated && (
           <>
             {loading ? (
@@ -80,17 +82,23 @@ const PreviewField = ({
           </>
         )}
       </Box>
-      <Button
-        component="a"
-        target="_blank"
-        href={downloadLink}
-        disabled={!base64 || !downloadLink}
-        variant="contained"
-        color="primary"
-        className={classes.downloadBtn}
-      >
-        open CV
-      </Button>
+      <Box width={200} display="flex" flexDirection="column" alignItems="flex-end" alignSelf="center" gridGap={10}>
+        <Button
+          fullWidth
+          component="a"
+          target="_blank"
+          href={downloadLink}
+          disabled={disabledBtn}
+          variant="contained"
+          color="primary"
+          className={classes.downloadBtn}
+        >
+          open CV
+        </Button>
+        <Button fullWidth disabled={disabledBtn} variant="outlined" className={classes.deleteBtn}>
+          Delete
+        </Button>
+      </Box>
     </Box>
   );
 };

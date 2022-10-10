@@ -174,7 +174,7 @@ const CvPage = () => {
                   />
                 </Box>
               </Box>
-              <Box boxSizing="border-box" width="29vw" paddingLeft={5} paddingRight={5}>
+              <Box boxSizing="border-box" paddingLeft={5} paddingRight={5}>
                 {/* {cv preview and score} */}
                 <PreviewField
                   score={cv?.score}
