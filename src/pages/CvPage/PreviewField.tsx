@@ -12,6 +12,7 @@ interface PreviewFieldProps extends BoxProps {
   base64?: string;
   downloadLink?: string;
   onSelectTemplate?: (template: Templates) => void;
+  onDeleteCv: () => void;
   loading?: boolean;
   fetchingPDF?: boolean;
 }
@@ -21,6 +22,7 @@ const PreviewField = ({
   base64,
   downloadLink,
   onSelectTemplate,
+  onDeleteCv,
   loading,
   fetchingPDF,
   ...rest
@@ -95,7 +97,7 @@ const PreviewField = ({
         >
           open CV
         </Button>
-        <Button fullWidth disabled={disabledBtn} variant="outlined" className={classes.deleteBtn}>
+        <Button fullWidth disabled={disabledBtn} variant="outlined" className={classes.deleteBtn} onClick={onDeleteCv}>
           Delete
         </Button>
       </Box>

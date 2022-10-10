@@ -1,9 +1,9 @@
 import React, { useContext, useState, useMemo } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { useParams } from 'react-router-dom';
 import Page from '../../components/Page/Page';
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
-import { GET_CV, GET_PDF, UPDATE_CV } from './api';
+import { GET_CV, GET_PDF, UPDATE_CV, DELETE_CV } from './api';
 import { AuthContext } from '../../context/AuthContext';
 import SkillField from './SkillField/SkillField';
 import { Box, Snackbar } from '@material-ui/core';
@@ -21,12 +21,16 @@ type Skill = UnratableSkill & RatableSkill;
 const CvPage = () => {
   const { state } = useContext(AuthContext);
   const { id } = useParams<{ id: string }>();
-  const { data, error, loading } = useQuery(GET_CV, { variables: { uid: state.user?.uid, cvId: id } });
+  const { goBack } = useHistory();
+  const { data, error, loading: getCvLoading } = useQuery(GET_CV, { variables: { uid: state.user?.uid, cvId: id } });
   const [updateCv, { loading: updateCvLoading }] = useMutation(UPDATE_CV);
+  const [deleteCv, { loading: deleteCvLoading }] = useMutation(DELETE_CV);
   const [cv, setCv] = useState<Cv | null>(null);
   const [getPDF, { data: dataPDF, loading: loadingPDF }] = useLazyQuery(GET_PDF);
   const [formData, setFormData] = useState<FormData | null>(null);
-  const [errorSaveChanges, setErrorSaveChanges] = useState(false);
+  const [errorChanges, setErrorChanges] = useState('');
+
+  const loadingPreview = updateCvLoading || deleteCvLoading;
 
   useEffect(() => {
     if (data) {
@@ -72,8 +76,17 @@ const CvPage = () => {
       setCv(savedCv);
       setFormData(getFormData(savedCv));
     } catch (err) {
-      setErrorSaveChanges(!!err);
+      setErrorChanges('Could not update your CV!');
       console.error(err);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteCv({ variables: { uid: state.user?.uid, cvId: id } });
+      goBack();
+    } catch (err) {
+      setErrorChanges('Could not delete your CV!');
     }
   };
 
@@ -93,11 +106,11 @@ const CvPage = () => {
   );
 
   const handleHideError = () => {
-    setErrorSaveChanges(false);
+    setErrorChanges('');
   };
 
   return (
-    <Page boxSizing="border-box" loading={loading} error={error}>
+    <Page boxSizing="border-box" loading={getCvLoading} error={error}>
       {formData && (
         <Formik
           validationSchema={formData.validationSchema}
@@ -181,7 +194,8 @@ const CvPage = () => {
                   base64={dataPDF?.getPDF}
                   downloadLink={cv?.downloadLink}
                   onSelectTemplate={handleChangeTemplate}
-                  loading={updateCvLoading}
+                  onDeleteCv={handleDelete}
+                  loading={loadingPreview}
                   fetchingPDF={loadingPDF}
                 />
               </Box>
@@ -189,8 +203,8 @@ const CvPage = () => {
           </Form>
         </Formik>
       )}
-      <Snackbar open={errorSaveChanges} onClose={handleHideError} autoHideDuration={5000}>
-        <Alert severity="error">Could not update your CV!</Alert>
+      <Snackbar open={!!errorChanges} onClose={handleHideError} autoHideDuration={5000}>
+        <Alert severity="error">{errorChanges}</Alert>
       </Snackbar>
     </Page>
   );

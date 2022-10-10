@@ -76,4 +76,10 @@ const UPDATE_CV = gql`
   }
 `;
 
-export { GET_CV, GET_PDF, UPDATE_CV };
+const DELETE_CV = gql`
+  mutation DeleteCvMutation($uid: String!, $cvId: String!) {
+    deleteCv(uid: $uid, cvId: $cvId)
+  }
+`;
+
+export { GET_CV, GET_PDF, UPDATE_CV, DELETE_CV };
