@@ -9,6 +9,7 @@ interface ProjectCardProps extends CardProps {
   description?: string;
   title?: string;
   onDelete: MouseEventHandler;
+  onEdit: () => void;
 }
 
 const showMultilineText = (text: string) =>
@@ -18,9 +19,14 @@ const showMultilineText = (text: string) =>
     </Typography>
   ));
 
-const ProjectCard = ({ name, description, title, onDelete, ...rest }: ProjectCardProps) => {
+const ProjectCard = ({ name, description, title, onDelete, onEdit, ...rest }: ProjectCardProps) => {
   const [showDelete, setShowDelete] = useState(false);
   const classes = useStyles();
+
+  const handleClickCard = () => {
+    onEdit();
+    handleOpen();
+  };
 
   const handleOpen = () => {
     setShowDelete(true);
@@ -31,7 +37,7 @@ const ProjectCard = ({ name, description, title, onDelete, ...rest }: ProjectCar
   };
 
   return (
-    <Card {...rest} onClick={handleOpen} onMouseOver={handleOpen} onMouseOut={handleClose}>
+    <Card {...rest} onClick={handleClickCard} onMouseOver={handleOpen} onMouseOut={handleClose}>
       <Typography component="span" variant="subtitle1" className={classes.institutionName}>
         {name}
       </Typography>

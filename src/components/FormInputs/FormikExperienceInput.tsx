@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { useField } from 'formik';
 import { Box, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import Input from './FormikInput';
@@ -28,6 +28,12 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
   const [startAtField, , startAtHelper] = useField(`${inputName}.startAt`);
   const [endAtField, , endAtHelper] = useField(`${inputName}.endAt`);
 
+  useEffect(() => {
+    return () => {
+      inputHelper.setValue(inputMeta.initialValue);
+    };
+  }, []);
+
   const handleAdd = () => {
     if (presentField.value === true) {
       arrayInputHelper.setValue(arrayInputField.value.concat({ ...inputField.value, endAt: '' }));
@@ -41,6 +47,11 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
     arrayInputHelper.setValue(
       arrayInputField.value?.filter((el: Experience) => JSON.stringify(el) !== JSON.stringify(experience)),
     );
+  };
+
+  const handleEdit = (experience: Experience) => {
+    handleDelete(experience);
+    inputHelper.setValue({ ...experience, present: experience.endAt ? false : true });
   };
 
   const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +108,7 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
               raised={false}
               className={classes.roundedCard}
               onDelete={() => handleDelete(exp)}
+              onEdit={() => handleEdit(exp)}
             />
           ))}
       </Box>

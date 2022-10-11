@@ -19,6 +19,7 @@ interface ExperienceCardProps extends CardProps {
   startAt: string;
   endAt: string;
   onDelete: MouseEventHandler;
+  onEdit: () => void;
 }
 
 const showMultilineText = (text: string) =>
@@ -36,10 +37,16 @@ const ExperienceCard = ({
   startAt,
   endAt,
   onDelete,
+  onEdit,
   ...rest
 }: ExperienceCardProps) => {
   const [showDelete, setShowDelete] = useState(false);
   const classes = useStyles();
+
+  const handleClickCard = () => {
+    onEdit();
+    handleOpen();
+  };
 
   const handleOpen = () => {
     setShowDelete(true);
@@ -50,7 +57,7 @@ const ExperienceCard = ({
   };
 
   return (
-    <Card {...rest} onClick={handleOpen} onMouseOver={handleOpen} onMouseOut={handleClose}>
+    <Card {...rest} onClick={handleClickCard} onMouseOver={handleOpen} onMouseOut={handleClose}>
       <Typography component="span" variant="subtitle1" className={classes.institutionName}>
         {name}
       </Typography>

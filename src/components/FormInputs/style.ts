@@ -82,8 +82,13 @@ export default makeStyles(
       padding: `${theme.spacing(2)}px`,
       backgroundColor: '#596dc9',
       borderRadius: 10,
+
       '&:first-child': {
         marginTop: `${theme.spacing(1)}px`,
+      },
+
+      '&:hover': {
+        cursor: 'pointer',
       },
     },
   }),
