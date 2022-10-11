@@ -7,13 +7,13 @@ import { Formik, Form as FormikForm } from 'formik';
 import Card from '../../components/Card/Card';
 import { useMutation } from '@apollo/client';
 import { ADD_CV } from './api';
-import { CvRequest, LocationInfo, PersonalInfo } from '../../types';
+import { CvRequest, PersonalInfo } from '../../types';
 import { AuthContext } from '../../context/AuthContext';
 import { formSteps, initialValues } from './utils';
 import { FormikValues } from './types';
 import Loading from '../../components/Page/Loading';
 
-const CreateForm = () => {
+const Form = () => {
   const [step, setStep] = useState(1);
   const formStep = formSteps[step - 1];
   const classes = useStyles({ bigStep: step > formSteps.length - 2 });
@@ -23,15 +23,15 @@ const CreateForm = () => {
 
   const handleSubmit = async (values: FormikValues) => {
     if (step === formSteps.length) {
-      console.log('submit');
-      console.log(values);
       const {
         title,
         field,
         educations,
         workExperiences,
+        projects,
         hardSkills,
         softSkills,
+        otherTools,
         languages,
         address,
         websites,
@@ -45,11 +45,12 @@ const CreateForm = () => {
         field,
         educations,
         workExperiences,
+        projects,
         hardSkills,
         softSkills,
+        otherTools,
         languages,
-        locationInfo: { address, websites } as LocationInfo,
-        personalInfo: { fullName, email, phone, about } as PersonalInfo,
+        personalInfo: { fullName, email, phone, about, address, websites } as PersonalInfo,
       } as CvRequest;
       try {
         await addCv({ variables: { uid: state.user?.uid, cv: JSON.stringify(cv) } });
@@ -69,7 +70,6 @@ const CreateForm = () => {
     return (
       <Box display="flex" flexDirection="column" alignItems="center">
         {loading ? (
-          // <Typography variant="h3">Loading...</Typography>
           <Loading message="Loading..." />
         ) : error ? (
           <Typography variant="h3">Something went wrong adding your CV...</Typography>
@@ -93,7 +93,7 @@ const CreateForm = () => {
       />
       <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={formStep.validationSchema}>
         <FormikForm className={classes.form}>
-          <FormStep step={step} maxSteps={formSteps.length} onBack={handleBack}>
+          <FormStep title={formStep.title} step={step} maxSteps={formSteps.length} onBack={handleBack}>
             {formStep.component}
           </FormStep>
         </FormikForm>
@@ -102,4 +102,4 @@ const CreateForm = () => {
   );
 };
 
-export default CreateForm;
+export default Form;

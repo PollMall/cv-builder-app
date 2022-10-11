@@ -8,17 +8,18 @@ import RecommendSkills from './RecommendSkills';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import { useQuery } from '@apollo/client';
 import { GET_SKILLS } from './api';
-import { HardSkill, SoftSkill } from '../../types';
+import type { RatableSkill, UnratableSkill } from '../../types';
+
+type Skill = RatableSkill & UnratableSkill;
 
 interface FormikSkillsInputProps extends BoxProps {
+  isRatable?: boolean;
   inputName: string;
   arrayInputName: string;
   ChipBoxProps?: BoxProps;
 }
 
-type Skill = HardSkill | SoftSkill;
-
-const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: FormikSkillsInputProps) => {
+const FormikSkillsInput = ({ isRatable, inputName, arrayInputName, ChipBoxProps, ...rest }: FormikSkillsInputProps) => {
   const [arrayField, , arrayHelpers] = useField(arrayInputName);
   const [field, meta, helper] = useField(inputName);
   const [fieldOfWorkField] = useField('field');
@@ -58,17 +59,11 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
           noOptionsText="No skills"
           options={data.skills}
           value={field.value ? field.value : null}
-          onInputChange={(event, value) => {
-            console.log(value);
-            console.log(meta.initialValue);
+          onInputChange={(_, value) => {
             !value ? helper.setValue(meta.initialValue) : helper.setValue({ ...field.value, name: value });
           }}
           getOptionLabel={(option) => option.name}
           filterOptions={(options) => {
-            console.log(options);
-            console.log(arrayField.value);
-            console.log(field.value);
-
             return options.filter(
               (o) =>
                 !arrayField.value.find((el: Skill) => el.name.toLowerCase() === o.name.toLowerCase()) &&
@@ -90,24 +85,26 @@ const FormikSkillsInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }:
         />
         <RecommendSkills fieldOfWork={fieldOfWorkField.value} typeOfSkill={arrayInputName} />
       </Box>
-      <Box display="flex" alignItems="center" className={classes.ratingSection}>
-        <Typography className={classes.ratingText}>Points</Typography>
-        <Slider
-          id={`${inputName}.rating`}
-          onChange={handleChangeRating}
-          value={field.value.rating}
-          defaultValue={1}
-          valueLabelDisplay="auto"
-          min={1}
-          max={5}
-          className={classes.slider}
-        />
-      </Box>
+      {isRatable && (
+        <Box display="flex" alignItems="center" className={classes.ratingSection}>
+          <Typography className={classes.ratingText}>Points</Typography>
+          <Slider
+            id={`${inputName}.rating`}
+            onChange={handleChangeRating}
+            value={field.value.rating}
+            defaultValue={1}
+            valueLabelDisplay="auto"
+            min={1}
+            max={5}
+            className={classes.slider}
+          />
+        </Box>
+      )}
       <Box className={classes.overflowContent} maxHeight={150} {...ChipBoxProps}>
         {arrayField.value?.map((val: Skill) => (
           <Chip
             key={val.name}
-            label={`${val.name} - ${val.rating}/5`}
+            label={isRatable ? `${val.name} - ${val!.rating}/5` : val.name}
             variant="outlined"
             onDelete={() => arrayHelpers.setValue(arrayField.value.filter((el: Skill) => el.name !== val.name))}
           />

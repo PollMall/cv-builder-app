@@ -77,6 +77,8 @@ export const theme = createTheme({
 
     error: {
       main: '#ff8e53',
+      dark: '#ff301f',
+      light: '#ff6d61',
     },
 
     // background: {

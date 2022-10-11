@@ -8,7 +8,6 @@ import useStyles from './style';
 interface FormikChipInputProps extends BoxProps {
   inputName: string;
   arrayInputName: string;
-  title: string;
   ChipBoxProps?: BoxProps;
 }
 
@@ -23,7 +22,7 @@ const FormikChipInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: F
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="" width="100%" {...rest}>
+    <Box display="flex" flexDirection="column" width="100%" {...rest}>
       <Input
         name={inputName}
         endIcon={<AddIcon color="primary" />}
@@ -31,9 +30,9 @@ const FormikChipInput = ({ inputName, arrayInputName, ChipBoxProps, ...rest }: F
         disabledEndIcon={!field.value}
       />
       <Box className={classes.overflowContent} maxHeight={150} {...ChipBoxProps}>
-        {arrayField.value?.map((val: string) => (
+        {arrayField.value?.map((val: string, idx: number) => (
           <Chip
-            key={val}
+            key={idx}
             style={{ alignSelf: 'flex-start', marginBottom: 8 }}
             label={val}
             variant="outlined"

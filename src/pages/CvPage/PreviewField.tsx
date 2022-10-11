@@ -12,6 +12,7 @@ interface PreviewFieldProps extends BoxProps {
   base64?: string;
   downloadLink?: string;
   onSelectTemplate?: (template: Templates) => void;
+  onDeleteCv: () => void;
   loading?: boolean;
   fetchingPDF?: boolean;
 }
@@ -21,6 +22,7 @@ const PreviewField = ({
   base64,
   downloadLink,
   onSelectTemplate,
+  onDeleteCv,
   loading,
   fetchingPDF,
   ...rest
@@ -30,6 +32,7 @@ const PreviewField = ({
   const [updated, setUpdated] = useState(false);
   const { values, initialValues } = useFormikContext();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleOnClick = (template: Templates) => {
     onSelectTemplate && onSelectTemplate(template);
     helper.setValue(template);
@@ -43,43 +46,32 @@ const PreviewField = ({
     }
   }, [values]);
 
-  React.useEffect(() => {}, []);
+  const disabledBtn = !base64 || !downloadLink || loading;
 
   return (
-    <Box display="flex" flexDirection="column" width="100%" {...rest} style={{ backgroundColor: 'transparent' }}>
-      <Box width="100%" display="flex" justifyContent="space-evenly" marginBottom={1}>
+    <Box display="flex" flexDirection="column" {...rest} style={{ backgroundColor: 'transparent' }} gridGap={10}>
+      <Box width="100%" display="flex" justifyContent="center" gridGap={10}>
         <PieChart value={score || 0} className={classes.chart} />
         <Box display="flex" flexDirection="column" alignContent="center">
           <Typography gutterBottom align="center" variant="caption">
             Templates
           </Typography>
           <ButtonGroup>
-            <Button
-              color={field.value === Templates.NORMAL ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.NORMAL)}
-            >
-              Normal
-            </Button>
-            <Button
-              color={field.value === Templates.COMPACT ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.COMPACT)}
-            >
-              Compact
-            </Button>
-            <Button
-              color={field.value === Templates.FANCY ? 'secondary' : 'primary'}
-              className={classes.template}
-              onClick={() => handleOnClick(Templates.FANCY)}
-            >
-              Fancy
-            </Button>
+            {Object.keys(Templates).map((template) => (
+              <Button
+                key={template}
+                color={field.value === template ? 'secondary' : 'primary'}
+                className={classes.template}
+                onClick={() => handleOnClick(template as Templates)}
+              >
+                {template}
+              </Button>
+            ))}
           </ButtonGroup>
         </Box>
       </Box>
-      <Box position="relative" border="1px solid transparent">
-        <PreviewCv className={classes.preview} base64={base64} scale={0.51} loading={loading || fetchingPDF} />
+      <Box position="relative" justifyContent="center" alignItems="center">
+        <PreviewCv base64={base64} height={500} minWidth={386} loading={loading || fetchingPDF} />
         {updated && (
           <>
             {loading ? (
@@ -92,17 +84,23 @@ const PreviewField = ({
           </>
         )}
       </Box>
-      <Button
-        component="a"
-        target="_blank"
-        href={downloadLink}
-        disabled={!base64 || !downloadLink}
-        variant="contained"
-        color="primary"
-        className={classes.downloadBtn}
-      >
-        open CV
-      </Button>
+      <Box width={200} display="flex" flexDirection="column" alignItems="flex-end" alignSelf="center" gridGap={10}>
+        <Button
+          fullWidth
+          component="a"
+          target="_blank"
+          href={downloadLink}
+          disabled={disabledBtn}
+          variant="contained"
+          color="primary"
+          className={classes.downloadBtn}
+        >
+          open CV
+        </Button>
+        <Button fullWidth disabled={disabledBtn} variant="outlined" className={classes.deleteBtn} onClick={onDeleteCv}>
+          Delete
+        </Button>
+      </Box>
     </Box>
   );
 };

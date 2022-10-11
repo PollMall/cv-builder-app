@@ -46,6 +46,10 @@ export default makeStyles(
       fontStyle: 'italic',
     },
 
+    title: {
+      fontStyle: 'italic',
+    },
+
     deleteBtn: {
       position: 'absolute',
       bottom: 0,

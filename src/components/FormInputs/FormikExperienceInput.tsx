@@ -5,7 +5,13 @@ import Input from './FormikInput';
 import AddIcon from '@material-ui/icons/Add';
 import useStyles from './style';
 import ExperienceCard from './ExperienceCard';
-import { Education, WorkExperience } from '../../types';
+import type { Education, WorkExperience } from '../../types';
+import { descSortExperienceByStartAt } from '../../utils';
+
+const fromTimestampToMonthYearFormat = (date: string) => {
+  const dateISOStringElements = new Date(parseInt(date, 10)).toISOString().split('-');
+  return `${dateISOStringElements[0]}-${dateISOStringElements[1]}`;
+};
 
 interface FormikExperienceInputProps {
   inputName: string;
@@ -38,42 +44,35 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
   };
 
   const handleChangeStartDate = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     startAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
   const handleChangeEndDate = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     endAtHelper.setValue(new Date(event.target.value).getTime().toString());
   };
 
-  const descSortByStartAt = (a: Experience, b: Experience) => {
-    const aStartAt = a.startAt ? parseInt(a.startAt, 10) : 0;
-    const bStartAt = b.startAt ? parseInt(b.startAt, 10) : 0;
-    return bStartAt === 0 ? 1 : aStartAt === 0 ? -1 : bStartAt - aStartAt;
-  };
-
   return (
-    <Box display="flex" justifyContent="space-around">
-      <Box display="flex" flexDirection="column">
+    <Box display="flex" justifyContent="space-between">
+      <Box display="flex" flexDirection="column" width="45%">
         <Input name={`${inputName}.name`} placeholder="Name" />
-        <Input name={`${inputName}.description`} multiline rows={2} placeholder="Description" />
+        <Input name={`${inputName}.title`} placeholder="Title" />
+        <Input name={`${inputName}.description`} multiline minRows={8} maxRows={8} placeholder="Description" />
         <Input name={`${inputName}.location`} placeholder="Location" />
         <Input
           name={`${inputName}.startAt`}
           onChange={handleChangeStartDate}
-          value={startAtField.value && new Date(parseInt(startAtField.value, 10)).toISOString().split('T')[0]}
+          value={startAtField.value && fromTimestampToMonthYearFormat(startAtField.value)}
           label="Start date"
-          type="date"
+          type="month"
           InputLabelProps={{ shrink: true }}
         />
         <Input
           disabled={presentField.value}
           name={`${inputName}.endAt`}
           onChange={handleChangeEndDate}
-          value={endAtField.value && new Date(parseInt(endAtField.value, 10)).toISOString().split('T')[0]}
-          type="date"
+          value={endAtField.value && fromTimestampToMonthYearFormat(endAtField.value)}
           label="End date"
+          type="month"
           InputLabelProps={{ shrink: true }}
           style={{ marginBottom: 0 }}
         />
@@ -90,7 +89,7 @@ const FormikExperienceInput = ({ inputName, arrayInputName }: FormikExperienceIn
       <Box display="flex" flexWrap="wrap" alignItems="flex-start" className={classes.cardsContainer}>
         {arrayInputField.value
           ?.slice()
-          .sort(descSortByStartAt)
+          .sort(descSortExperienceByStartAt)
           .map((exp: Experience, idx: number) => (
             <ExperienceCard
               key={idx}

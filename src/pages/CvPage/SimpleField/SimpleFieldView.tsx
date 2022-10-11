@@ -2,6 +2,13 @@ import React from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import useStyles from '../styles';
 
+const renderMultilineFromText = (text: string) =>
+  text.split('\n').map((line, idx) => (
+    <Typography key={idx} variant="subtitle1">
+      {line}
+    </Typography>
+  ));
+
 interface SimpleFieldViewProps extends BoxProps {
   info?: string | string[];
 }
@@ -12,9 +19,7 @@ const SimpleFieldView = ({ info, ...rest }: SimpleFieldViewProps) => {
   return (
     <Box {...rest}>
       {typeof info === 'string' ? (
-        <Typography variant="subtitle1" className={classes.fieldInfo}>
-          {info}
-        </Typography>
+        <div className={classes.fieldInfo}>{renderMultilineFromText(info)}</div>
       ) : (
         info?.map((i) => (
           <Typography key={i} variant="subtitle1" className={classes.fieldInfo}>

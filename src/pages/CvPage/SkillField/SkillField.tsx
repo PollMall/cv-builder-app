@@ -1,20 +1,24 @@
-import React, { useState, FC, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Typography, BoxProps } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
-import useStyles from '../styles';
-import { HardSkill, SoftSkill } from '../../../types';
-import SkillFieldView from './SkillFieldView';
 import { useField } from 'formik';
+import useStyles from '../styles';
+import type { UnratableSkill, RatableSkill } from '../../../types';
+import SkillFieldView from './SkillFieldView';
+
+type Skill = UnratableSkill & RatableSkill;
 
 interface SkillFieldProps extends BoxProps {
+  isRatable?: boolean;
   title: string;
   fieldName: string;
-  skills?: HardSkill[] | SoftSkill[];
-  editComponent: FC;
+  skills?: Skill[];
+  editComponent: ReactNode;
 }
 
-const SkillField = ({ title, fieldName, skills, editComponent, ...rest }: SkillFieldProps) => {
+const SkillField = ({ isRatable = false, title, fieldName, skills, editComponent, ...rest }: SkillFieldProps) => {
   const [showEdit, setShowEdit] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
@@ -54,7 +58,7 @@ const SkillField = ({ title, fieldName, skills, editComponent, ...rest }: SkillF
         {!edit && showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
         {edit && <CancelIcon color="secondary" fontSize="small" className={classes.icon} />}
       </Box>
-      {edit ? editComponent : <SkillFieldView skills={skills} />}
+      {edit ? editComponent : <SkillFieldView isRatable={isRatable} skills={skills} />}
     </Box>
   );
 };
