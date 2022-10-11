@@ -1,13 +1,16 @@
 import React from 'react';
 import { Box, Typography, BoxProps, LinearProgress } from '@material-ui/core';
 import useStyles from '../styles';
-import type { Skill } from '../../../types';
+import type { UnratableSkill, RatableSkill } from '../../../types';
+
+type Skill = RatableSkill & UnratableSkill;
 
 interface SkillFieldViewProps extends BoxProps {
+  isRatable?: boolean;
   skills?: Skill[];
 }
 
-const SkillFieldView = ({ skills, ...rest }: SkillFieldViewProps) => {
+const SkillFieldView = ({ isRatable = false, skills, ...rest }: SkillFieldViewProps) => {
   const classes = useStyles();
 
   return (
@@ -15,7 +18,7 @@ const SkillFieldView = ({ skills, ...rest }: SkillFieldViewProps) => {
       {skills?.map((s) => (
         <div key={s.name} className={classes.fieldInfo}>
           <Typography variant="subtitle1">{s.name}</Typography>
-          {s.kind === 'hardSkill' && (
+          {isRatable && (
             <LinearProgress variant="determinate" value={(s.rating * 100) / 5} className={classes.rating} />
           )}
         </div>

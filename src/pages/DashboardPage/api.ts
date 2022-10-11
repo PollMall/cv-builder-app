@@ -11,16 +11,24 @@ const GET_BEST_CVS = gql`
         name
         description
         location
+        title
         startAt
         endAt
       }
       workExperiences {
-        name
         id
+        name
         description
         location
+        title
         startAt
         endAt
+      }
+      projects {
+        id
+        name
+        description
+        title
       }
       feedback
       hardSkills {
@@ -33,20 +41,18 @@ const GET_BEST_CVS = gql`
       otherTools {
         name
       }
-      locationInfo {
-        address
-        websites
-      }
-      languages
       personalInfo {
         fullName
         email
         phone
         about
+        address
+        websites
       }
       createdAt
       updatedAt
       score
+      downloadLink
       template
     }
   }

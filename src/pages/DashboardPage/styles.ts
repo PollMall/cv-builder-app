@@ -24,25 +24,14 @@ export default makeStyles(
       fontWeight: 700,
     },
 
-    cvPreview: {
-      width: '100%',
-      height: 400,
-      backgroundColor: 'white',
-      // to be deleted after cv preview implemented
-    },
-
     stats: {
       width: '100%',
       paddingBottom: theme.spacing(1),
     },
 
-    statsText: {
-      // fontSize: 20,
-      // fontWeight: 700,
-    },
+    statsText: {},
 
     chart: {
-      // border: '1px solid red',
       width: 80,
       height: 'auto',
     },

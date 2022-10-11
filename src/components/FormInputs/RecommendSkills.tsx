@@ -57,7 +57,7 @@ const RecommendSkills = ({ fieldOfWork, typeOfSkill }: RecommendSkillsProps) => 
         <Box display="flex" flexDirection="column">
           <ListItem>
             <ListItemText>
-              <Typography variant="h6">Popular skills:</Typography>
+              <Typography variant="h6">Popular skills</Typography>
             </ListItemText>
           </ListItem>
           <Box display="flex" flexDirection="column">

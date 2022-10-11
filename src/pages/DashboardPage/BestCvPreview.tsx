@@ -23,9 +23,7 @@ const BestCvPreview = ({ cv }: BestCvPreviewProps) => {
         </Typography>
         <PieChart value={cv.score} className={classes.chart} />
       </Box>
-      <PreviewCv className={classes.cvPreview} base64={dataPDF?.getPDF} scale={0.45}>
-        preview
-      </PreviewCv>
+      <PreviewCv style={{ backgroundColor: 'white' }} height={500} minWidth={386} base64={dataPDF?.getPDF} />
       <Typography variant="subtitle1">{cv.title}</Typography>
     </Box>
   );
