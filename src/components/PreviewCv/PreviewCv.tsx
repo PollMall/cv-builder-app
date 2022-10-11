@@ -43,7 +43,15 @@ const PreviewCv = ({ base64, scale, height, loading, ...rest }: PreviewCvProps) 
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" height={height} border="1px solid black" {...rest}>
+    <Box
+      display="flex"
+      position="relative"
+      flexDirection="column"
+      alignItems="center"
+      height={height}
+      border="1px solid black"
+      {...rest}
+    >
       <Document
         file={base64}
         onLoadSuccess={onDocumentLoadSuccess}
