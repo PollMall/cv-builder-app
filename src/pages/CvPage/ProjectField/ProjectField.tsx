@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
+import { useField } from 'formik';
 import { Box, Typography, BoxProps } from '@material-ui/core';
-import useStyles from '../styles';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
-import SimpleFieldView from './SimpleFieldView';
-import { useField } from 'formik';
+import useStyles from '../styles';
+import type { Project } from '../../../types';
+import ProjectFieldView from './ProjectFieldView';
 
-interface SimpleFieldProps extends BoxProps {
+interface ExperienceFieldProps extends BoxProps {
   title: string;
   fieldName: string;
-  info?: string | string[];
+  projects?: Project[];
   editComponent: ReactNode;
 }
 
-const SimpleField = ({ title, fieldName, info, editComponent, ...rest }: SimpleFieldProps) => {
+const ExperienceField = ({ title, fieldName, projects, editComponent, ...rest }: ExperienceFieldProps) => {
   const [showEdit, setShowEdit] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
@@ -39,7 +40,7 @@ const SimpleField = ({ title, fieldName, info, editComponent, ...rest }: SimpleF
   }, [edit]);
 
   return (
-    <Box {...rest} className={classes.root}>
+    <Box {...rest} width="100%" className={classes.root}>
       <Box
         display="flex"
         alignItems="center"
@@ -54,14 +55,13 @@ const SimpleField = ({ title, fieldName, info, editComponent, ...rest }: SimpleF
         {!edit && showEdit && <EditIcon color="secondary" fontSize="small" className={classes.icon} />}
         {edit && <CancelIcon color="secondary" fontSize="small" className={classes.icon} />}
       </Box>
-      {edit ? editComponent : <SimpleFieldView info={info} />}
+      {edit ? editComponent : <ProjectFieldView projects={projects} />}
     </Box>
   );
 };
 
-SimpleField.defaultProps = {
-  info: undefined,
-  rows: undefined,
+ExperienceField.defaultProps = {
+  projects: undefined,
 };
 
-export default SimpleField;
+export default ExperienceField;

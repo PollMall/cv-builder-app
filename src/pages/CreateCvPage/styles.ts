@@ -1,24 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 
-interface StylesProps {
-  bigStep?: boolean;
-}
-
 export default makeStyles((theme) => ({
-  form: (props: StylesProps | undefined) => ({
+  form: {
     boxSizing: 'border-box',
-    width: !props?.bigStep ? 600 : 650,
-    height: !props?.bigStep ? 380 : 500,
-    padding: !props?.bigStep
-      ? `${theme.spacing(5)}px ${theme.spacing(8)}px`
-      : `${theme.spacing(5)}px ${theme.spacing(2)}px`,
-  }),
+    padding: `${theme.spacing(5)}px ${theme.spacing(8)}px`,
+    minWidth: 600,
+  },
 
   overflowContent: {
     overflow: 'auto',
   },
 
   cardsContainer: {
+    border: '1px solid red',
     width: 300,
     height: 350,
     overflow: 'auto',

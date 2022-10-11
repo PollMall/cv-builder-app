@@ -42,7 +42,9 @@ export default makeStyles((theme) => ({
     fontWeight: 700,
   },
 
-  locationName: {
+  locationName: {},
+
+  title: {
     fontStyle: 'italic',
   },
 
@@ -61,19 +63,46 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
 
-  preview: {
-    height: 450,
-    backgroundColor: '#fff',
-  },
-
   checkBtn: {
     position: 'absolute',
-    bottom: 47,
-    right: 12,
+    bottom: 1,
+    right: 1,
     padding: 0,
   },
 
-  downloadBtn: {
-    alignSelf: 'center',
+  downloadBtn: {},
+
+  deleteBtn: {
+    color: theme.palette.error.light,
+    borderColor: theme.palette.error.light,
+  },
+
+  basicInfoContainer: {
+    width: 500,
+    position: 'sticky',
+    top: 128,
+  },
+
+  cvPreviewContainer: {
+    position: 'fixed',
+    right: 10,
+    top: '50%',
+    translate: 'yes',
+    transform: 'translateY(-50%)',
+    boxSizing: 'border-box',
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
+  '@media (max-width: 1700px)': {
+    basicInfoContainer: {
+      position: 'static',
+    },
+  },
+
+  '@media (max-width: 1000px)': {
+    cvPreviewContainer: {
+      position: 'static',
+    },
   },
 }));

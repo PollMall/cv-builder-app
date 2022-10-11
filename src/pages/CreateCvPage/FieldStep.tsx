@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
-import { Box, Typography, BoxProps } from '@material-ui/core';
+import { Box, BoxProps } from '@material-ui/core';
 import Input from '../../components/FormInputs/FormikInput';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import { useQuery } from '@apollo/client';
@@ -8,10 +8,9 @@ import { GET_FIELDS } from './api';
 
 interface FieldStepProps extends BoxProps {
   inputName: string;
-  title: string;
 }
 
-const FieldStep = ({ inputName, title, ...rest }: FieldStepProps) => {
+const FieldStep = ({ inputName, ...rest }: FieldStepProps) => {
   const [field, , helper] = useField(inputName);
   const { data, loading, error } = useQuery(GET_FIELDS);
 
@@ -24,7 +23,6 @@ const FieldStep = ({ inputName, title, ...rest }: FieldStepProps) => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" height="100%" {...rest}>
-      <Typography variant="h5">{title}</Typography>
       <Box display="flex" alignItems="center" width="100%" height="100%">
         <Autocomplete
           id={inputName}

@@ -1,25 +1,29 @@
 import React, { ReactNode } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import SubmitButton from '../../components/FormInputs/SubmitButton';
 import SecondaryButton from '../../components/FormInputs/SecondaryButton';
 
-interface FormStepProps {
+type FormStepProps = {
+  title: string;
   step: number;
   maxSteps: number;
   children: ReactNode;
   onBack: () => void;
-}
+};
 
-const FormStep = ({ step, maxSteps, children, onBack }: FormStepProps) => {
+const FormStep = ({ title, step, maxSteps, children, onBack }: FormStepProps) => {
   return (
     <Box
       display="flex"
       flexDirection="column"
-      justifyContent="space-evenly"
+      justifyContent="space-between"
       alignItems="center"
-      height="100%"
+      minHeight={380}
       width="100%"
     >
+      <Typography gutterBottom variant="h5">
+        {title}
+      </Typography>
       <Box height="100%" width="100%">
         {children}
       </Box>
